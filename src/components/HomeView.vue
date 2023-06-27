@@ -1,0 +1,81 @@
+<template>
+  <div>
+    <div class="sidebar">
+      <ul>
+        <li
+          @click="selectTab('打卡')"
+          :class="{ active: activeTab === '打卡' }"
+        >
+          打卡
+        </li>
+        <li
+          @click="selectTab('員工')"
+          :class="{ active: activeTab === '員工' }"
+        >
+          員工
+        </li>
+         <li
+          @click="selectTab('測試')"
+          :class="{ active: activeTab === '測試' }"
+        >
+          測試
+        </li>
+      </ul>
+    </div>
+    <div class="content">
+      <div v-if="activeTab === '打卡'"></div>
+      <div v-if="activeTab === '員工'">員工</div>
+      <div v-if="activeTab === '測試'">測試</div>
+    </div>
+  </div>
+</template>
+
+
+<script>
+import router from "../router";
+export default {
+  data() {
+    return {
+      activeTab: {}, // 預設選擇的頁籤
+    };
+  },
+  methods: {
+    selectTab(tab) {
+      if(tab === '打卡'){
+        router.push("/checkIn");
+      } else if(tab === '員工'){
+        router.push("/emp");
+      } else {
+        router.push("/sunTest");
+      }
+    },
+  },
+};
+</script>
+
+<style>
+.sidebar {
+  float: left;
+  width: 20%;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar li {
+  cursor: pointer;
+  padding: 10px;
+}
+
+.sidebar li.active {
+  background-color: #f0f0f0;
+}
+
+.content {
+  float: left;
+  width: 80%;
+  padding: 10px;
+}
+</style>
