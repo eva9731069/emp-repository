@@ -188,6 +188,9 @@ export default {
       this.isShow = !this.isShow;
       this.selectedItem = { ...item };
     },
+    close() {
+      this.isShow = !this.isShow;
+    },
     saveItem(selectedItem) {
       axios
         .post("/user/edit", {
