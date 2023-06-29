@@ -10,7 +10,6 @@
       </div>
       <div class="col-sm-4">
         <!-- 右邊欄位 -->
-       <div>test</div>
       </div>
     </div>
   </div>
