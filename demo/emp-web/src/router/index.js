@@ -30,6 +30,11 @@ const routes = [
         name: 'SunTest',
         path: "/sunTest",
         component: () => import('../components/SunTestView.vue'),
+    },
+    {
+        name: 'Add',
+        path: "/add",
+        component: () => import('../components/AddView.vue'),
     }
 
 ]
