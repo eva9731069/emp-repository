@@ -7,15 +7,63 @@
       <input type="text" v-model="emp_password" placeholder="員工密碼" />
       <button @click="queryItem">單一查詢</button>
       <button @click="queryAllItem">查詢全部</button>
-      <button @click="addViewOpen">新增</button>
+      <!-- <button @click="open">Account</button>
+      <add-layout /> -->
+      <button @click="add">新增</button>
 
       <!-- 新增功能 -->
-      <add-layout v-if="isAddLayoutVisible"/>
-
-      <edit-layout v-if="selectedItem"/>
+      <div class="from modal-body" v-show="!isShow">
+        <div class="modal" id="myModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-body">
+                <input
+                  type="text"
+                  id="emp_no"
+                  placeholder="員工編號"
+                /><br /><br />
+                <input
+                  type="text"
+                  id="emp_account"
+                  placeholder="員工帳號"
+                /><br /><br />
+                <input
+                  type="text"
+                  id="emp_password"
+                  placeholder="員工密碼"
+                /><br /><br />
+                <input
+                  type="text"
+                  id="ch_name"
+                  placeholder="員工姓名"
+                /><br /><br />
+              </div>
+              <div class="modal-footer">
+                <button
+                  id="addItem"
+                  @click="close"
+                  type="button"
+                  class="btn btn-danger"
+                  data-bs-dismiss="modal"
+                >
+                  確認
+                </button>
+                <button
+                  @click="close"
+                  type="button"
+                  class="btn btn-danger"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- 修改功能 -->
-      <!-- <div>
+      <div>
         <div v-if="selectedItem">
           <div class="from modal-body" v-show="!isShow">
             <div class="modal" id="myModal">
@@ -69,7 +117,7 @@
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
   <div>
@@ -103,17 +151,22 @@
       </tbody>
     </table>
   </div>
+
+<div id="app" >
+  <button v-on:click="fetchData">获取数据</button>
+  <ul>
+    <li v-for="item in itemsTest" :key="item.emp_no">{{ item.emp_no }}</li>
+  </ul>
+</div>
+
 </template>
 
 <script>
 import homeLayout from "@/components/HomeView.vue";
-import addLayout from "@/components/AddView.vue";
-import store from "../store";
+// import store from "../store";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle";
-import { mapState } from 'vuex';
-import editLayout from './EditView.vue';
 // import PropsChild from '@/components/EditView.vue'
 // import TodoEdit from '@/components/EditView.vue';
 // import editLayout from '@/components/HomeView.vue';
@@ -122,9 +175,9 @@ import editLayout from './EditView.vue';
 export default {
   components: {
     homeLayout,
-    addLayout,
-    editLayout,
+    // PropsChild
   },
+  el: '#app',
   data() {
     return {
       emp_account: "",
@@ -132,17 +185,38 @@ export default {
       items: null,
       empList: [],
       isShow: true,
+      isUpdate: false,
       selectedItem: null,
+      itemsTest: []
+      // contentData:'我是父组件的数据********'
     };
   },
-    computed: mapState({
-    isAddLayoutVisible: state => state.isAddLayoutVisible,
-    selectedItemEmpNo: state => state.isAddLayoutVisible,
-    ...mapState(['selectedItemEmpNo'])
-  }),
   mounted() {
     // eslint-disable-next-line no-undef
-    console.log("selectedItemEmpNo=>"+this.selectedItemEmpNo);
+    $("#addItem").click(function () {
+      // eslint-disable-next-line no-undef
+      $.ajax({
+        url: "/user/add",
+        method: "POST",
+        data: {
+          // eslint-disable-next-line no-undef
+          emp_no: $("#emp_no").val(),
+          // eslint-disable-next-line no-undef
+          emp_account: $("#emp_account").val(),
+          // eslint-disable-next-line no-undef
+          emp_password: $("#emp_password").val(),
+          // eslint-disable-next-line no-undef
+          ch_name: $("#ch_name").val(),
+        },
+        // eslint-disable-next-line no-unused-vars
+        success: function (response) {
+          alert("新增成功");
+        },
+        error: function (error) {
+          console.error(error);
+        },
+      });
+    });
   },
   methods: {
     queryItem() {
@@ -172,6 +246,7 @@ export default {
           console.error(error);
         });
     },
+    
     deleteItem(emp_no) {
       axios
         .post("/user/delete", {
@@ -185,18 +260,15 @@ export default {
           console.error(error);
         });
     },
-    handleUpdateProperty(newValue) {
-      this.isShow = newValue;
+    close() {
+      this.isShow = !this.isShow;
     },
-    addViewOpen() {
-      store.commit("updateAddLayoutVisible", true);
+    add() {
+      this.isShow = !this.isShow;
     },
     editItem(item) {
       this.isShow = !this.isShow;
       this.selectedItem = { ...item };
-    },
-    close() {
-      this.isShow = !this.isShow;
     },
     saveItem(selectedItem) {
       axios
@@ -215,8 +287,22 @@ export default {
 
       this.isShow = !this.isShow;
     },
+    fetchData() {
+      // eslint-disable-next-line no-undef
+      $.ajax({
+        url: '/user/queryAll',  // 指定服务器端API的URL
+        method: 'POST',
+        success: (response) => {
+          this.itemsTest = response;  // 将从服务器获取的数据赋值给items数组
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      });
+    }
   },
 };
+
 </script>
 
 <style>
