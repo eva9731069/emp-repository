@@ -12,8 +12,10 @@
       <!-- 新增功能 -->
       <add-layout v-if="isAddLayoutVisible"/>
 
+      <edit-layout v-if="selectedItem"/>
+
       <!-- 修改功能 -->
-      <div>
+      <!-- <div>
         <div v-if="selectedItem">
           <div class="from modal-body" v-show="!isShow">
             <div class="modal" id="myModal">
@@ -67,7 +69,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
   <div>
@@ -111,6 +113,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 import { mapState } from 'vuex';
+import editLayout from './EditView.vue';
 // import PropsChild from '@/components/EditView.vue'
 // import TodoEdit from '@/components/EditView.vue';
 // import editLayout from '@/components/HomeView.vue';
@@ -120,6 +123,7 @@ export default {
   components: {
     homeLayout,
     addLayout,
+    editLayout,
   },
   data() {
     return {
@@ -133,9 +137,12 @@ export default {
   },
     computed: mapState({
     isAddLayoutVisible: state => state.isAddLayoutVisible,
+    selectedItemEmpNo: state => state.isAddLayoutVisible,
+    ...mapState(['selectedItemEmpNo'])
   }),
   mounted() {
     // eslint-disable-next-line no-undef
+    console.log("selectedItemEmpNo=>"+this.selectedItemEmpNo);
   },
   methods: {
     queryItem() {
