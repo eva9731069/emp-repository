@@ -6,7 +6,8 @@ const store = new Vuex.Store({
     isLoading: false,
     clickedTimes: 0,
     empId: '',
-    isAddLayoutVisible: false
+    isAddLayoutVisible: false,
+    selectedItem: null
   },
   mutations: {
     Loaded(state) {
@@ -17,6 +18,9 @@ const store = new Vuex.Store({
     },
     updateAddLayoutVisible(state, newValue) {
       state.isAddLayoutVisible = newValue;
+    },
+    updateSelectedItem(state, newValue) {
+      state.selectedItem = newValue;
     },
   },
   getters: {

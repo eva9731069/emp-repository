@@ -10,64 +10,10 @@
       <button @click="addViewOpen">新增</button>
 
       <!-- 新增功能 -->
-      <add-layout v-if="isAddLayoutVisible"/>
+      <add-layout v-if="isAddLayoutVisible" />
 
       <!-- 修改功能 -->
-      <div>
-        <div v-if="selectedItem">
-          <div class="from modal-body" v-show="!isShow">
-            <div class="modal" id="myModal">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-body">
-                    <input
-                      type="text"
-                      v-model="selectedItem.emp_no"
-                      disabled
-                      placeholder="員工編號"
-                    /><br /><br />
-                    <input
-                      type="text"
-                      v-model="selectedItem.emp_account"
-                      disabled
-                      placeholder="員工帳號"
-                    /><br /><br />
-                    <input
-                      type="text"
-                      v-model="selectedItem.emp_password"
-                      placeholder="員工密碼"
-                    /><br /><br />
-                    <input
-                      type="text"
-                      v-model="selectedItem.ch_name"
-                      placeholder="員工姓名"
-                    /><br /><br />
-                  </div>
-                  <div class="modal-footer">
-                    <button
-                      id="saveItem"
-                      @click="saveItem(selectedItem)"
-                      type="button"
-                      class="btn btn-danger"
-                      data-bs-dismiss="modal"
-                    >
-                      確認
-                    </button>
-                    <button
-                      @click="close"
-                      type="button"
-                      class="btn btn-danger"
-                      data-bs-dismiss="modal"
-                    >
-                      Close
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <edit-layout v-if="selectedItem" />
     </div>
   </div>
   <div>
@@ -106,20 +52,18 @@
 <script>
 import homeLayout from "@/components/HomeView.vue";
 import addLayout from "@/components/AddView.vue";
+import editLayout from "@/components/EditView.vue";
 import store from "../store";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle";
-import { mapState } from 'vuex';
-// import PropsChild from '@/components/EditView.vue'
-// import TodoEdit from '@/components/EditView.vue';
-// import editLayout from '@/components/HomeView.vue';
-// import router from "../router";
+import { mapState } from "vuex";
 
 export default {
   components: {
     homeLayout,
     addLayout,
+    editLayout,
   },
   data() {
     return {
@@ -128,15 +72,15 @@ export default {
       items: null,
       empList: [],
       isShow: true,
-      selectedItem: null,
     };
   },
-    computed: mapState({
-    isAddLayoutVisible: state => state.isAddLayoutVisible,
-  }),
-  mounted() {
-    // eslint-disable-next-line no-undef
+  computed: {
+    ...mapState({
+      isAddLayoutVisible: (state) => state.isAddLayoutVisible,
+      selectedItem: (state) => state.selectedItem,
+    }),
   },
+
   methods: {
     queryItem() {
       axios
@@ -186,27 +130,7 @@ export default {
     },
     editItem(item) {
       this.isShow = !this.isShow;
-      this.selectedItem = { ...item };
-    },
-    close() {
-      this.isShow = !this.isShow;
-    },
-    saveItem(selectedItem) {
-      axios
-        .post("/user/edit", {
-          emp_no: selectedItem.emp_no,
-          emp_password: selectedItem.emp_password,
-          ch_name: selectedItem.ch_name,
-        })
-        .then((response) => {
-          alert("修改成功");
-          console.log(response.status);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-
-      this.isShow = !this.isShow;
+      store.commit("updateSelectedItem", { ...item });
     },
   },
 };
