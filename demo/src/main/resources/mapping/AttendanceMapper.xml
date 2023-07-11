@@ -3,8 +3,9 @@
 <mapper namespace="com.mapper.AttendanceDao">
 
     <insert id="empCheckIn" parameterType="AttendanceRecVo">
-        insert into ATTENDANCE_REC(emp_no, ch_name, check_in_time, check_out_time)
-        values (#{emp_no}, #{ch_name}, #{check_in_time}, #{check_out_time})
+        insert into ATTENDANCE_REC(emp_no, ch_name, check_in_time)
+        values (#{emp_no}, #{ch_name}, #{check_in_time})
     </insert>
+
 
 </mapper>

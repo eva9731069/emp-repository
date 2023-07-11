@@ -4,7 +4,9 @@ import com.vo.AttendanceRecVo;
 import com.vo.EmployeeVo;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public interface AttendanceDao {
-    AttendanceRecVo empCheckIn(String empNo, Timestamp emp_password);
+    void empCheckIn(String emp_no, String ch_name, Timestamp check_in_time);
+
 }

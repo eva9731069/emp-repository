@@ -6,6 +6,7 @@ const store = new Vuex.Store({
     isLoading: false,
     clickedTimes: 0,
     empId: '',
+    empName: '',
     isAddLayoutVisible: false,
     selectedItem: null
   },
@@ -15,6 +16,9 @@ const store = new Vuex.Store({
     },
     setEmpId(state, empId) {
       state.empId = empId;
+    },
+    setEmpName(state, empName) {
+      state.empName = empName;
     },
     updateAddLayoutVisible(state, newValue) {
       state.isAddLayoutVisible = newValue;

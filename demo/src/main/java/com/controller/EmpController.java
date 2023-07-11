@@ -7,6 +7,7 @@ import com.mapper.AttendanceDao;
 import com.mapper.EmpDao;
 
 import com.mapper.MybatisTestService;
+import com.service.LoginService;
 import com.util.SaltUtil;
 import com.vo.AttendanceRecVo;
 import com.vo.EmployeeVo;
@@ -14,6 +15,7 @@ import com.vo.HolidayVo;
 import com.vo.MybatisTestVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +30,7 @@ import java.util.List;
 @RequestMapping(value = "/user")
 @EnableAutoConfiguration
 @Slf4j
-public class LoginController {
+public class EmpController {
 
     @Autowired
     private EmpDao empDao;
@@ -36,11 +38,15 @@ public class LoginController {
     @Autowired
     private AttendanceDao attendanceDao;
 
+    @Autowired
+    @Qualifier("LoginServiceImpl")
+    private LoginService loginService;
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    EmployeeVo login(@RequestBody EmployeeVo vo, HttpSession session) {
+    EmployeeVo login(@RequestBody EmployeeVo reqVo, HttpSession session) {
 
-        EmployeeVo empVo = empDao.queryEmp(vo.getEmp_account(), vo.getEmp_password());
+        EmployeeVo empVo = loginService.loginVerify(reqVo);
 
         //登入成功
         if (empVo != null) {
@@ -51,22 +57,24 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/checkIn", method = RequestMethod.POST)
-    void checkIn(@RequestBody EmployeeVo vo, HttpSession session) {
-        Timestamp checkInTime = new Timestamp(new Date().getTime());
-
-        AttendanceRecVo attendanceVo = attendanceDao.empCheckIn(vo.getEmp_no(), checkInTime);
-
+    void checkIn(@RequestBody AttendanceRecVo vo, HttpSession session) {
+        loginService.checkIn(vo);
     }
 
     @RequestMapping(value = "/query", method = RequestMethod.POST)
     List<EmployeeVo> query(@RequestBody EmployeeVo vo) {
-        List<EmployeeVo> empList = empDao.getEmpList(vo.getEmp_account(), vo.getEmp_password());
+
+        List<EmployeeVo> empList = loginService.queryEmpOne(vo);
+
         return empList;
     }
 
     @RequestMapping(value = "/queryAll", method = RequestMethod.POST)
     List<EmployeeVo> queryAll() {
-        List<EmployeeVo> empList = empDao.queryAll();
+
+        List<EmployeeVo> empList = loginService.queryEmpAll();
+
+
         return empList;
     }
 
@@ -82,18 +90,20 @@ public class LoginController {
         employeeVo.setEmp_password(empPassword);
         employeeVo.setCh_name(chName);
 
-        empDao.insert(employeeVo);
+       loginService.addEmp(employeeVo);
 
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     void delete(@RequestBody EmployeeVo vo) {
-        empDao.delete(vo);
+
+        loginService.deleteEmp(vo);
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     void edit(@RequestBody EmployeeVo vo) {
-        empDao.edit(vo);
+
+        loginService.editEmp(vo);
     }
 
 

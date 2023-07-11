@@ -48,18 +48,21 @@ export default {
       // 模擬打卡操作，這裡使用setTimeout函數模擬異步操作
       axios
         .post("/user/checkIn", {
-          emp_account: this.emp_account,
-          emp_password: this.emp_password,
+          // emp_account: this.emp_account,
+          // emp_password: this.emp_password,
+          emp_no: store.state.empId,
+          ch_name: store.state.empName
         })
         .then((response) => {
           this.sessionData = response.data;
 
           //登入成功後跳轉頁面
-          if (this.sessionData != "") {
-            router.push("/home");
+          if (response.status === 200) {
+            alert("打卡成功");
+            router.push("/checkIn");
             console.warn("signup", this.emp_account, this.emp_password);
           } else {
-            alert("登入失敗");
+            alert("打卡失敗");
           }
         })
         .catch((error) => {

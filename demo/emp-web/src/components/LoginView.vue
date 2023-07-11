@@ -43,9 +43,9 @@ export default {
             console.warn("signup", this.emp_account, this.emp_password);
             // store.commit(`auth/${SET_USERNAME}`, '55555');
 
-            store.commit("setEmpId", "456");
+            store.commit("setEmpId", response.data.emp_no);
+            store.commit("setEmpName", response.data.ch_name);
             console.log("GET_USERNAME=>" + store.state.empId);
-            console.log("GET_USERNAME=>" + store.state.isLoading);
           } else {
             alert("登入失敗");
           }
