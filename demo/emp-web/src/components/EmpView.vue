@@ -47,6 +47,7 @@
       </tbody>
     </table>
   </div>
+
 </template>
 
 <script>
@@ -71,7 +72,7 @@ export default {
       emp_password: "",
       items: null,
       empList: [],
-      isShow: true,
+      isShow: true
     };
   },
   computed: {
@@ -132,6 +133,7 @@ export default {
       this.isShow = !this.isShow;
       store.commit("updateSelectedItem", { ...item });
     },
+     
   },
 };
 </script>

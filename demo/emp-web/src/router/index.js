@@ -40,6 +40,16 @@ const routes = [
         name: 'Edit',
         path: "/edit",
         component: () => import('../components/EditView.vue'),
+    },
+    {
+        name: 'JqueryTest',
+        path: "/jqueryTest",
+        component: () => import('../components/JqueryView.vue'),
+    },
+    {
+        name: 'JqueryEdit',
+        path: "/jqueryEdit",
+        component: () => import('../components/EditJqueryView.vue'),
     }
 
 ]

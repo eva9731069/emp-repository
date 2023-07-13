@@ -20,12 +20,19 @@
         >
           測試
         </li>
+        <li
+          @click="selectTab('Jquery測試')"
+          :class="{ active: activeTab === 'Jquery測試' }"
+        >
+          Jquery測試
+        </li>
       </ul>
     </div>
     <div class="content">
       <div v-if="activeTab === '打卡'"></div>
       <div v-if="activeTab === '員工'">員工</div>
       <div v-if="activeTab === '測試'">測試</div>
+      <div v-if="activeTab === 'Jquery測試'">Jquery測試</div>
     </div>
   </div>
 </template>
@@ -45,6 +52,8 @@ export default {
         router.push("/checkIn");
       } else if(tab === '員工'){
         router.push("/emp");
+      } else if(tab === 'Jquery測試'){
+        router.push("/jqueryTest");
       } else {
         router.push("/sunTest");
       }

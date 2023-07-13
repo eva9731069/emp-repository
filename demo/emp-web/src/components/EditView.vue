@@ -62,13 +62,11 @@ export default {
   components: {},
   data() {
     return {
-      isShow: false,
-      isAddLayoutVisible: true,
+    
     };
   },
   computed: {
   ...mapState({
-    isAddLayoutVisible: state => state.isAddLayoutVisible,
      selectedItem: state => state.selectedItem,
   })
 },

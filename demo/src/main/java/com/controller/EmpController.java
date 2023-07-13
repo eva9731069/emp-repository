@@ -90,13 +90,12 @@ public class EmpController {
         employeeVo.setEmp_password(empPassword);
         employeeVo.setCh_name(chName);
 
-       loginService.addEmp(employeeVo);
+        loginService.addEmp(employeeVo);
 
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     void delete(@RequestBody EmployeeVo vo) {
-
         loginService.deleteEmp(vo);
     }
 
@@ -104,6 +103,34 @@ public class EmpController {
     void edit(@RequestBody EmployeeVo vo) {
 
         loginService.editEmp(vo);
+    }
+
+    @RequestMapping(value = "/jqueryQuery", method = RequestMethod.POST)
+    List<EmployeeVo> jqueryQuery(
+            @RequestParam("emp_account") String empAccount,
+            @RequestParam("emp_password") String empPassword) {
+
+        EmployeeVo employeeVo = new EmployeeVo();
+        employeeVo.setEmp_account(empAccount);
+        employeeVo.setEmp_password(empPassword);
+
+
+        List<EmployeeVo> empList = loginService.queryEmpOne(employeeVo);
+
+        return empList;
+
+    }
+
+    @RequestMapping(value = "/editJquery", method = RequestMethod.POST)
+    void editJquery(@RequestParam("emp_no") String empNo,
+                    @RequestParam("ch_name") String chName) {
+
+        EmployeeVo employeeVo = new EmployeeVo();
+        employeeVo.setEmp_no(empNo);
+        employeeVo.setCh_name(chName);
+
+        loginService.editEmp(employeeVo);
+
     }
 
 
