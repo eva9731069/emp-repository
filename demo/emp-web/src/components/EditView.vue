@@ -6,24 +6,24 @@
                   <div class="modal-body">
                     <input
                       type="text"
-                      v-model="selectedItem.emp_no"
+                      v-model="selectedItem.empNo"
                       disabled
                       placeholder="員工編號"
                     /><br /><br />
                     <input
                       type="text"
-                      v-model="selectedItem.emp_account"
+                      v-model="selectedItem.empAccount"
                       disabled
                       placeholder="員工帳號"
                     /><br /><br />
                     <input
                       type="text"
-                      v-model="selectedItem.emp_password"
+                      v-model="selectedItem.empPassword"
                       placeholder="員工密碼"
                     /><br /><br />
                     <input
                       type="text"
-                      v-model="selectedItem.ch_name"
+                      v-model="selectedItem.chName"
                       placeholder="員工姓名"
                     /><br /><br />
                   </div>
@@ -82,9 +82,9 @@ export default {
     saveItem(selectedItem) {
       axios
         .post("/user/edit", {
-          emp_no: selectedItem.emp_no,
-          emp_password: selectedItem.emp_password,
-          ch_name: selectedItem.ch_name,
+          empNo: selectedItem.empNo,
+          empPassword: selectedItem.empPassword,
+          chName: selectedItem.chName,
         })
         .then((response) => {
           alert("修改成功");

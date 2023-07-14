@@ -67,13 +67,13 @@ export default {
         method: "POST",
         data: {
           // eslint-disable-next-line no-undef
-          emp_no: $("#emp_no").val(),
+          empNo: $("#emp_no").val(),
           // eslint-disable-next-line no-undef
-          emp_account: $("#emp_account").val(),
+          empAccount: $("#emp_account").val(),
           // eslint-disable-next-line no-undef
-          emp_password: $("#emp_password").val(),
+          empPassword: $("#emp_password").val(),
           // eslint-disable-next-line no-undef
-          ch_name: $("#ch_name").val(),
+          chName: $("#ch_name").val(),
         },
         // eslint-disable-next-line no-unused-vars
         success: function (response) {

@@ -2,10 +2,10 @@
   <img class="logo" src="../assets/pixel.png" />
   <h1>Sign up</h1>
   <div class="register">
-    <input type="text" v-model="emp_account" placeholder="Enter Name" />
+    <input type="text" v-model="empAccount" placeholder="Enter Name" />
     <input
       type="password"
-      v-model="emp_password"
+      v-model="empPassword"
       placeholder="Enter Password"
     />
     <button v-on:click="signUp">Sign Up</button>
@@ -21,16 +21,16 @@ export default {
   name: "SignUp",
   data() {
     return {
-      emp_account: "",
-      emp_password: "",
+      empAccount: "",
+      empPassword: "",
     };
   },
   methods: {
     async signUp() {
        axios
         .post("/user/login", {
-          emp_account: this.emp_account,
-          emp_password: this.emp_password,
+          empAccount: this.empAccount,
+          empPassword: this.empPassword,
         })
         .then((response) => {
           this.sessionData = response.data;

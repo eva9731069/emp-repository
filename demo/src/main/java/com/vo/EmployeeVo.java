@@ -6,11 +6,15 @@ import org.springframework.web.multipart.MultipartFile;
 @Data
 public class EmployeeVo {
 
-    String emp_no;
-    String emp_account;
-    String emp_password;
-    String ch_name;
-    String en_name;
+    String empNo;
+    String empAccount;
+    String empPassword;
+    String chName;
+    String enName;
+//    String emp_account;
+//    String emp_password;
+//    String ch_name;
+//    String en_name;
     String email;
     String person_id;
     String gender;

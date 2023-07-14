@@ -79,16 +79,16 @@ public class EmpController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    void add(@RequestParam("emp_no") String empNo,
-             @RequestParam("emp_account") String empAccount,
-             @RequestParam("emp_password") String empPassword,
-             @RequestParam("ch_name") String chName) {
+    void add(@RequestParam("empNo") String empNo,
+             @RequestParam("empAccount") String empAccount,
+             @RequestParam("empPassword") String empPassword,
+             @RequestParam("chName") String chName) {
 
         EmployeeVo employeeVo = new EmployeeVo();
-        employeeVo.setEmp_no(empNo);
-        employeeVo.setEmp_account(empAccount);
-        employeeVo.setEmp_password(empPassword);
-        employeeVo.setCh_name(chName);
+        employeeVo.setEmpNo(empNo);
+        employeeVo.setEmpAccount(empAccount);
+        employeeVo.setEmpPassword(empPassword);
+        employeeVo.setChName(chName);
 
         loginService.addEmp(employeeVo);
 
@@ -111,8 +111,8 @@ public class EmpController {
             @RequestParam("emp_password") String empPassword) {
 
         EmployeeVo employeeVo = new EmployeeVo();
-        employeeVo.setEmp_account(empAccount);
-        employeeVo.setEmp_password(empPassword);
+        employeeVo.setEmpAccount(empAccount);
+        employeeVo.setEmpPassword(empPassword);
 
 
         List<EmployeeVo> empList = loginService.queryEmpOne(employeeVo);
@@ -126,8 +126,8 @@ public class EmpController {
                     @RequestParam("ch_name") String chName) {
 
         EmployeeVo employeeVo = new EmployeeVo();
-        employeeVo.setEmp_no(empNo);
-        employeeVo.setCh_name(chName);
+        employeeVo.setEmpNo(empNo);
+        employeeVo.setChName(chName);
 
         loginService.editEmp(employeeVo);
 

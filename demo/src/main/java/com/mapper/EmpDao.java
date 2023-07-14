@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface EmpDao {
 
-    EmployeeVo queryEmp(String emp_account, String emp_password);
+    EmployeeVo queryEmp(String empAccount, String empPassword);
 
     List<EmployeeVo> queryAll();
 
-    List<EmployeeVo> getEmpList(String emp_account, String emp_password);
+    List<EmployeeVo> getEmpList(String empAccount, String empPassword);
 
     void insert(EmployeeVo vo);
 

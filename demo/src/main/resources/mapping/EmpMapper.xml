@@ -1,29 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mapper.EmpDao">
-    <select id="queryEmp" parameterType="EmployeeVo" resultType="EmployeeVo">
-        select * from employee where emp_account=#{emp_account} and emp_password = #{emp_password}
+    <resultMap id="EmpResultMap" type="com.vo.EmployeeVo">
+        <result property="empNo" column="emp_no"></result>
+        <result property="empAccount" column="emp_account"></result>
+        <result property="empPassword" column="emp_password"></result>
+        <result property="chName" column="ch_name"></result>
+        <result property="enName" column="en_name"></result>
+    </resultMap>
+
+    <select id= "queryEmp" resultMap="EmpResultMap" parameterType="EmployeeVo">
+         select * from employee where emp_account=#{empAccount} and emp_password = #{empPassword}
     </select>
 
-    <select id="queryAll" resultType="EmployeeVo">
+<!--    <select id="queryEmp" parameterType="EmployeeVo" resultType="EmployeeVo">-->
+<!--        select * from employee where emp_account=#{emp_account} and emp_password = #{emp_password}-->
+<!--    </select>-->
+
+    <select id="queryAll" resultMap="EmpResultMap">
         select * from employee
     </select>
 
-    <select id="getEmpList" parameterType="EmployeeVo" resultType="EmployeeVo">
-        select * from employee where emp_account=#{emp_account} and emp_password = #{emp_password}
+    <select id="getEmpList" parameterType="EmployeeVo" resultMap="EmpResultMap">
+        select * from employee where emp_account=#{empAccount} and emp_password = #{empPassword}
     </select>
 
     <insert id="insert" parameterType="EmployeeVo">
         insert into EMPLOYEE(EMP_NO, EMP_ACCOUNT, EMP_PASSWORD, CH_NAME) values
-           (#{emp_no}, #{emp_account}, #{emp_password}, #{ch_name})
+           (#{empNo}, #{empAccount}, #{empPassword}, #{chName})
     </insert>
 
     <delete id="delete" parameterType="EmployeeVo">
-        DELETE FROM employee WHERE EMP_NO = #{emp_no}
+        DELETE FROM employee WHERE EMP_NO = #{empNo}
     </delete>
 
     <update id="edit" parameterType="EmployeeVo">
-        update employee set EMP_PASSWORD = #{emp_password}, CH_NAME = #{ch_name} where emp_no = #{emp_no}
+        update employee set EMP_PASSWORD = #{empPassword}, CH_NAME = #{chName} where emp_no = #{empNo}
     </update>
 
 </mapper>

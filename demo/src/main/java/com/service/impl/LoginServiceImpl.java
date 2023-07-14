@@ -27,7 +27,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public EmployeeVo loginVerify(EmployeeVo reqVo) {
-        EmployeeVo empVo = empDao.queryEmp(reqVo.getEmp_account(), reqVo.getEmp_password());
+        EmployeeVo empVo = empDao.queryEmp(reqVo.getEmpAccount(), reqVo.getEmpPassword());
         return empVo;
     }
 
@@ -40,7 +40,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public List<EmployeeVo> queryEmpOne(EmployeeVo reqVo) {
-        List<EmployeeVo> empList = empDao.getEmpList(reqVo.getEmp_account(), reqVo.getEmp_password());
+        List<EmployeeVo> empList = empDao.getEmpList(reqVo.getEmpAccount(), reqVo.getEmpPassword());
 
         return empList;
     }

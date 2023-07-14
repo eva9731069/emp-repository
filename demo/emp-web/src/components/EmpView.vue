@@ -3,8 +3,8 @@
   <home-layout />
   <div class="col-9">
     <div>
-      <input type="text" v-model="emp_account" placeholder="員工帳號" />
-      <input type="text" v-model="emp_password" placeholder="員工密碼" />
+      <input type="text" v-model="empAccount" placeholder="員工帳號" />
+      <input type="text" v-model="empPassword" placeholder="員工密碼" />
       <button @click="queryItem">單一查詢</button>
       <button @click="queryAllItem">查詢全部</button>
       <button @click="addViewOpen">新增</button>
@@ -34,15 +34,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in empList" :key="item.emp_no">
-          <td>{{ item.emp_no }}</td>
-          <td>{{ item.emp_account }}</td>
-          <td>{{ item.emp_password }}</td>
-          <td>{{ item.ch_name }}</td>
+        <tr v-for="item in empList" :key="item.empNo">
+          <td>{{ item.empNo }}</td>
+          <td>{{ item.empAccount }}</td>
+          <td>{{ item.empPassword }}</td>
+          <td>{{ item.chName }}</td>
           <td>
             <button @click="editItem(item)">修改</button>
           </td>
-          <td><button @click="deleteItem(item.emp_no)">刪除</button></td>
+          <td><button @click="deleteItem(item.empNo)">刪除</button></td>
         </tr>
       </tbody>
     </table>
@@ -68,8 +68,8 @@ export default {
   },
   data() {
     return {
-      emp_account: "",
-      emp_password: "",
+      empAccount: "",
+      empPassword: "",
       items: null,
       empList: [],
       isShow: true
@@ -86,8 +86,8 @@ export default {
     queryItem() {
       axios
         .post("/user/query", {
-          emp_account: this.emp_account,
-          emp_password: this.emp_password,
+          empAccount: this.empAccount,
+          empPassword: this.empPassword,
         })
         .then((response) => {
           this.empList = response.data;
@@ -110,10 +110,10 @@ export default {
           console.error(error);
         });
     },
-    deleteItem(emp_no) {
+    deleteItem(empNo) {
       axios
         .post("/user/delete", {
-          emp_no: emp_no,
+          empNo: empNo,
         })
         .then((response) => {
           alert("刪除成功");
