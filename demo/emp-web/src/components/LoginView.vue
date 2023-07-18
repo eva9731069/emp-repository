@@ -39,7 +39,7 @@ export default {
 
           //登入成功後跳轉頁面
           if (this.sessionData != "") {
-            router.push("/home");
+            router.push("/checkIn");
             console.warn("signup", this.emp_account, this.emp_password);
             // store.commit(`auth/${SET_USERNAME}`, '55555');
 

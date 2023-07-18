@@ -1,7 +1,12 @@
 <template>
-  <!-- 套用HomeView.vue頁面 -->
-  <home-layout />
-  <div>
+
+<div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+        <home-layout />
+      </div>
+      <div class="col-sm-8">
+       <div>
     <label>
       <input type="radio" value="off" v-model="workStatus" />
       下班
@@ -19,6 +24,10 @@
       </div>
     </div>
   </div>
+      </div>
+    </div>
+  </div>
+
 </template>
 
 <script>

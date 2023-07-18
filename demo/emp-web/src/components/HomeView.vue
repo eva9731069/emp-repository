@@ -4,25 +4,21 @@
       <ul>
         <li
           @click="selectTab('打卡')"
-          :class="{ active: activeTab === '打卡' }"
         >
           打卡
         </li>
         <li
           @click="selectTab('員工')"
-          :class="{ active: activeTab === '員工' }"
         >
           員工
         </li>
          <li
           @click="selectTab('測試')"
-          :class="{ active: activeTab === '測試' }"
         >
           測試
         </li>
         <li
           @click="selectTab('Jquery測試')"
-          :class="{ active: activeTab === 'Jquery測試' }"
         >
           Jquery測試
         </li>

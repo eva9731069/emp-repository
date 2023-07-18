@@ -1,53 +1,94 @@
 <template>
-  <!-- 套用HomeView.vue頁面 -->
-  <home-layout />
-  <div class="col-9">
-    <div>
-      <input type="text" v-model="empAccount" placeholder="員工帳號" />
-      <input type="text" v-model="empPassword" placeholder="員工密碼" />
-      <button @click="queryItem">單一查詢</button>
-      <button @click="queryAllItem">查詢全部</button>
-      <button @click="addViewOpen">新增</button>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+        <home-layout />
+      </div>
+      <div class="col-sm-8">
+        <div>
+          <div class="row">
+          
+            <div class="col">
+              <div >員工帳號:</div>
+              <input
+                type="text"
+                v-model="empAccount"
+                class="form-control"
+                placeholder="員工帳號"
+                aria-label="First name"
+              />
+            </div>
+            <div class="col">
+              <div >員工密碼:</div>
+              <input
+                type="text"
+                v-model="empPassword"
+                class="form-control"
+                placeholder="員工密碼"
+                aria-label="Last name"
+              />
+            </div>
+          </div>
+          <div>
+            <br />
+          </div>
+          <button @click="queryItem" class="btn btn-dark">單一查詢</button
+          >&nbsp;&nbsp;
+          <button @click="queryAllItem" class="btn btn-dark">查詢全部</button
+          >&nbsp;&nbsp;
+          <button @click="addViewOpen" class="btn btn-dark">新增</button>
+          <div>
+            <br />
+          </div>
 
-      <!-- 新增功能 -->
-      <add-layout v-if="isAddLayoutVisible" />
+          <!-- 新增功能 -->
+          <add-layout v-if="isAddLayoutVisible" />
 
-      <!-- 修改功能 -->
-      <edit-layout v-if="selectedItem" />
+          <!-- 修改功能 -->
+          <edit-layout v-if="selectedItem" />
+
+          <div class="row">
+            <table
+              class="empTable table table-bordered border-primary"
+              v-if="empList.length > 0"
+            >
+              <thead>
+                <tr>
+                  <th>員工編號</th>
+                  <th>員工帳號</th>
+                  <th>員工密碼</th>
+                  <th>員工姓名</th>
+                  <th>修改</th>
+                  <th>刪除</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in empList" :key="item.empNo">
+                  <td class="center-align">{{ item.empNo }}</td>
+                  <td class="center-align">{{ item.empAccount }}</td>
+                  <td class="center-align">{{ item.empPassword }}</td>
+                  <td class="center-align">{{ item.chName }}</td>
+                  <td>
+                    <button @click="editItem(item)" class="btn btn-dark">
+                      修改
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      @click="deleteItem(item.empNo)"
+                      class="btn btn-dark"
+                    >
+                      刪除
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div>
-    <br />
-    <br />
-    <br />
-  </div>
-  <div class="col-12">
-    <table class="empTable table-sm table-bordered" v-if="empList.length > 0">
-      <thead>
-        <tr>
-          <th>員工編號</th>
-          <th>員工帳號</th>
-          <th>員工密碼</th>
-          <th>員工姓名</th>
-          <th>修改</th>
-          <th>刪除</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in empList" :key="item.empNo">
-          <td>{{ item.empNo }}</td>
-          <td>{{ item.empAccount }}</td>
-          <td>{{ item.empPassword }}</td>
-          <td>{{ item.chName }}</td>
-          <td>
-            <button @click="editItem(item)">修改</button>
-          </td>
-          <td><button @click="deleteItem(item.empNo)">刪除</button></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
 </template>
 
 <script>
@@ -72,7 +113,7 @@ export default {
       empPassword: "",
       items: null,
       empList: [],
-      isShow: true
+      isShow: true,
     };
   },
   computed: {
@@ -81,7 +122,6 @@ export default {
       selectedItem: (state) => state.selectedItem,
     }),
   },
-
   methods: {
     queryItem() {
       axios
@@ -133,40 +173,9 @@ export default {
       this.isShow = !this.isShow;
       store.commit("updateSelectedItem", { ...item });
     },
-     
   },
 };
 </script>
 
 <style>
-.empTable {
-  margin-left: 600px;
-}
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal h2 {
-  color: #fff;
-}
-
-.modal button {
-  margin-top: 10px;
-}
-
-button {
-  margin-top: 10px;
-}
-
-.testca {
-  justify-content: center;
-}
 </style>
