@@ -36,16 +36,14 @@ export default {
           this.sessionData = response.data;
 
           // alert(response.data.emp_no);//取得後端的值
-
+console.log("signup=>", this.empAccount, this.empPassword);
           //登入成功後跳轉頁面
           if (this.sessionData != "") {
             router.push("/checkIn");
-            console.warn("signup", this.emp_account, this.emp_password);
-            // store.commit(`auth/${SET_USERNAME}`, '55555');
 
-            store.commit("setEmpId", response.data.emp_no);
-            store.commit("setEmpName", response.data.ch_name);
-            console.log("GET_USERNAME=>" + store.state.empId);
+            store.commit("setEmpId", response.data.empNo);
+            store.commit("setEmpName", response.data.chName);
+console.log("GET_USERNAME=>" + store.state.empId);
           } else {
             alert("登入失敗");
           }
