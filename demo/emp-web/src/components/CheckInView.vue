@@ -82,14 +82,14 @@ export default {
       this.showSuccessModal = false;
     },
   },
-  watch: {
-    workStatus(newStatus) {
-      // 監聽workStatus的變化，當選擇「上班」或「下班」時，自動顯示打卡成功視窗
-      if (newStatus === "on" || newStatus === "off") {
-        this.clockIn();
-      }
-    },
-  },
+  // watch: {
+  //   workStatus(newStatus) {
+  //     // 監聽workStatus的變化，當選擇「上班」或「下班」時，自動顯示打卡成功視窗
+  //     if (newStatus === "on" || newStatus === "off") {
+  //       this.clockIn();
+  //     }
+  //   },
+  // },
 };
 </script>
 
