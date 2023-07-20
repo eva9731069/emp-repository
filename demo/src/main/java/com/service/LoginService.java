@@ -1,6 +1,7 @@
 package com.service;
 
 import com.vo.AttendanceRecVo;
+import com.vo.EmpFunctionVo;
 import com.vo.EmployeeVo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +26,8 @@ public interface LoginService {
     public void deleteEmp(EmployeeVo reqVo);
 
     public void editEmp(EmployeeVo reqVo);
+
+    public List<String> getUserFunction(EmployeeVo reqVo);
 
 
 }

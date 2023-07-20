@@ -49,7 +49,7 @@ export default {
       } else if(tab === '員工'){
         router.push("/emp");
       } else if(tab === 'Jquery測試'){
-        router.push("/jqueryTest");
+        router.push("/Function");
       } else {
         router.push("/sunTest");
       }
@@ -58,29 +58,4 @@ export default {
 };
 </script>
 
-<style>
-.sidebar {
-  float: left;
-  width: 20%;
-}
 
-.sidebar ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.sidebar li {
-  cursor: pointer;
-  padding: 10px;
-}
-
-.sidebar li.active {
-  background-color: #f0f0f0;
-}
-
-.content {
-  float: left;
-  width: 80%;
-  padding: 10px;
-}
-</style>

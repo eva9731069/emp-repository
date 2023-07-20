@@ -11,6 +11,8 @@ public interface EmpDao {
 
     EmployeeVo queryEmp(String empAccount, String empPassword);
 
+    EmployeeVo queryEmpByEmpNo(String empNo);
+
     List<EmployeeVo> queryAll();
 
     List<EmployeeVo> getEmpList(String empAccount, String empPassword);

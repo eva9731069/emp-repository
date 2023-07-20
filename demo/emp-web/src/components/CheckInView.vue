@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
       <div class="col-sm-4">
-        <home-layout />
+        <function-layout />
       </div>
       <div class="col-sm-8">
        <div>
@@ -31,15 +31,15 @@
 </template>
 
 <script>
-import homeLayout from "@/components/HomeView.vue";
 import store from "../store";
 import axios from "axios";
 import router from "../router";
+import functionLayout from './FunctionView.vue';
 
 
 export default {
   components: {
-    homeLayout,
+    functionLayout,
   },
   data() {
     return {

@@ -9,10 +9,7 @@ import com.mapper.EmpDao;
 import com.mapper.MybatisTestService;
 import com.service.LoginService;
 import com.util.SaltUtil;
-import com.vo.AttendanceRecVo;
-import com.vo.EmployeeVo;
-import com.vo.HolidayVo;
-import com.vo.MybatisTestVo;
+import com.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -131,6 +128,12 @@ public class EmpController {
 
         loginService.editEmp(employeeVo);
 
+    }
+
+    @RequestMapping(value = "/getUserFunction", method = RequestMethod.POST)
+    List<String> getUserFunction(@RequestBody EmployeeVo vo) {
+        List<String> empFunctionList = loginService.getUserFunction(vo);
+        return empFunctionList;
     }
 
 

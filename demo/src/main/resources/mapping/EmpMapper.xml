@@ -13,6 +13,10 @@
          select * from employee where emp_account=#{empAccount} and emp_password = #{empPassword}
     </select>
 
+    <select id= "queryEmpByEmpNo" resultMap="EmpResultMap" parameterType="EmployeeVo">
+        select * from employee where emp_no=#{empNo}
+    </select>
+
 <!--    <select id="queryEmp" parameterType="EmployeeVo" resultType="EmployeeVo">-->
 <!--        select * from employee where emp_account=#{emp_account} and emp_password = #{emp_password}-->
 <!--    </select>-->

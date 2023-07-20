@@ -2,9 +2,11 @@ package com.service.impl;
 
 import com.mapper.AttendanceDao;
 import com.mapper.EmpDao;
+import com.mapper.EmpFunctionDao;
 import com.service.LoginService;
 import com.service.UserService;
 import com.vo.AttendanceRecVo;
+import com.vo.EmpFunctionVo;
 import com.vo.EmployeeVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +24,9 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private EmpDao empDao;
+
+    @Autowired
+    private EmpFunctionDao empFunctionDaoDao;
 
     @Autowired
     private AttendanceDao attendanceDao;
@@ -65,5 +71,23 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public void editEmp(EmployeeVo reqVo) {
         empDao.edit(reqVo);
+    }
+
+    @Override
+    public List<String> getUserFunction(EmployeeVo reqVo) {
+
+        EmployeeVo empVo = empDao.queryEmpByEmpNo(reqVo.getEmpNo());
+
+        EmpFunctionVo empFunctionVo =  empFunctionDaoDao.getEmpFunction(empVo.getAuth());
+
+        List<String> empFuncList = new ArrayList<>();
+
+        String functionStr = empFunctionVo.getEmpFunction();
+
+        for (String str: functionStr.split(",")){
+            empFuncList.add(str);
+        }
+
+        return empFuncList;
     }
 }

@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-4">
-        <home-layout />
+        <function-layout />
       </div>
       <div class="col-sm-8">
         <div>
@@ -68,19 +68,21 @@
 </template>
 
 <script>
-import homeLayout from "@/components/HomeView.vue";
+
 import addLayout from "@/components/AddView.vue";
 import editJqueryLayout from "@/components/EditJqueryView.vue";
 import store from "../store";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 import { mapState } from "vuex";
+import functionLayout from './FunctionView.vue';
 
 export default {
   components: {
-    homeLayout,
+
     addLayout,
     editJqueryLayout,
+    functionLayout,
   },
   data() {
     return {
@@ -93,34 +95,6 @@ export default {
     };
   },
   mounted() {
-    // const self = this; // 缓存Vue组件的this
-    // eslint-disable-next-line no-undef
-    // $("#queryOne").click(function () {
-    //   // eslint-disable-next-line no-undef
-    //   $.ajax({
-    //     url: "/user/jqueryQuery",
-    //     method: "POST",
-    //     // contentType: "application/json",
-    //     data: {
-    //       // eslint-disable-next-line no-undef
-    //       emp_account: $("#emp_account").val(),
-    //       // eslint-disable-next-line no-undef
-    //       emp_password: $("#emp_password").val(),
-    //     },
-    //     success: (response) => {
-    //       // console.log('itemsTest->'+response.empList);
-    //        console.log('itemsTest->'+response);
-    //       this.itemsTest = response;
-    //     },
-    //     // success: (response) => {
-    //     //   console.log(response);
-    //     //   self.itemsTest = response;
-    //     // },
-    //     error: (error) => {
-    //       console.log(error);
-    //     },
-    //   });
-    // });
   },
   computed: {
     ...mapState({
@@ -195,7 +169,7 @@ export default {
 </script>
 
 <style>
-.empTable {
+/* .empTable {
   margin-left: 600px;
 }
 
@@ -225,5 +199,5 @@ button {
 
 .testca {
   justify-content: center;
-}
+} */
 </style>
