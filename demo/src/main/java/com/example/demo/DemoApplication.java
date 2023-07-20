@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan({"com/controller","com/service"})
+@ComponentScan({"com/controller","com/service","com.aop.service"})
 @MapperScan("com.mapper")
 public class DemoApplication {
 

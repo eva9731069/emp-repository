@@ -42,14 +42,14 @@ public class EmpController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     EmployeeVo login(@RequestBody EmployeeVo reqVo, HttpSession session) {
-
+log.info("start");
         EmployeeVo empVo = loginService.loginVerify(reqVo);
 
         //登入成功
         if (empVo != null) {
             session.setAttribute("uid", SaltUtil.uuid());
         }
-
+        log.info("end");
         return empVo;
     }
 
