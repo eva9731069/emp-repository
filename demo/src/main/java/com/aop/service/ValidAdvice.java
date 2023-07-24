@@ -1,5 +1,7 @@
 package com.aop.service;
 
+import com.util.DecodeUtil;
+import com.util.EncodeUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -31,24 +33,9 @@ public class ValidAdvice {
 
     @Before("pointcut()")
     public void beforeAdvice(JoinPoint joinPoint) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
-        // 獲取當前的HttpServletRequest
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        DecodeUtil deCodeUtil = new DecodeUtil();
 
-        // 獲取Session資料
-        byte[] sessionData = (byte[]) request.getSession().getAttribute("encryptedData");
-
-        System.out.println("Before method execution...");
-
-        byte[] keyBytes = Base64.getDecoder().decode(aesKey);
-        SecretKey customSecretKey = new SecretKeySpec(keyBytes, "AES");
-        // 解密操作
-        Cipher decryptCipher = Cipher.getInstance("AES");
-        decryptCipher.init(Cipher.DECRYPT_MODE, customSecretKey);
-        byte[] decryptedData = decryptCipher.doFinal(sessionData);
-
-        // 输出解密后的结果
-        System.out.println("解密後結果=>" + new String(decryptedData));
-
+        deCodeUtil.aesDecode(aesKey);
 
         System.out.println(getMethodName(joinPoint));
         Arrays.stream(joinPoint.getArgs()).forEach(System.out::println);
