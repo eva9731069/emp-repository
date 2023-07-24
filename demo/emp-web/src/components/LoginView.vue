@@ -1,6 +1,7 @@
 <template>
   <img class="logo" src="../assets/pixel.png" />
   <h1>Sign up</h1>
+
   <div class="register">
     <input type="text" v-model="empAccount" placeholder="Enter Name" />
     <input
@@ -28,7 +29,7 @@ export default {
   methods: {
     async signUp() {
        axios
-        .post("/user/login", {
+        .post("/home/login", {
           empAccount: this.empAccount,
           empPassword: this.empPassword,
         })
@@ -41,8 +42,10 @@ console.log("signup=>", this.empAccount, this.empPassword);
           if (this.sessionData != "") {
             router.push("/checkIn");
 
+
             store.commit("setEmpId", response.data.empNo);
             store.commit("setEmpName", response.data.chName);
+            // store.commit("updateEncryptedData", response.data.encryptedData);
 console.log("GET_USERNAME=>" + store.state.empId);
           } else {
             alert("登入失敗");

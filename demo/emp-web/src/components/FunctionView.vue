@@ -60,6 +60,8 @@ export default {
           }
         })
         .catch((error) => {
+          alert('身分驗證失敗，請重新登入');
+          router.push("/");
           console.error(error);
         });
     },

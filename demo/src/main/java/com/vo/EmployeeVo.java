@@ -16,26 +16,27 @@ public class EmployeeVo {
 //    String ch_name;
 //    String en_name;
     String email;
-    String person_id;
+    String personId;
     String gender;
     String birth;
     String age;
-    String blood_type;
-    String person_type;
-    String soldier_type;
-    String married_type;
-    String home_addr;
-    String contact_addr;
-    String home_phone;
-    String cell_phone;
-    String pressing_person;
-    String pressing_relation;
-    String pressing_phone;
-    String register_date;
-    String resign_date;
-    byte[] emp_photo;
-    byte[] resign_photo;
-    String emp_status;
+    String bloodType;
+    String personType;
+    String soldierType;
+    String marriedType;
+    String homeAddr;
+    String contactAddr;
+    String homePhone;
+    String cellPhone;
+    String pressingPerson;
+    String pressingRelation;
+    String pressingPhone;
+    String registerDate;
+    String resignDate;
+    byte[] empPhoto;
+    byte[] resignPhoto;
+    String empStatus;
     String auth;
+    
 
 }

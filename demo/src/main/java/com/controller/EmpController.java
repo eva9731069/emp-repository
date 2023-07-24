@@ -1,27 +1,26 @@
 package com.controller;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mapper.AttendanceDao;
 import com.mapper.EmpDao;
 
-import com.mapper.MybatisTestService;
 import com.service.LoginService;
 import com.util.SaltUtil;
 import com.vo.*;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.http.HttpRequest;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.ws.rs.QueryParam;
-import java.sql.Timestamp;
-import java.util.Date;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
 
 @RestController
 @RequestMapping(value = "/user")
@@ -35,23 +34,14 @@ public class EmpController {
     @Autowired
     private AttendanceDao attendanceDao;
 
+
     @Autowired
     @Qualifier("LoginServiceImpl")
     private LoginService loginService;
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    @ResponseBody
-    EmployeeVo login(@RequestBody EmployeeVo reqVo, HttpSession session) {
-log.info("start");
-        EmployeeVo empVo = loginService.loginVerify(reqVo);
+    @Autowired
+    private HttpServletRequest request;
 
-        //登入成功
-        if (empVo != null) {
-            session.setAttribute("uid", SaltUtil.uuid());
-        }
-        log.info("end");
-        return empVo;
-    }
 
     @RequestMapping(value = "/checkIn", method = RequestMethod.POST)
     void checkIn(@RequestBody AttendanceRecVo vo, HttpSession session) {
@@ -133,7 +123,9 @@ log.info("start");
     @RequestMapping(value = "/getUserFunction", method = RequestMethod.POST)
     List<String> getUserFunction(@RequestBody EmployeeVo vo) {
         List<String> empFunctionList = loginService.getUserFunction(vo);
+
         return empFunctionList;
+
     }
 
 
