@@ -1,21 +1,15 @@
 package com.service.impl;
 
-import com.mapper.AttendanceDao;
 import com.mapper.EmpDao;
 import com.mapper.EmpFunctionDao;
 import com.service.LoginService;
-import com.service.UserService;
-import com.vo.AttendanceRecVo;
 import com.vo.EmpFunctionVo;
 import com.vo.EmployeeVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -27,21 +21,10 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private EmpFunctionDao empFunctionDaoDao;
-
-    @Autowired
-    private AttendanceDao attendanceDao;
-
     @Override
     public EmployeeVo loginVerify(EmployeeVo reqVo) {
         EmployeeVo empVo = empDao.queryEmp(reqVo.getEmpAccount(), reqVo.getEmpPassword());
         return empVo;
-    }
-
-    @Override
-    public void checkIn(AttendanceRecVo reqVo) {
-        Timestamp checkInTime = new Timestamp(new Date().getTime());
-
-        attendanceDao.empCheckIn(reqVo.getEmp_no(), reqVo.getCh_name(), checkInTime);
     }
 
     @Override
@@ -89,5 +72,4 @@ public class LoginServiceImpl implements LoginService {
         }
 
         return empFuncList;
-    }
-}
+    }}

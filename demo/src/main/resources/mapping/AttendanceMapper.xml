@@ -1,11 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mapper.AttendanceDao">
+<mapper namespace="com.mapper.CheckDao">
 
-    <insert id="empCheckIn" parameterType="AttendanceRecVo">
+    <resultMap id="AttendanceRecMap" type="com.vo.CheckVo">
+        <result property="empNo" column="emp_no"></result>
+        <result property="chName" column="ch_name"></result>
+        <result property="checkInTime" column="check_in_time"></result>
+        <result property="checkOutTime" column="check_out_time"></result>
+    </resultMap>
+
+    <select id="empIsCheckIn" parameterType="CheckVo" resultMap="AttendanceRecMap">
+        select * from attendance_rec
+        WHERE
+        emp_no = #{empNo}
+        AND DATE(check_in_time) = #{checkInTime}
+    </select>
+    <select id="empIsCheckOut" parameterType="CheckVo" resultMap="AttendanceRecMap">
+        select * from attendance_rec
+        WHERE
+        emp_no = #{empNo}
+        AND DATE(check_out_time) = #{checkOutTime}
+    </select>
+
+    <insert id="empCheckIn" parameterType="CheckVo">
         insert into ATTENDANCE_REC(emp_no, ch_name, check_in_time)
-        values (#{emp_no}, #{ch_name}, #{check_in_time})
+        values (#{empNo}, #{chName}, #{checkInTime})
     </insert>
+
+    <update id="empCheckOut" parameterType="CheckVo">
+        update ATTENDANCE_REC
+        set
+        check_out_time = #{checkOutTime}
+        where emp_no = #{empNo}
+        AND DATE(check_in_time) = CURRENT_DATE
+    </update>
 
 
 </mapper>

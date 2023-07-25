@@ -1,26 +1,18 @@
 package com.controller;
 
-import com.mapper.AttendanceDao;
+import com.mapper.CheckDao;
 import com.mapper.EmpDao;
-
 import com.service.LoginService;
 import com.util.SaltUtil;
-import com.vo.*;
-import lombok.Value;
+import com.vo.EmployeeVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-
 
 @RestController
 @RequestMapping(value = "/user")
@@ -32,21 +24,15 @@ public class EmpController {
     private EmpDao empDao;
 
     @Autowired
-    private AttendanceDao attendanceDao;
-
+    private CheckDao checkDao;
 
     @Autowired
     @Qualifier("LoginServiceImpl")
     private LoginService loginService;
 
-    @Autowired
-    private HttpServletRequest request;
 
 
-    @RequestMapping(value = "/checkIn", method = RequestMethod.POST)
-    void checkIn(@RequestBody AttendanceRecVo vo, HttpSession session) {
-        loginService.checkIn(vo);
-    }
+
 
     @RequestMapping(value = "/query", method = RequestMethod.POST)
     List<EmployeeVo> query(@RequestBody EmployeeVo vo) {
@@ -119,6 +105,7 @@ public class EmpController {
         loginService.editEmp(employeeVo);
 
     }
+
 
     @RequestMapping(value = "/getUserFunction", method = RequestMethod.POST)
     List<String> getUserFunction(@RequestBody EmployeeVo vo) {
