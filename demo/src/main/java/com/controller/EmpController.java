@@ -3,7 +3,6 @@ package com.controller;
 import com.mapper.CheckDao;
 import com.mapper.EmpDao;
 import com.service.LoginService;
-import com.util.SaltUtil;
 import com.vo.EmployeeVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -40,13 +38,12 @@ public class EmpController {
         List<EmployeeVo> empList = loginService.queryEmpOne(vo);
 
         return empList;
+
     }
 
     @RequestMapping(value = "/queryAll", method = RequestMethod.POST)
     List<EmployeeVo> queryAll() {
-
         List<EmployeeVo> empList = loginService.queryEmpAll();
-
 
         return empList;
     }
