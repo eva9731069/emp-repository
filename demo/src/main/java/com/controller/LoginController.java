@@ -48,11 +48,12 @@ public class LoginController {
         //登入成功
         if (empVo != null) {
             EncodeUtil encodeUtil = new EncodeUtil();
-            //取得加密碼
+            //取得加密資訊
             byte[] encryptedData = encodeUtil.aesEncode(empVo.getEmpNo() + "-" + empVo.getEmpPassword(), aesKey);
             log.info("encryptedData" + encryptedData);
 //            empVo.setEncryptedData(encryptedData);
             request.getSession().setAttribute("encryptedData", encryptedData);
+            request.getSession().setAttribute("empNo", empVo.getEmpNo());
 
         }
 

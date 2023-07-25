@@ -1,10 +1,14 @@
 package com.aop.service;
 
+import com.mapper.EmpDao;
 import com.util.DecodeUtil;
 import com.util.EncodeUtil;
+import com.vo.EmployeeVo;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -21,10 +25,14 @@ import java.util.Base64;
 
 @Component
 @Aspect
+@Slf4j
 public class ValidAdvice {
 
     @Value("${aes.key}")
     private String aesKey;
+
+    @Autowired
+    private EmpDao empDao;
 
     // 定義切點，這裡的切點表示式指定攔截 MyService 介面中的所有方法
     @Pointcut("execution(* com.controller.EmpController.*(..))")
@@ -33,9 +41,25 @@ public class ValidAdvice {
 
     @Before("pointcut()")
     public void beforeAdvice(JoinPoint joinPoint) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+        // 獲取當前的HttpServletRequest
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+
         DecodeUtil deCodeUtil = new DecodeUtil();
 
-        deCodeUtil.aesDecode(aesKey);
+        String deCodeResult = deCodeUtil.aesDecode(aesKey);
+
+        String empNo = (String) request.getSession().getAttribute("empNo");
+
+        EmployeeVo empVo = empDao.queryEmpByEmpNo(empNo);
+
+        String mappingStr = empVo.getEmpNo()+ "-" + empVo.getEmpPassword();
+
+        log.info("mappingStr=>"+mappingStr);
+
+        if (!mappingStr.equals(deCodeResult)){
+            log.info("身分");
+            throw new InvalidKeyException();
+        }
 
         System.out.println(getMethodName(joinPoint));
         Arrays.stream(joinPoint.getArgs()).forEach(System.out::println);

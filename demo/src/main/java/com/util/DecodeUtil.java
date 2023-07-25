@@ -18,14 +18,12 @@ import java.util.Base64;
 @EnableAutoConfiguration
 public class DecodeUtil {
 
-    public void aesDecode(String aesKey) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+    public String aesDecode(String aesKey) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
         // 獲取當前的HttpServletRequest
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 
         // 獲取Session資料
         byte[] sessionData = (byte[]) request.getSession().getAttribute("encryptedData");
-
-        System.out.println("Before method execution...");
 
         byte[] keyBytes = Base64.getDecoder().decode(aesKey);
         SecretKey customSecretKey = new SecretKeySpec(keyBytes, "AES");
@@ -34,9 +32,11 @@ public class DecodeUtil {
         decryptCipher.init(Cipher.DECRYPT_MODE, customSecretKey);
         byte[] decryptedData = decryptCipher.doFinal(sessionData);
 
-        // 输出解密后的结果
-        System.out.println("解密後結果=>" + new String(decryptedData));
+        // 輸出解密後的結果
+        log.info("解密後結果=>" + new String(decryptedData));
 
+
+        return new String(decryptedData);
     }
 
 
