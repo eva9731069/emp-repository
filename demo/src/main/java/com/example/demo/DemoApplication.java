@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan({"com/controller","com/service","com.aop.service"})
+@ComponentScan({"com/controller","com/service","com.aop.service","com.config"})
 @MapperScan("com.mapper")
 public class DemoApplication {
 

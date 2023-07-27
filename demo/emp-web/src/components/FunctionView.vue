@@ -42,7 +42,7 @@ export default {
       } else if(tab === 'Jquery測試'){
         router.push("/jqueryTest");
       } else {
-        router.push("/sunTest");
+        router.push("/WebSocket");
       }
     },
     getLoginFunction() {

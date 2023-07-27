@@ -55,6 +55,11 @@ const routes = [
         name: 'Function',
         path: "/Function",
         component: () => import('../components/FunctionView.vue'),
+    },
+    {
+        name: 'WebSocket',
+        path: "/WebSocket",
+        component: () => import('../components/WebSocketView.vue'),
     }
 
 ]
