@@ -34,6 +34,16 @@
       </div>
     </div>
 
+    <table v-if="daysList.length > 0">
+      <tr>
+        <!-- 顯示結果 項目/023-07-01/023-07-02 -->
+        <th v-for="item in daysList" :key="item.index">{{ item }}</th>
+        <th>{{ item }}</th>
+      </tr>
+      <!-- 顯示結果 審查/▉/⬤ -->
+      <td v-for="item in todoList" :key="item.index">{{ item }}</td>
+    </table>
+
     <table class="empTable table-sm table-bordered" v-if="itemsTest.length > 0">
       <thead>
         <tr>
@@ -68,18 +78,16 @@
 </template>
 
 <script>
-
 import addLayout from "@/components/AddView.vue";
 import editJqueryLayout from "@/components/EditJqueryView.vue";
 import store from "../store";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 import { mapState } from "vuex";
-import functionLayout from './FunctionView.vue';
+import functionLayout from "./FunctionView.vue";
 
 export default {
   components: {
-
     addLayout,
     editJqueryLayout,
     functionLayout,
@@ -90,11 +98,19 @@ export default {
       emp_password: "",
       items: null,
       empList: [],
+      daysList: [],
+      todoList: [],
+      itemsList: [],
+      statusList: [],
       isShow: true,
       itemsTest: [],
     };
   },
   mounted() {
+    //  this.setStatusList();
+    this.setdayList();
+    this.setTodoList();
+    this.setItemsList();
   },
   computed: {
     ...mapState({
@@ -103,6 +119,27 @@ export default {
     }),
   },
   methods: {
+    // setStatusList() {
+    //   this.itemsList.push("報告製作");
+    //   this.itemsList.push("審查");
+    //   //  this.daysList.push('023-07-03');
+    // },
+    setItemsList() {
+      this.itemsList.push("報告製作");
+      this.itemsList.push("審查");
+      //  this.daysList.push('023-07-03');
+    },
+    setdayList() {
+    this.daysList.push("項目");
+      this.daysList.push("023-07-01");
+      this.daysList.push("023-07-02");
+      //  this.daysList.push('023-07-03');
+    },
+    setTodoList() {
+      this.todoList.push("審查");
+      this.todoList.push("▉");
+      this.todoList.push("⬤");
+    },
     handleUpdateProperty(newValue) {
       this.isShow = newValue;
     },
@@ -169,35 +206,5 @@ export default {
 </script>
 
 <style>
-/* .empTable {
-  margin-left: 600px;
-}
 
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal h2 {
-  color: #fff;
-}
-
-.modal button {
-  margin-top: 10px;
-}
-
-button {
-  margin-top: 10px;
-}
-
-.testca {
-  justify-content: center;
-} */
 </style>

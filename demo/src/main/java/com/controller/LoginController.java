@@ -1,8 +1,10 @@
 package com.controller;
 
+import com.emailService.MailService;
 import com.mapper.AttendanceDao;
 import com.mapper.EmpDao;
 import com.service.LoginService;
+import com.timerTask.DemoTimerTask;
 import com.util.EncodeUtil;
 import com.vo.EmployeeVo;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Timer;
 
 
 @RestController
@@ -39,6 +42,9 @@ public class LoginController {
     @Autowired
     private HttpServletRequest request;
 
+    @Autowired
+    private MailService sendMailservice;
+
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
@@ -56,8 +62,7 @@ public class LoginController {
             request.getSession().setAttribute("empNo", empVo.getEmpNo());
 
         }
-
-        log.info("end");
+//        sendMailservice.prepareAndSend("eva9731069@gmail.com","subject","body");
         return empVo;
     }
 
