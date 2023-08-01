@@ -1,10 +1,8 @@
 package com.controller;
 
 import com.emailService.MailService;
-import com.mapper.AttendanceDao;
 import com.mapper.EmpDao;
 import com.service.LoginService;
-import com.timerTask.DemoTimerTask;
 import com.util.EncodeUtil;
 import com.vo.EmployeeVo;
 import lombok.extern.slf4j.Slf4j;
@@ -12,12 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Timer;
 
 
 @RestController
@@ -29,8 +25,7 @@ public class LoginController {
     @Autowired
     private EmpDao empDao;
 
-    @Autowired
-    private AttendanceDao attendanceDao;
+
 
     @Autowired
     @Qualifier("LoginServiceImpl")

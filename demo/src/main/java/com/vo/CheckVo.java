@@ -11,5 +11,6 @@ public class CheckVo {
     String chName;
     Timestamp checkInTime;
     Timestamp checkOutTime;
-
+    String missWorkDate;
+    String missWorkStatus;
 }

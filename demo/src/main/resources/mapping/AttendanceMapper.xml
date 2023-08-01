@@ -7,6 +7,8 @@
         <result property="chName" column="ch_name"></result>
         <result property="checkInTime" column="check_in_time"></result>
         <result property="checkOutTime" column="check_out_time"></result>
+        <result property="missWorkDate" column="miss_work_date"></result>
+        <result property="missWorkStatus" column="miss_work_status"></result>
     </resultMap>
 
     <select id="empIsCheckIn" parameterType="CheckVo" resultMap="AttendanceRecMap">
@@ -15,6 +17,7 @@
         emp_no = #{empNo}
         AND DATE(check_in_time) = #{checkInTime}
     </select>
+
     <select id="empIsCheckOut" parameterType="CheckVo" resultMap="AttendanceRecMap">
         select * from attendance_rec
         WHERE
@@ -34,6 +37,19 @@
         where emp_no = #{empNo}
         AND DATE(check_in_time) = CURRENT_DATE
     </update>
+
+    <select id="empIsCheckInMiss" parameterType="CheckVo" resultMap="AttendanceRecMap">
+        select * from employee a
+        left join attendance_rec b
+        on a.emp_no = b.emp_no
+        WHERE
+        DATE(b.check_out_time) is null
+    </select>
+
+    <insert id="insertMissWork" parameterType="CheckVo">
+        insert into ATTENDANCE_REC(emp_no, ch_name, miss_work_date, MISS_WORK_STATUS)
+        values (#{empNo}, #{chName}, CURRENT_DATE, 'Y');
+    </insert>
 
 
 </mapper>
