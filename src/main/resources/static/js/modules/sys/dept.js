@@ -1,7 +1,6 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: baseURL + '/sys/dept/list',
-        datatype: "json",
+        datatype: "local",
         colModel: [			
 			{ label: 'id', name: 'id', index: 'id', width: 50,hidden:true, key: true },
 			{ label: '部門名稱', name: 'name', index: 'name', width: 80 }, 			
@@ -43,6 +42,9 @@ $(function () {
 var vm = new Vue({
 	el:'#rapp',
 	data:{
+		q:{
+            keyword: null
+		},
 		showList: true,
 		title: null,
 		sysDept: {}
@@ -119,14 +121,16 @@ var vm = new Vue({
 	                ztree = $.fn.zTree.init($("#deptTree"), setting, r.deptList);
 	                var node = ztree.getNodeByParam("id", vm.dept.parentId);
 	                ztree.selectNode(node);
-
 	                vm.dept.parentName = node.name;
 	            })
 	        },
 		reload: function (event) {
 			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
-			$("#jqGrid").jqGrid('setGridParam',{ 
+			$("#jqGrid").jqGrid('setGridParam',{
+				datatype: "json", // 設置 datatype 為 json，表示從後端獲取數據
+				url: baseURL + '/sys/dept/list', // 更新 URL，改為您的後端 URL
+		        postData:{'keyword': vm.q.keyword},
                 page:page
             }).trigger("reloadGrid");
 		}

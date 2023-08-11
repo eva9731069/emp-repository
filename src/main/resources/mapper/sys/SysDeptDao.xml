@@ -18,6 +18,14 @@
 
 	<select id="queryList" resultType="com.sumCo.modules.sys.entity.SysDept">
 		select * from sys_dept
+		<where>
+			<if test="keyword != null and keyword != ''">
+				and (
+					`name` like concat('%',#{keyword},'%')
+					
+				)
+			</if>
+		</where>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
