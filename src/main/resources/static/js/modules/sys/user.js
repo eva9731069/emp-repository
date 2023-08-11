@@ -36,7 +36,7 @@ $(function () {
             order: "order"
         },
         gridComplete:function(){
-        	//隐藏grid底部滚动条
+        	//隱藏grid底部滾動條
         	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
         }
     });
@@ -83,13 +83,13 @@ var vm = new Vue({
 			vm.roleList = {};
 			vm.user = {deptName:null, deptId:null, status:1, roleIdList:[]};
 			
-			//获取角色信息
+			//獲取角色信息
 			this.getRoleList();
 
             vm.getDept();
 		},
         getDept: function(){
-            //加载部门树
+            //加載部門樹
             $.get(baseURL + "/sys/dept/list", function(r){
                 ztree = $.fn.zTree.init($("#deptTree"), setting, r);
                 var node = ztree.getNodeByParam("id", vm.user.deptId);
@@ -110,7 +110,7 @@ var vm = new Vue({
             vm.title = "修改";
 			
 			vm.getUser(userId);
-			//获取角色信息
+			//獲取角色信息
 			this.getRoleList();
 		},
 		del: function () {
@@ -173,7 +173,7 @@ var vm = new Vue({
                 type: 1,
                 offset: '50px',
                 skin: 'layui-layer-molv',
-                title: "選取部门",
+                title: "選取部門",
                 area: ['300px', '450px'],
                 shade: 0,
                 shadeClose: false,
@@ -181,7 +181,7 @@ var vm = new Vue({
                 btn: ['確定', '取消'],
                 btn1: function (index) {
                     var node = ztree.getSelectedNodes();
-                    //选择上级部门
+                    //選擇上級部門
                     vm.user.deptId = node[0].id;
                     vm.user.deptName = node[0].name;
 

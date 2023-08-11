@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>分类/专题/标签管理</title>
+    <title>分類/專題/標籤管理</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -32,7 +32,7 @@
         <div class="grid-btn">
             <a v-if="hasPermission('sys:taxonomy:save')" class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
             <a v-if="hasPermission('sys:taxonomy:update')" class="btn btn-info" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
-            <a v-if="hasPermission('sys:taxonomy:delete')" class="btn btn-danger" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+            <a v-if="hasPermission('sys:taxonomy:delete')" class="btn btn-danger" @click="del"><i class="fa fa-trash-o"></i>&nbsp;刪除</a>
         </div>
         <table id="taxonomyTable" data-mobile-responsive="true" data-click-to-select="true">
             <thead>
@@ -48,57 +48,57 @@
         <form class="form-horizontal">
             <input type="hidden" v-model="taxonomy.type"/>
             <div class="form-group">
-                <div class="col-sm-2 control-label">名称</div>
+                <div class="col-sm-2 control-label">名稱</div>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" v-model="taxonomy.name" placeholder="名称"/>
+                    <input type="text" class="form-control" v-model="taxonomy.name" placeholder="名稱"/>
                 </div>
             </div>
             <div v-if="type==0" class="form-group">
-                <div class="col-sm-2 control-label">上级分类</div>
+                <div class="col-sm-2 control-label">上級分類</div>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" style="cursor:pointer;" v-model="taxonomy.parentName" @click="taxonomyTree" readonly="readonly" placeholder="一级分类"/>
+                    <input type="text" class="form-control" style="cursor:pointer;" v-model="taxonomy.parentName" @click="taxonomyTree" readonly="readonly" placeholder="一級分類"/>
                 </div>
             </div>
             <div v-else-if="type==1" class="form-group">
-                <div class="col-sm-2 control-label">上级专题</div>
+                <div class="col-sm-2 control-label">上級專題</div>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" style="cursor:pointer;" v-model="taxonomy.parentName" @click="taxonomyTree" readonly="readonly" placeholder="一级专题"/>
+                    <input type="text" class="form-control" style="cursor:pointer;" v-model="taxonomy.parentName" @click="taxonomyTree" readonly="readonly" placeholder="一級專題"/>
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-sm-2 control-label">别名</div>
+                <div class="col-sm-2 control-label">別名</div>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" v-model="taxonomy.slug" placeholder="别名"/>
-                    <span>别名是在URL中使用的别称，它可以令URL更美观，更加有利于SEO。通常使用小写，只能包含字母，数字和连字符“-”（中划线），不能全是数字。</span>
+                    <input type="text" class="form-control" v-model="taxonomy.slug" placeholder="別名"/>
+                    <span>別名是在URL中使用的別稱，它可以令URL更美觀，更加有利於SEO。通常使用小寫，只能包含字母，數字和連字符“-”（中畫線），不能全是數字。</span>
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-sm-2 control-label">图标</div>
+                <div class="col-sm-2 control-label">圖標</div>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" v-model="taxonomy.icon"/>
-                    <code style="margin-top:4px;display: block;">获取图标：http://fontawesome.io/icons/</code>
+                    <code style="margin-top:4px;display: block;">獲取圖標：http://fontawesome.io/icons/</code>
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-sm-2 control-label">排序号</div>
+                <div class="col-sm-2 control-label">排序號</div>
                 <div class="col-sm-10">
                     <input type="number" class="form-control" v-model="taxonomy.orderNum"/>
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-sm-2 control-label">标识</div>
+                <div class="col-sm-2 control-label">標識</div>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" v-model="taxonomy.flag"/>
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-sm-2 control-label">备注</div>
+                <div class="col-sm-2 control-label">備註</div>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" v-model="taxonomy.remark"/>
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-sm-2 control-label">SEO关键字</div>
+                <div class="col-sm-2 control-label">SEO關鍵字</div>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" v-model="taxonomy.metaKeywords"/>
                 </div>
@@ -111,7 +111,7 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-2 control-label"></div>
-                <input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+                <input type="button" class="btn btn-primary" @click="saveOrUpdate" value="確定"/>
                 &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
             </div>
         </form>
@@ -119,7 +119,7 @@
 
 </div>
 
-<!-- 选择分类/专题 -->
+<!-- 選擇分類/專題 -->
 <div id="taxonomyLayer" style="display: none;padding:10px;">
     <ul id="taxonomyTree" class="ztree"></ul>
 </div>

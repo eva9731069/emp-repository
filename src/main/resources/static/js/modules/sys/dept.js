@@ -33,7 +33,7 @@ $(function () {
             order: "order"
         },
         gridComplete:function(){
-        	//隐藏grid底部滚动条
+        	//隱藏grid底部滾動條
         	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
         }
     });
@@ -116,7 +116,7 @@ var vm = new Vue({
             });
 		},
 		 getDept: function(){
-	            //加载部门树
+	            //加載部門樹
 	            $.get(baseURL + "/sys/dept/select", function(r){
 	                ztree = $.fn.zTree.init($("#deptTree"), setting, r.deptList);
 	                var node = ztree.getNodeByParam("id", vm.dept.parentId);

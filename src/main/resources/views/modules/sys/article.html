@@ -28,14 +28,14 @@
         <div class="grid-btn">
             <div class="form-group col-sm-2">
                 <input type="text" class="form-control" v-model="q.keyword" @keyup.enter="query"
-                       placeholder="输入标题，别名进行搜索">
+                       placeholder="輸入標題，別名進行搜索">
             </div>
-            <a class="btn btn-default" @click="query"><i class="fa fa-search">&nbsp;查询</i></a>
+            <a class="btn btn-default" @click="query"><i class="fa fa-search">&nbsp;查詢</i></a>
             <a v-if="hasPermission('sys:article:save')" class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
             <a v-if="hasPermission('sys:article:update')" class="btn btn-warning" @click="update"><i
                     class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
             <a v-if="hasPermission('sys:article:delete')" class="btn btn-danger" @click="del"><i
-                    class="fa fa-trash-o"></i>&nbsp;删除</a>
+                    class="fa fa-trash-o"></i>&nbsp;刪除</a>
         </div>
         <table id="jqGrid"></table>
         <div id="jqGridPager"></div>
@@ -45,17 +45,17 @@
         <div class="panel-heading">{{title}}</div>
         <form class="form-horizontal">
             <div class="form-group">
-                <label class="input-title">标题</label>
-                <input type="text" class="form-control" v-model="article.title" placeholder="标题"/>
+                <label class="input-title">標题</label>
+                <input type="text" class="form-control" v-model="article.title" placeholder="標题"/>
             </div>
             <div class="form-group">
-                <label class="input-title">缩略图</label>
-                <input type="hidden" class="form-control" v-model="article.image" placeholder="缩略图"/>
+                <label class="input-title">縮略圖</label>
+                <input type="hidden" class="form-control" v-model="article.image" placeholder="缩略圖"/>
                 <div class="thumbnail" style="text-align: center;">
                     <img class="img-thumbnail" style="width: 55%;height: 55%;" :src="article.image">
                     <div class="caption">
-                        <a class="btn btn-link" @click="openAttachmentLayer">选择缩略图</a>
-                        <a class="btn btn-link" @click="removeAttachment">移除缩略图</a>
+                        <a class="btn btn-link" @click="openAttachmentLayer">選擇縮略圖</a>
+                        <a class="btn btn-link" @click="removeAttachment">移除縮略圖</a>
                     </div>
                 </div>
             </div>
@@ -67,7 +67,7 @@
 
             <div class="form-group" style="text-align: center;">
                 <div class="col-sm-2 control-label"></div>
-                <input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+                <input type="button" class="btn btn-primary" @click="saveOrUpdate" value="確定"/>
                 &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
             </div>
         </form>

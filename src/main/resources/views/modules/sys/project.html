@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>群組管理</title>
+<title>專案管理</title>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -24,7 +24,7 @@
 	<div v-show="showList">
 		<div class="grid-btn">
 			<div class="form-group col-sm-2">
-				<input type="text" class="form-control" v-model="q.name" @keyup.enter="query" placeholder="輸入群組名稱">
+				<input type="text" class="form-control" v-model="q.name" @keyup.enter="query" placeholder="輸入專案名稱">
 			</div>
 			<a class="btn btn-default" @click="query"><i class="fa fa-search">&nbsp;查詢</i></a>
 			
@@ -40,9 +40,9 @@
 		<div class="panel-heading">{{title}}</div>
 		<form class="form-horizontal">
 			<div class="form-group">
-			   	<div class="col-sm-2 control-label">群組名稱</div>
+			   	<div class="col-sm-2 control-label">專案名稱</div>
 			   	<div class="col-sm-10">
-			      <input type="text" class="form-control" v-model="role.name" placeholder="群組名稱"/>
+			      <input type="text" class="form-control" v-model="role.name" placeholder="專案名稱"/>
 			    </div>
 			</div>
 			<div class="form-group">
@@ -66,6 +66,6 @@
 	</div>
 </div>
    
-<script src="../../js/modules/sys/role.js"></script>
+<script src="../../js/modules/sys/project.js"></script>
 </body>
 </html>

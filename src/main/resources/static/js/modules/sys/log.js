@@ -7,7 +7,7 @@ $(function () {
 			{ label: '使用者名稱', name: 'username', width: 50 }, 			
 			{ label: '使用者操作', name: 'operation', width: 70 }, 			
 			{ label: 'IP地址', name: 'ip', width: 70 }, 			
-			{ label: '建立時間', name: 'createTime',index: 'create_time', width: 90 }
+			{ label: '創建時間', name: 'createTime',index: 'create_time', width: 90 }
         ],
 		viewrecords: true,
         height: 385,
@@ -30,7 +30,7 @@ $(function () {
             order: "order"
         },
         gridComplete:function(){
-        	//隐藏grid底部滚动条
+        	//隱藏grid底部滾動條
         	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
         }
     });

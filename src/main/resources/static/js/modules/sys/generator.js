@@ -5,8 +5,8 @@ $(function () {
         colModel: [			
 			{ label: '表名', name: 'tableName', width: 100, key: true },
 			{ label: 'Engine', name: 'engine', width: 70},
-			{ label: '表备注', name: 'tableComment', width: 100 },
-			{ label: '创建时间', name: 'createTime',index: 'create_time', width: 100 }
+			{ label: '表備註', name: 'tableComment', width: 100 },
+			{ label: '創建時間', name: 'createTime',index: 'create_time', width: 100 }
         ],
 		viewrecords: true,
         height: 385,
@@ -29,7 +29,7 @@ $(function () {
             order: "order"
         },
         gridComplete:function(){
-        	//隐藏grid底部滚动条
+        	//隱藏grid底部滾動條
         	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
         }
     });

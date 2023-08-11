@@ -26,7 +26,7 @@ var vm = new Vue({
     },
     methods: {
         getDept: function(){
-            //加载部门树
+            //加載部門樹
             $.get(baseURL + "/sys/dept/select", function(r){
                 ztree = $.fn.zTree.init($("#deptTree"), setting, r.deptList);
                 var node = ztree.getNodeByParam("id", vm.dept.parentId);
@@ -109,7 +109,7 @@ var vm = new Vue({
                 btn: ['確定', '取消'],
                 btn1: function (index) {
                     var node = ztree.getSelectedNodes();
-                    //选择上级部门
+                    //選擇上級部門
                     vm.dept.parentId = node[0].id;
                     vm.dept.parentName = node[0].name;
 
@@ -136,8 +136,8 @@ var Dept = {
 Dept.initColumn = function () {
     var columns = [
         {field: 'selectItem', radio: true},
-        /*{title: '部门ID', field: 'id', visible: false, align: 'center', valign: 'middle', width: '80px'},*/
-        {title: '部們名稱', field: 'name', align: 'center', valign: 'middle', sortable: true, width: '180px'},
+        /*{title: '部門ID', field: 'id', visible: false, align: 'center', valign: 'middle', width: '80px'},*/
+        {title: '部門名稱', field: 'name', align: 'center', valign: 'middle', sortable: true, width: '180px'},
         {title: '上級部門', field: 'parentName', index: 'parent_name',align: 'center', valign: 'middle', sortable: true, width: '180px'},
         {title: '排序', field: 'orderNum', align: 'center', valign: 'middle', sortable: true, width: '100px'}]
     return columns;

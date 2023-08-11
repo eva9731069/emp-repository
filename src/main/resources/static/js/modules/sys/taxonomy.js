@@ -28,7 +28,7 @@ var vm = new Vue({
     },
     methods: {
         getTaxonomy: function(){
-            //加载树
+            //加載樹
             $.get(baseURL + "/sys/taxonomy/select", {type: vm.type}, function(r){
                 ztree = $.fn.zTree.init($("#taxonomyTree"), setting, r.taxonomyList);
                 var node = ztree.getNodeByParam("id", vm.taxonomy.parentId);
@@ -68,7 +68,7 @@ var vm = new Vue({
                 return ;
             }
 
-            confirm('确定要删除选中的记录？', function(){
+            confirm('確定要刪除選中的記錄？', function(){
                 $.ajax({
                     type: "POST",
                     url: baseURL + "/sys/taxonomy/delete",
@@ -108,15 +108,15 @@ var vm = new Vue({
                 type: 1,
                 offset: '50px',
                 skin: 'layui-layer-molv',
-                title: "选择",
+                title: "選擇",
                 area: ['300px', '450px'],
                 shade: 0,
                 shadeClose: false,
                 content: jQuery("#taxonomyLayer"),
-                btn: ['确定', '取消'],
+                btn: ['確定', '取消'],
                 btn1: function (index) {
                     var node = ztree.getSelectedNodes();
-                    //选择上级
+                    //選擇上級
                     vm.taxonomy.parentId = node[0].id;
                     vm.taxonomy.parentName = node[0].name;
 
@@ -142,36 +142,36 @@ Taxonomy.initColumn = function () {
         var columns = [
             {field: 'selectItem', radio: true},
             /*{title: 'id', field: 'id', visible: false, align: 'center', valign: 'middle', width: '80px'},*/
-            {title: '名称', field: 'name', align: 'center', valign: 'middle', sortable: true, width: '180px'},
-            {title: '上级分类', field: 'parentName', align: 'center', valign: 'middle', sortable: true, width: '100px'},
-            {title: '别名', field: 'slug', align: 'center', valign: 'middle', sortable: true, width: '160px'},
-            {title: '图标', field: 'icon', align: 'center', valign: 'middle', sortable: true, width: '80px', formatter: function(item, index){
+            {title: '名稱', field: 'name', align: 'center', valign: 'middle', sortable: true, width: '180px'},
+            {title: '上級分類', field: 'parentName', align: 'center', valign: 'middle', sortable: true, width: '100px'},
+            {title: '別名', field: 'slug', align: 'center', valign: 'middle', sortable: true, width: '160px'},
+            {title: '圖標', field: 'icon', align: 'center', valign: 'middle', sortable: true, width: '80px', formatter: function(item, index){
                 return item.icon == null ? '' : '<i class="'+item.icon+' fa-lg"></i>';
             }},
-            {title: '排序号', field: 'orderNum', align: 'center', valign: 'middle', sortable: true, width: '100px'}]
+            {title: '排序號', field: 'orderNum', align: 'center', valign: 'middle', sortable: true, width: '100px'}]
         return columns;
     }else if(vm.type==1){
         var columns = [
             {field: 'selectItem', radio: true},
             /*{title: 'id', field: 'id', visible: false, align: 'center', valign: 'middle', width: '80px'},*/
-            {title: '名称', field: 'name', align: 'center', valign: 'middle', sortable: true, width: '180px'},
-            {title: '上级专题', field: 'parentName', align: 'center', valign: 'middle', sortable: true, width: '100px'},
-            {title: '别名', field: 'slug', align: 'center', valign: 'middle', sortable: true, width: '160px'},
-            {title: '图标', field: 'icon', align: 'center', valign: 'middle', sortable: true, width: '80px', formatter: function(item, index){
+            {title: '名稱', field: 'name', align: 'center', valign: 'middle', sortable: true, width: '180px'},
+            {title: '上級專題', field: 'parentName', align: 'center', valign: 'middle', sortable: true, width: '100px'},
+            {title: '別名', field: 'slug', align: 'center', valign: 'middle', sortable: true, width: '160px'},
+            {title: '圖標', field: 'icon', align: 'center', valign: 'middle', sortable: true, width: '80px', formatter: function(item, index){
                 return item.icon == null ? '' : '<i class="'+item.icon+' fa-lg"></i>';
             }},
-            {title: '排序号', field: 'orderNum', align: 'center', valign: 'middle', sortable: true, width: '100px'}]
+            {title: '排序號', field: 'orderNum', align: 'center', valign: 'middle', sortable: true, width: '100px'}]
         return columns;
     }else if(vm.type==2){
         var columns = [
             {field: 'selectItem', radio: true},
             /*{title: 'id', field: 'id', visible: false, align: 'center', valign: 'middle', width: '80px'},*/
-            {title: '名称', field: 'name', align: 'center', valign: 'middle', sortable: true, width: '180px'},
-            {title: '别名', field: 'slug', align: 'center', valign: 'middle', sortable: true, width: '160px'},
-            {title: '图标', field: 'icon', align: 'center', valign: 'middle', sortable: true, width: '80px', formatter: function(item, index){
+            {title: '名稱', field: 'name', align: 'center', valign: 'middle', sortable: true, width: '180px'},
+            {title: '別名', field: 'slug', align: 'center', valign: 'middle', sortable: true, width: '160px'},
+            {title: '圖標', field: 'icon', align: 'center', valign: 'middle', sortable: true, width: '80px', formatter: function(item, index){
                 return item.icon == null ? '' : '<i class="'+item.icon+' fa-lg"></i>';
             }},
-            {title: '排序号', field: 'orderNum', align: 'center', valign: 'middle', sortable: true, width: '100px'}]
+            {title: '排序號', field: 'orderNum', align: 'center', valign: 'middle', sortable: true, width: '100px'}]
         return columns;
     }
 };
@@ -179,7 +179,7 @@ Taxonomy.initColumn = function () {
 function getTaxonomyId () {
     var selected = $('#taxonomyTable').bootstrapTreeTable('getSelections');
     if (selected.length == 0) {
-        alert("请选择一条记录");
+        alert("請選擇一條記錄");
         return;
     } else {
         return selected[0].id;

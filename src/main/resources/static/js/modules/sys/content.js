@@ -5,10 +5,10 @@ $(function () {
         colModel: [			
 			{ label: 'id', name: 'id', index: 'id', key: true, hidden: true },
 			{ label: '標題', name: 'title', width: 120 },
-            { label: '分类', name: 'categorys', width: 100 },
-            { label: '专题', name: 'features', width: 100 },
-            { label: '标签', name: 'tags', width: 100 },
-			{ label: '创建时间', name: 'createTime',index: 'create_time', width: 90 }
+            { label: '分類', name: 'categorys', width: 100 },
+            { label: '專題', name: 'features', width: 100 },
+            { label: '標籤', name: 'tags', width: 100 },
+			{ label: '創建時間', name: 'createTime',index: 'create_time', width: 90 }
         ],
 		viewrecords: true,
         height: 385,
@@ -31,7 +31,7 @@ $(function () {
             order: "order"
         },
         gridComplete:function(){
-        	//隐藏grid底部滚动条
+        	//隱藏grid底部滾動條
         	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
         }
     });
@@ -89,11 +89,11 @@ var vm = new Vue({
                 tagNames:null
 			};
             setTinymceContent('');
-            //获取分类、专题树
+            //獲取分類、專題樹
             this.getCategoryTree();
             this.getFeatureTree();
 
-            //清空tagEditor数据
+            //清空tagEditor數據
             $(".tag-editor li:not(:first)").remove();
 		},
 		update: function () {
@@ -106,17 +106,17 @@ var vm = new Vue({
 
             vm.getInfo(id);
 
-            //清空tagEditor数据
+            //清空tagEditor數據
             $(".tag-editor li:not(:first)").remove();
 		},
 		saveOrUpdate: function () {
-		    //获取编辑器内容
+		    //獲取編輯器内容
             vm.content.text=getTinymceContent();
 
-            //获取标签
+            //獲取標籤
             vm.content.tagNames=$("#contentTags").tagEditor('getTags')[0].tags;
 
-            //获取选择的分类、专题
+            //獲取選擇的分類、專題
             var taxonomyIdList = new Array();
             var categoryNodes = categoryZtree.getCheckedNodes(true);
             for(var i=0; i<categoryNodes.length; i++) {
@@ -151,7 +151,7 @@ var vm = new Vue({
 				return ;
 			}
 			
-			confirm('确定要删除选中的记录？', function(){
+			confirm('確定要刪除選中的記錄？', function(){
 				$.ajax({
 					type: "POST",
 				    url: baseURL + "/sys/content/delete",
@@ -175,12 +175,12 @@ var vm = new Vue({
 
                 setTinymceContent(r.content.text);
 
-                //勾选内容所拥有的分类、专题
+                //勾選内容所擁有的分類、專題
                 var taxonomyIds = vm.content.taxonomyIdList;
                 vm.getCategoryTree(vm.getCategoryTreeCallback, taxonomyIds);
                 vm.getFeatureTree(vm.getFeatureTreeCallback, taxonomyIds);
 
-                //设置标签
+                //設置標籤
                 var contentTags=vm.content.tagNames;
                 if(contentTags){
                     for(var i=0; i<contentTags.length; i++) {
@@ -207,10 +207,10 @@ var vm = new Vue({
             vm.content.thumbnail=null;
         },
 		getCategoryTree: function (callback, taxonomyIds) {
-            //加载分类树
+            //加載分類樹
             $.get(baseURL + "/sys/taxonomy/selectByType", {type:0}, function(r){
                 categoryZtree = $.fn.zTree.init($("#categoryTree"), setting, r);
-                //展开所有节点
+                //展開所有節點
                 categoryZtree.expandAll(true);
 
                 if(callback){
@@ -229,10 +229,10 @@ var vm = new Vue({
             }
         },
         getFeatureTree: function (callback, taxonomyIds) {
-            //加载专题树
+            //加載分類樹
             $.get(baseURL + "/sys/taxonomy/selectByType", {type:1}, function(r){
                 featureZtree = $.fn.zTree.init($("#featureTree"), setting, r);
-                //展开所有节点
+                //展開所有節點
                 featureZtree.expandAll(true);
 
                 if(callback){

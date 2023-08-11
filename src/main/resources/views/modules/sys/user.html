@@ -29,7 +29,7 @@
 			<a class="btn btn-default" @click="query"><i class="fa fa-search">&nbsp;查詢</i></a>
 			<a v-if="hasPermission('sys:user:save')" class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
 			<a v-if="hasPermission('sys:user:update')" class="btn btn-info" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
-			<a v-if="hasPermission('sys:user:delete')" class="btn btn-danger" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+			<a v-if="hasPermission('sys:user:delete')" class="btn btn-danger" @click="del"><i class="fa fa-trash-o"></i>&nbsp;刪除</a>
 		</div>
 	    <table id="jqGrid"></table>
 	    <div id="jqGridPager"></div>
@@ -94,7 +94,7 @@
 	</div>
 </div>
 
-<!-- 选择部门 -->
+<!-- 選擇部門 -->
 <div id="deptLayer" style="display: none;padding:10px;">
 	<ul id="deptTree" class="ztree"></ul>
 </div>

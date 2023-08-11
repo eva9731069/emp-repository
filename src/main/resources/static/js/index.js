@@ -1,4 +1,4 @@
-//生成菜单
+//生成菜單
 var menuItem = Vue.extend({
     name: 'menu-item',
     props:{item:{},index:0},
@@ -20,7 +20,7 @@ var menuItem = Vue.extend({
     ].join('')
 });
 
-//iframe自适应
+//iframe自適應
 $(window).on('resize', function() {
 	var $content = $('.content');
 	$content.height($(this).height() - 120);
@@ -29,7 +29,7 @@ $(window).on('resize', function() {
 	});
 }).resize();
 
-//注册菜单组件
+//注冊菜單组件
 Vue.component('menuItem',menuItem);
 
 var vm = new Vue({
@@ -90,9 +90,9 @@ var vm = new Vue({
                 url: baseURL + "/sys/logout",
                 dataType: "json",
                 success: function(r){
-                    //删除本地token
+                    //刪除本地token
                     localStorage.removeItem("X-Token");
-                    //跳转到登录页面
+                    //跳轉到登入頁面
                     location.href = baseURL + '/login.html';
                 }
             });
@@ -119,10 +119,10 @@ function routerList(router, menuList){
 			router.add('#'+menu.url, function() {
 				var url = window.location.hash;
 
-				//替换iframe的url
+				//替換iframe的url
 			    vm.main = url.replace('#', '');
 			    
-			    //导航菜单展开
+			    //導航菜單展開
 			    $(".treeview-menu li").removeClass("active");
                 $(".sidebar-menu li").removeClass("active");
 			    $("a[href='"+url+"']").parents("li").addClass("active");

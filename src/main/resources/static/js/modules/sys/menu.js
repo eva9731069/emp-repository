@@ -27,7 +27,7 @@ var vm = new Vue({
     },
     methods: {
         getMenu: function(){
-            //加载菜单树
+            //加載菜單樹
             $.get(baseURL + "/sys/menu/select", function(r){
                 ztree = $.fn.zTree.init($("#menuTree"), setting, r.menuList);
                 var node = ztree.getNodeByParam("id", vm.menu.parentId);
@@ -110,7 +110,7 @@ var vm = new Vue({
                 btn: ['確定', '取消'],
                 btn1: function (index) {
                     var node = ztree.getSelectedNodes();
-                    //选择上级菜单
+                    //選擇上級菜單
                     vm.menu.parentId = node[0].id;
                     vm.menu.parentName = node[0].name;
 
@@ -137,7 +137,7 @@ var Menu = {
 Menu.initColumn = function () {
     var columns = [
         {field: 'selectItem', radio: true},
-        /*{title: '菜单id', field: 'id', visible: false, align: 'center', valign: 'middle', width: '80px'},*/
+        /*{title: '菜單id', field: 'id', visible: false, align: 'center', valign: 'middle', width: '80px'},*/
         {title: '選單名稱', field: 'name', align: 'center', valign: 'middle', sortable: true, width: '160px'},
         {title: '母選單', field: 'parentName', align: 'center', valign: 'middle', sortable: true, width: '160px'},
         {title: '圖形', field: 'icon', align: 'center', valign: 'middle', sortable: true, width: '60px', formatter: function(item, index){
@@ -151,12 +151,12 @@ Menu.initColumn = function () {
                 return '<span class="label label-success">選單</span>';
             }
             if(item.type === 2){
-                return '<span class="label label-warning">按钮</span>';
+                return '<span class="label label-warning">按鈕</span>';
             }
         }},
         {title: '排序', field: 'orderNum', align: 'center', valign: 'middle', sortable: true, width: '60px'},
         {title: '選單URL', field: 'url', align: 'center', valign: 'middle', sortable: true, width: '160px'},
-        {title: '綬權', field: 'perms', align: 'center', valign: 'middle', sortable: true, width: '160px'}]
+        {title: '授權', field: 'perms', align: 'center', valign: 'middle', sortable: true, width: '160px'}]
     return columns;
 };
 

@@ -3,8 +3,8 @@ $(function () {
         url: baseURL + '/sys/role/list',
         datatype: "json",
         colModel: [			
-			{ label: '群組編號', name: 'id', index: 'id', key: true, hidden: true },
-			{ label: '群組名稱', name: 'name', index: 'name', width: 75 },
+			{ label: '備註編號', name: 'id', index: 'id', key: true, hidden: true },
+			{ label: '備註名稱', name: 'name', index: 'name', width: 75 },
 			{ label: '備註', name: 'remark', width: 100 },
 			{ label: '開始時間', name: 'createTime', index: 'create_time', width: 80}
         ],
@@ -147,7 +147,7 @@ var vm = new Vue({
 			});
 		},
 		getMenuTree: function(roleId) {
-			//加載菜單樹
+			//加載菜單數
 			$.get(baseURL + "/sys/menu/list", function(r){
 				ztree = $.fn.zTree.init($("#menuTree"), setting, r);
 				//展開所有節點

@@ -6,7 +6,7 @@ $.jgrid.defaults.styleUI = 'Bootstrap';
 //工具集合Tools
 window.T = {};
 
-// 获取请求参数
+// 獲取請求參數
 // 使用示例
 // location.href = http://localhost/index.html?id=123
 // T.p('id') --> 123;
@@ -18,7 +18,7 @@ var url = function (name) {
 };
 T.p = url;
 
-//请求前缀
+//請求前綴
 var baseURL = getRootPath();
 // var baseURL = "http://192.168.162.1:8889/vgk/dev/admin";
 
@@ -28,10 +28,10 @@ function getRootPath() {
     return projectName;
 }
 
-//上传文件的映射地址
+//上傳文件的映射地址
 var uploadFileResource = baseURL + '/uploadFile';
 
-//登录token
+//登入token
 var token = localStorage.getItem("X-Token");
 if (token == 'null') {
     parent.location.href = baseURL + '/login.html';
@@ -48,7 +48,7 @@ $.ajaxSetup({
         withCredentials: true
     },
     complete: function (xhr) {
-        //无效的token，则跳转到登录页面
+        //無效的token，則跳轉到登入页面
         if (xhr.responseJSON.code == 401) {
             parent.location.href = baseURL + '/login.html';
         }
@@ -64,7 +64,7 @@ $.extend($.jgrid.defaults, {
     }
 });
 
-//权限判断
+//權限判斷
 function hasPermission(permission) {
     if (window.parent.permissions.indexOf(permission) > -1) {
         return true;
@@ -73,7 +73,7 @@ function hasPermission(permission) {
     }
 }
 
-//重写alert
+//重寫alert
 window.alert = function (msg, callback) {
     parent.layer.alert(msg, function (index) {
         parent.layer.close(index);
@@ -83,17 +83,17 @@ window.alert = function (msg, callback) {
     });
 }
 
-//重写confirm式样框
+//重寫confirm式樣框
 window.confirm = function (msg, callback) {
     parent.layer.confirm(msg, {btn: ['確定', '取消']},
-        function () {//确定事件
+        function () {//確定事件
             if (typeof(callback) === "function") {
                 callback("ok");
             }
         });
 }
 
-//选择一条记录
+//選擇一條記錄
 function getSelectedRow() {
     var grid = $("#jqGrid");
     var rowKey = grid.getGridParam("selrow");
@@ -111,7 +111,7 @@ function getSelectedRow() {
     return selectedIDs[0];
 }
 
-//选择多条记录
+//選擇多條記錄
 function getSelectedRows() {
     var grid = $("#jqGrid");
     var rowKey = grid.getGridParam("selrow");
@@ -123,7 +123,7 @@ function getSelectedRows() {
     return grid.getGridParam("selarrrow");
 }
 
-//判断是否为空
+//判斷是否為空
 function isBlank(value) {
     return !value || !/\S/.test(value);
 }
@@ -140,7 +140,7 @@ function openLayer(width, height, title, div) {
 }
 
 
-//选择附件layer
+//選擇附件layer
 function openAttachmentLayer(callback, mime_type) {
     var attachment_jqGrid = $("#attachment_jqGrid");
 
@@ -155,7 +155,7 @@ function openAttachmentLayer(callback, mime_type) {
         btn1: function (index) {
             var rowKey = attachment_jqGrid.getGridParam("selrow");
             if (!rowKey) {
-                alert("请选择一条记录");
+                alert("請選擇一條記錄");
                 return;
             }
 
@@ -190,7 +190,7 @@ function openAttachmentLayer(callback, mime_type) {
                 }
             }
             },
-            {label: '建立時間', name: 'createTime', index: 'create_time', width: 90}
+            {label: '創建時間', name: 'createTime', index: 'create_time', width: 90}
         ],
         viewrecords: true,
         height: 450,
@@ -213,13 +213,13 @@ function openAttachmentLayer(callback, mime_type) {
             order: "order"
         },
         gridComplete: function () {
-            //隐藏grid底部滚动条
+            //隱藏grid底部滾動條
             attachment_jqGrid.closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
         }
     });
 }
 
-//创建attachment-layer组件
+//創建attachment-layer组件
 var attachmentLayerTemplate = Vue.extend({
     template: [
         '<div id="attachmentLayer" style="display: none;">',
@@ -250,7 +250,7 @@ var attachmentLayerTemplate = Vue.extend({
 
 Vue.component('attachment-layer', attachmentLayerTemplate);
 
-//文本编辑器
+//文本編輯器
 function initTinymce() {
     tinymce.init({
         selector: '#textarea',
@@ -279,12 +279,12 @@ function initTinymce() {
     });
 }
 
-//获取文本编辑器内容
+//獲取文本編輯器内容
 function getTinymceContent() {
     return tinymce.activeEditor.getBody().innerHTML;
 }
 
-//设置文本编辑器内容
+//設置文本編輯器内容
 function setTinymceContent(text) {
     tinymce.activeEditor.setContent(text);
 }

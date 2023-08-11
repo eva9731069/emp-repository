@@ -4,8 +4,8 @@ $(function () {
         datatype: "json",
         colModel: [			
 			{ label: 'id', name: 'id', index: 'id', key: true, hidden: true },
-			{ label: '标题', name: 'title', width: 100 },
-            { label: '缩略图', name: 'path', width: 100, formatter: function(value, options, row){
+			{ label: '標題', name: 'title', width: 100 },
+            { label: '縮略圖', name: 'path', width: 100, formatter: function(value, options, row){
                 var mime=row.mimeType;
                 if(mime.indexOf('image') >= 0){
                     return '<img class="img-thumbnail" style="width: 60px;height: 60px;" src="'+uploadFileResource+value+'" >';
@@ -17,9 +17,9 @@ $(function () {
                     return '<img class="img-thumbnail" style="width: 60px;height: 60px;" src="'+baseURL+'/image/file.jpg" >';
                 }
             } },
-			{ label: '后缀', name: 'suffix', width: 50 },
-            { label: '类型', name: 'mimeType', index: 'mime_type',width: 60 },
-            { label: '创建时间', name: 'createTime', index: 'create_time',width: 90 }
+			{ label: '檔案', name: 'suffix', width: 50 },
+            { label: '類型', name: 'mimeType', index: 'mime_type',width: 60 },
+            { label: '創建時間', name: 'createTime', index: 'create_time',width: 90 }
         ],
 		viewrecords: true,
         height: 385,
@@ -42,7 +42,7 @@ $(function () {
             order: "order"
         },
         gridComplete:function(){
-        	//隐藏grid底部滚动条
+        	//隱藏grid底部滾動條
         	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
         }
     });
@@ -55,7 +55,7 @@ $(function () {
         onSubmit:function(file, extension){
             layer.load(2);
             /*if (!(extension && /^(jpg|jpeg|png|gif)$/.test(extension.toLowerCase()))){
-                alert('只支持jpg、png、gif格式的图片！');
+                alert('只支持jpg、png、gif格式的圖片！');
                 return false;
             }*/
         },
@@ -116,7 +116,7 @@ var vm = new Vue({
 			if(ids == null){
 				return ;
 			}
-			confirm('确定要删除选中的记录？', function(){
+			confirm('確定要刪除選中的記錄？', function(){
 				$.ajax({
 					type: "POST",
 				    url: baseURL + "/sys/attachment/delete",

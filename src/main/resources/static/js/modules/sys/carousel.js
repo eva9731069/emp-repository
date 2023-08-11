@@ -6,8 +6,8 @@ $(function () {
 			{ label: 'id', name: 'id', index: 'id', width: 50, key: true },
 			{ label: '', name: 'title', index: 'title', width: 80 }, 			
 			{ label: '', name: 'image', index: 'image', width: 80 }, 			
-			{ label: 'pc端图片', name: 'pcImage', index: 'pc_image', width: 80 }, 			
-			{ label: '0:图片1：视频2：问卷3：链接4:测试电脑配置', name: 'type', index: 'type', width: 80 }, 			
+			{ label: 'pc端圖片', name: 'pcImage', index: 'pc_image', width: 80 },
+			{ label: '0:圖片1：影片2：問卷3：連結4:測試電腦配置', name: 'type', index: 'type', width: 80 },
 			{ label: '', name: 'content', index: 'content', width: 80 }, 			
 			{ label: '', name: 'createTime', index: 'create_time', width: 80 }, 			
 			{ label: '', name: 'updateTime', index: 'update_time', width: 80 }			
@@ -33,7 +33,7 @@ $(function () {
             order: "order"
         },
         gridComplete:function(){
-        	//隐藏grid底部滚动条
+        	//隱藏grid底部滾動條
         	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
         }
     });
@@ -89,7 +89,7 @@ var vm = new Vue({
 				return ;
 			}
 			
-			confirm('确定要删除选中的记录？', function(){
+			confirm('確定要刪除選中的記錄？', function(){
 				$.ajax({
 					type: "POST",
 				    url: baseURL + "/sys/carousel/delete",

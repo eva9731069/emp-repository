@@ -4,13 +4,13 @@ $(function () {
         datatype: "json",
         colModel: [			
 			{ label: 'id', name: 'ID', index: 'id', width: 50, key: true },
-			{ label: '', name: '名称', index: 'name', width: 80 },
-			{ label: '', name: '图片', index: 'image', width: 80 },
-			{ label: '', name: 'PC端图片', index: 'pc_image', width: 80 },
-			{ label: '', name: '视频链接', index: 'video', width: 80 },
-			{ label: '', name: '预览图片', index: 'preview_image', width: 80 },
-			{ label: '', name: '预览链接', index: 'preview_video', width: 80 },
-			{ label: '', name: '创建时间', index: 'create_time', width: 80 },
+			{ label: '', name: '名稱', index: 'name', width: 80 },
+			{ label: '', name: '圖片', index: 'image', width: 80 },
+			{ label: '', name: 'PC端圖片', index: 'pc_image', width: 80 },
+			{ label: '', name: '影片連結', index: 'video', width: 80 },
+			{ label: '', name: '預覽圖片', index: 'preview_image', width: 80 },
+			{ label: '', name: '預覽連結', index: 'preview_video', width: 80 },
+			{ label: '', name: '創建時間', index: 'create_time', width: 80 },
         ],
 		viewrecords: true,
         height: 385,
@@ -33,7 +33,7 @@ $(function () {
             order: "order"
         },
         gridComplete:function(){
-        	//隐藏grid底部滚动条
+        	//隱藏grid底部滾動條
         	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
         }
     });
@@ -89,7 +89,7 @@ var vm = new Vue({
 				return ;
 			}
 			
-			confirm('确定要删除选中的记录？', function(){
+			confirm('確定要刪除選中的記錄？', function(){
 				$.ajax({
 					type: "POST",
 				    url: baseURL + "/sys/generals/delete",

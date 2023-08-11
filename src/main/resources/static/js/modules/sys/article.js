@@ -4,15 +4,15 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: 'id', name: 'id', index: 'id', width: 50, key: true},
-            {label: '标题', name: 'title', index: 'title', width: 80},
+            {label: '標題', name: 'title', index: 'title', width: 80},
             {
-                label: '缩略图', name: 'image', width: 100, formatter: function (value, options, row) {
+                label: '縮略圖', name: 'image', width: 100, formatter: function (value, options, row) {
                 return '<img class="img-thumbnail" style="width: 60px;height: 60px;" src="' +  value + '" >';
             }
             },
             // { label: '正文', name: 'content', index: 'content', width: 80 },
-            {label: '创建时间', name: 'createTime', index: 'create_time', width: 80},
-            {label: '最近一次修改时间', name: 'updateTime', index: 'update_time', width: 80}
+            {label: '創建時間', name: 'createTime', index: 'create_time', width: 80},
+            {label: '最近一次修改時間', name: 'updateTime', index: 'update_time', width: 80}
         ],
         viewrecords: true,
         height: 385,
@@ -35,7 +35,7 @@ $(function () {
             order: "order"
         },
         gridComplete: function () {
-            //隐藏grid底部滚动条
+            //隱藏grid底部滾動條
             $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
         }
     });
@@ -73,9 +73,9 @@ var vm = new Vue({
             vm.getInfo(id)
         },
         saveOrUpdate: function (event) {
-            //获取编辑器内容
+            //獲取編輯器内容
             vm.article.content = getTinymceContent();
-            console.info("获取编辑器内容:" + vm.article.content);
+            console.info("獲取編輯器内容:" + vm.article.content);
             var url = vm.article.id == null ? "/sys/article/save" : "/sys/article/update";
             $.ajax({
                 type: "POST",
@@ -99,7 +99,7 @@ var vm = new Vue({
                 return;
             }
 
-            confirm('确定要删除选中的记录？', function () {
+            confirm('確定要刪除選中的記錄？', function () {
                 $.ajax({
                     type: "POST",
                     url: baseURL + "/sys/article/delete",
