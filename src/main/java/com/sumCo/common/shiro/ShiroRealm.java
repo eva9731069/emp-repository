@@ -18,7 +18,7 @@ import java.util.Set;
 
 /**
  * @author oplus
- * @Description: TODO(认证)
+ * @Description: TODO(認證)
  * @date 2017-6-23 15:07
  */
 @Component
@@ -35,15 +35,13 @@ public class ShiroRealm extends AuthorizingRealm {
         return token instanceof ShiroToken;
     }
 
-    /**
-     * 授权
-     */
+
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         SysUser user = (SysUser)principals.getPrimaryPrincipal();
         Long userId = user.getId();
 
-        //用户权限列表
+
         Set<String> permsSet = sysUserService.getUserPermissions(userId);
 
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
@@ -51,25 +49,22 @@ public class ShiroRealm extends AuthorizingRealm {
         return info;
     }
 
-    /**
-     * 认证
-     */
+
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         String accessToken = (String) token.getPrincipal();
 
-        //根据accessToken，查询用户信息
+
         SysUserToken tokenEntity = sysUserTokenService.queryByToken(accessToken);
-        //token失效
+
         if(tokenEntity == null || tokenEntity.getExpireTime().getTime() < System.currentTimeMillis()){
-            throw new IncorrectCredentialsException("token失效，请重新登录");
+            throw new IncorrectCredentialsException("token失效，請重新登入");
         }
 
-        //查询用户信息
+
         SysUser user = sysUserService.queryObject(tokenEntity.getUserId());
-        //账号锁定
         if(Constant.UserStatus.DISABLE.getValue()==user.getStatus()){
-            throw new LockedAccountException("账号已被锁定,请联系管理员");
+            throw new LockedAccountException("帳號已被鎖定,請聯繫管理員");
         }
 
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, accessToken, getName());

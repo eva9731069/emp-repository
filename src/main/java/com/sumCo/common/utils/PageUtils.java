@@ -5,28 +5,28 @@ import java.util.List;
 
 /**
  * @author oplus
- * @Description: TODO(分页工具类)
+ * @Description: TODO(分頁工具類)
  * @date 2017-6-23 15:07
  */
 public class PageUtils implements Serializable {
 	private static final long serialVersionUID = 1L;
-	//总记录数
+	//總記錄數
 	private int totalCount;
-	//每页记录数
+	//每頁記錄數
 	private int pageSize;
-	//总页数
+	//總頁數
 	private int totalPage;
-	//当前页数
+	//當前頁數
 	private int currPage;
-	//列表数据
+	//列表數據
 	private List<?> list;
 	
 	/**
-	 * 分页
-	 * @param list        列表数据
-	 * @param totalCount  总记录数
-	 * @param pageSize    每页记录数
-	 * @param currPage    当前页数
+	 * 分頁
+	 * @param list        列表數據
+	 * @param totalCount  總記錄數
+	 * @param pageSize    每頁記錄數
+	 * @param currPage    當前頁數
 	 */
 	public PageUtils(List<?> list, int totalCount, int pageSize, int currPage) {
 		this.list = list;

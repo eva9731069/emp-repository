@@ -50,7 +50,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 	public void save(SysRole role) {
 		role.setCreateTime(new Date());
 		sysRoleDao.save(role);
-		//保存角色与菜单关系
+
 		sysRoleMenuService.saveOrUpdate(role.getId(), role.getMenuIdList());
 	}
 
@@ -58,7 +58,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 	@Transactional
 	public void update(SysRole role) {
 		sysRoleDao.update(role);
-		//更新角色与菜单关系
+
 		sysRoleMenuService.saveOrUpdate(role.getId(), role.getMenuIdList());
 	}
 
@@ -66,7 +66,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 	@Transactional
 	public void deleteBatch(Long[] ids) {
 		sysRoleDao.deleteBatch(ids);
-		//删除角色与菜单关系
+
 		sysRoleMenuService.deleteBatch(ids);
 	}
 

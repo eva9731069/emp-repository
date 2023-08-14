@@ -9,9 +9,9 @@ import com.sumCo.common.exception.AppException;
 import java.util.Set;
 
 /**
- * 参考文档：http://docs.jboss.org/hibernate/validator/5.4/reference/en-US/html_single/
+ * 參考文檔：http://docs.jboss.org/hibernate/validator/5.4/reference/en-US/html_single/
  * @author oplus
- * @Description: TODO(hibernate-validator校验工具类)
+ * @Description: TODO(hibernate-validator校驗工具類)
  * @date 2017-6-23 15:07
  */
 public class ValidatorUtils {
@@ -22,10 +22,10 @@ public class ValidatorUtils {
     }
 
     /**
-     * 校验对象
-     * @param object        待校验对象
-     * @param groups        待校验的组
-     * @throws AppException  校验不通过，AppException
+     * 校驗對象
+     * @param object        待校驗對象
+     * @param groups        待校驗的組
+     * @throws AppException  校驗不通過，AppException
      */
     public static void validateEntity(Object object, Class<?>... groups)
             throws AppException {

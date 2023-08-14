@@ -8,17 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author oplus
- * @Description: TODO(IP地址处理工具类)
+ * @Description: TODO(IP地址處理工具類)
  * @date 2017-6-23 15:07
  */
 public class IPUtils {
 	private static Logger logger = LoggerFactory.getLogger(IPUtils.class);
 
 	/**
-	 * 获取IP地址
+	 * 獲取IP地址
 	 * 
-	 * 使用Nginx等反向代理软件， 则不能通过request.getRemoteAddr()获取IP地址
-	 * 如果使用了多级反向代理的话，X-Forwarded-For的值并不止一个，而是一串IP地址，X-Forwarded-For中第一个非unknown的有效IP字符串，则为真实IP地址
+	 * 使用Nginx等反向代理軟件， 則不能通過request.getRemoteAddr()獲取IP地址
+	 * 如果使用了多級反向代理的話，X-Forwarded-For的值並不止一個，而是一串IP地址，X-Forwarded-For中第一個非unknown的有效IP字符串，則為真實IP地址
 	 */
 	public static String getIpAddr(HttpServletRequest request) {
     	String ip = null;
@@ -43,7 +43,7 @@ public class IPUtils {
         	logger.error("IPUtils ERROR ", e);
         }
 
-        //使用代理，则获取第一个IP地址
+
         if (StringUtils.isEmpty(ip) && ip.length() > 15) {
             if (ip.indexOf(",") > 0) {
                 ip = ip.substring(0, ip.indexOf(","));

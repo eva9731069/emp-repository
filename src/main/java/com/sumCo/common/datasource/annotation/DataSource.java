@@ -4,7 +4,7 @@ import java.lang.annotation.*;
 
 /**
  * @author oplus
- * @Description: TODO(多数据源注解)
+ * @Description: TODO(多數據源注解)
  * @date 2017-9-26 16:53
  */
 @Target(ElementType.METHOD)

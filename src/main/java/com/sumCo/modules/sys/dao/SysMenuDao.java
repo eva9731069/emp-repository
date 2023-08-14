@@ -10,18 +10,18 @@ import java.util.List;
 public interface SysMenuDao extends BaseDao<SysMenu> {
 	
 	/**
-	 * 根据父菜单，查询子菜单
-	 * @param parentId 父菜单ID
+	 * 根據父菜單，查詢子菜單
+	 * @param parentId 父菜單ID
 	 */
 	List<SysMenu> queryListByParentId(Long parentId);
 	
 	/**
-	 * 获取不包含按钮的菜单列表
+	 * 獲取不包含按鈕的菜單列表
 	 */
 	List<SysMenu> queryNotButtonList();
 	
 	/**
-	 * 查询用户的权限列表
+	 * 查詢用戶的權限列表
 	 */
 	List<SysMenu> queryUserList(Long userId);
 }

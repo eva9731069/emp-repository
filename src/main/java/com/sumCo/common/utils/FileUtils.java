@@ -27,7 +27,7 @@ import java.util.zip.ZipFile;
 
 /**
  * @author oplus
- * @Description: TODO(文件处理)
+ * @Description: TODO(文件處理)
  * @date 2017-6-23 15:07
  */
 public class FileUtils {
@@ -129,15 +129,13 @@ public class FileUtils {
 		}
 	}
 
-	/**
-	 * 获取临时目录
-	 */
+
 	public static String getTempPath(){
 		return System.getProperty("java.io.tmpdir");
 	}
 
 	/**
-	 * 文件下载
+	 * 文件下載
 	 * @param path
 	 * @param fileName
 	 * @param response
@@ -165,14 +163,14 @@ public class FileUtils {
 					i = bis.read(buffer);
 				}
 			} catch (Exception e) {
-				throw new AppException("系统异常");
+				throw new AppException("系統異常");
 			} finally {
 				try {
 					os.close();
 					bis.close();
 					fis.close();
 				} catch (Exception e) {
-					throw new AppException("系统异常");
+					throw new AppException("系統異常");
 				}
 			}
 		}

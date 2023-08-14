@@ -27,7 +27,7 @@ public class ApiInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        //接口方法如果没有Login注解，则不需要校验token
+
         Login annotation;
         if (handler instanceof HandlerMethod) {
             annotation = ((HandlerMethod) handler).getMethodAnnotation(Login.class);
@@ -39,19 +39,19 @@ public class ApiInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
 
-        //获取token
+
         String token = request.getHeader(jwtUtils.getHeader());
         if (StringUtils.isBlank(token)) {
             token = request.getParameter(jwtUtils.getHeader());
         }
 
-        //校验token
+
         if (StringUtils.isBlank(token)) {
-            throw new AppException(jwtUtils.getHeader() + "不能为空", HttpStatus.UNAUTHORIZED.value());
+            throw new AppException(jwtUtils.getHeader() + "不能為空", HttpStatus.UNAUTHORIZED.value());
         }
         Claims claims = jwtUtils.getClaimByToken(token);
         if (claims == null || jwtUtils.isTokenExpired(claims.getExpiration())) {
-            throw new AppException(jwtUtils.getHeader() + "已经失效", HttpStatus.UNAUTHORIZED.value());
+            throw new AppException(jwtUtils.getHeader() + "已經失效", HttpStatus.UNAUTHORIZED.value());
         }
 
         return true;

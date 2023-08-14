@@ -2,22 +2,22 @@ package com.sumCo.modules.sys.entity;
 
 /**
  * @author oplus
- * @Description: TODO(列的属性)
+ * @Description: TODO(列的屬性)
  * @date 2017-6-23 15:07
  */
 public class SysColumn {
 
 	//列名
     private String columnName;
-    //列名类型
+    //列名類型
     private String dataType;
-    //列名备注
+    //列名備註
     private String comments;
-    //属性名称(第一个字母大写)，如：user_name => UserName
+    //屬性名稱(第一個字母大寫)，如：user_name => UserName
     private String attrName;
-    //属性名称(第一个字母小写)，如：user_name => userName
+    //屬性名稱(第一個字母小寫)，如：user_name => userName
     private String attrname;
-    //属性类型
+    //屬性類型
     private String attrType;
     //auto_increment
     private String extra;

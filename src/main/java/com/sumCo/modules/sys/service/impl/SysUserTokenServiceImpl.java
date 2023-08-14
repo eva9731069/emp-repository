@@ -23,7 +23,7 @@ public class SysUserTokenServiceImpl implements SysUserTokenService {
 	@Autowired
 	private SysUserTokenRedis sysUserTokenRedis;
 	
-	//24小时后过期
+	//24小時後過期
 	private final static int EXPIRE = 86400;
 
 	@Override
@@ -62,15 +62,15 @@ public class SysUserTokenServiceImpl implements SysUserTokenService {
 
 	@Override
 	public Map<String, Object> createToken(long userId) {
-		//生成一个token
+		//生成一個token
 		String token = TokenGenerator.generateValue();
 
-		//当前时间
+
 		Date now = new Date();
-		//过期时间
+
 		Date expireTime = new Date(now.getTime() + EXPIRE * 1000);
 
-		//判断是否生成过token
+		//判斷是否生成過token
 		SysUserToken tokenEntity = queryByUserId(userId);
 		if(tokenEntity == null){
 			tokenEntity = new SysUserToken();
@@ -98,7 +98,7 @@ public class SysUserTokenServiceImpl implements SysUserTokenService {
 
 	@Override
 	public void logout(long userId) {
-		//生成一个token
+		//生成一個token
 		String token = TokenGenerator.generateValue();
 
 		//修改token

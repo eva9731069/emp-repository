@@ -43,7 +43,7 @@
 			 where id = #{id}
 	</update>
 	
-	<!-- 根据key，查询 -->
+	<!-- 根據key，查詢 -->
 	<select id="queryObjectByKey" parameterType="string" resultType="com.sumCo.modules.sys.entity.SysConfig">
 		select * from sys_config where `key` = #{key}
 	</select>

@@ -29,7 +29,7 @@ import java.util.Map;
 
 /**
  * @author oplus
- * @Description: TODO(登录相关)
+ * @Description: TODO(登入相關)
  * @date 2017-6-23 15:07
  */
 @RestController
@@ -47,9 +47,9 @@ public class SysLoginController extends AbstractController {
 		response.setHeader("Cache-Control", "no-store, no-cache");
 		response.setContentType("image/jpeg");
 
-		//生成文字验证码
+		//生成文字驗證碼
 		String text = producer.createText();
-		//生成图片验证码
+		//生成圖片驗證碼
 		BufferedImage image = producer.createImage(text);
 		//保存到shiro session
 		ShiroUtils.setSessionAttribute(Constants.KAPTCHA_SESSION_KEY, text);
@@ -60,7 +60,7 @@ public class SysLoginController extends AbstractController {
 	}
 
 	/**
-	 * 验证码开关
+	 * 驗證碼開關
 	 */
 	@RequestMapping("/sys/doGetKaptchaOnOff")
 	public Result doGetKaptchaOnOff(){
@@ -69,37 +69,37 @@ public class SysLoginController extends AbstractController {
 	}
 
 	/**
-	 * 登录
+	 * 登入
 	 */
 	@RequestMapping(value = "/sys/login", method = RequestMethod.POST)
 	public Result login(String username, String password, String captcha)throws IOException {
-		//验证码
+		//驗證碼
 		if(SpringContextUtils.getBean(KaptchaConfig.class).getKaptchaOpen()){
 			String kaptcha = getKaptcha(Constants.KAPTCHA_SESSION_KEY);
 			if(!captcha.equalsIgnoreCase(kaptcha)){
-				return Result.error("验证码不正确");
+				return Result.error("驗證碼不正確");
 			}
 		}
 
-		//用户信息
+		//用戶信息
 		SysUser user = sysUserService.queryByUserName(username);
 
-		//账号不存在
+		//帳號不存在
 		if(user == null) {
-			return Result.error("账号不存在");
+			return Result.error("帳號不存在");
 		}
 
-		//密码错误
+		//密碼錯誤
 //		if(!user.getPassword().equals(new Sha256Hash(password, user.getSalt()).toHex())) {
-//			return Result.error("密码不正确");
+//			return Result.error("密碼不正確");
 //		}
 
-		//账号锁定
+		//帳號鎖定
 		if(Constant.UserStatus.DISABLE.getValue() == user.getStatus()){
-			return Result.error("账号已被锁定,请联系管理员");
+			return Result.error("帳號已被鎖定,請聯繫管理員");
 		}
 
-		//生成token，并保存到数据库
+		//生成token，並保存到數據庫
 		Map<String, Object> result=sysUserTokenService.createToken(user.getId());
 		Result r =Result.ok().put(result);
 		return r;
@@ -115,12 +115,12 @@ public class SysLoginController extends AbstractController {
 	}
 
 	/**
-	 *从session中获取记录的验证码
+	 *从session中獲取記錄的驗證碼
 	 */
 	private String getKaptcha(String key) {
 		Object kaptcha = ShiroUtils.getSessionAttribute(key);
 		if(kaptcha == null){
-			throw new AppException("验证码已失效");
+			throw new AppException("驗證碼已失效");
 		}
 		ShiroUtils.getSession().removeAttribute(key);
 		return kaptcha.toString();

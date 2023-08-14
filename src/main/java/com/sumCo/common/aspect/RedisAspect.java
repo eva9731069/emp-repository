@@ -12,7 +12,7 @@ import com.sumCo.common.exception.AppException;
 
 /**
  * @author oplus
- * @Description: TODO(Redis切面处理类)
+ * @Description: TODO(Redis切面處理類)
  * @date 2017-6-23 15:07
  */
 @Aspect
@@ -21,7 +21,7 @@ public class RedisAspect {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    //是否开启redis缓存  true开启   false关闭
+    //是否開啟redis緩存  true開啟   false關閉
     @Value("${spring.redis.open: #{false}}")
     private boolean open;
 
@@ -33,7 +33,7 @@ public class RedisAspect {
                 result = point.proceed();
             }catch (Exception e){
                 logger.error("redis error", e);
-                throw new AppException("Redis服务异常");
+                throw new AppException("Redis服務異常");
             }
         }
         return result;

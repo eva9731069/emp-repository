@@ -22,7 +22,7 @@ import java.util.Date;
 
 /**
  * @author oplus
- * @Description: TODO(系统日志，切面处理类)
+ * @Description: TODO(系統日誌，切面處理類)
  * @date 2017-6-23 15:07
  */
 @Aspect
@@ -40,12 +40,12 @@ public class SysLogAspect {
 	@Around("logPointCut()")
 	public Object around(ProceedingJoinPoint point) throws Throwable {
 		long beginTime = System.currentTimeMillis();
-		//执行方法
+		//執行方法
 		Object result = point.proceed();
-		//执行时长(毫秒)
+		//執行時長(毫秒)
 		long time = System.currentTimeMillis() - beginTime;
 
-		//保存日志
+		//保存日誌
 		saveSysLog(point, time);
 
 		return result;
@@ -62,12 +62,12 @@ public class SysLogAspect {
 			sysLog.setOperation(log.value());
 		}
 
-		//请求的方法名
+		//請求的方法名
 		String className = joinPoint.getTarget().getClass().getName();
 		String methodName = signature.getName();
 		sysLog.setMethod(className + "." + methodName + "()");
 
-		//请求的参数
+		//請求的參數
 		Object[] args = joinPoint.getArgs();
 		try{
 			String params = new Gson().toJson(args[0]);
@@ -76,18 +76,18 @@ public class SysLogAspect {
 
 		}
 
-		//获取request
+		//獲取request
 		HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
-		//设置IP地址
+		//設置IP地址
 		sysLog.setIp(IPUtils.getIpAddr(request));
 
-		//用户名
+		//用戶名
 		String username = ((SysUser) SecurityUtils.getSubject().getPrincipal()).getUsername();
 		sysLog.setUsername(username);
 
 		sysLog.setTime(time);
 		sysLog.setCreateTime(new Date());
-		//保存系统日志
+		//保存系統日誌
 		sysLogService.save(sysLog);
 	}
 	

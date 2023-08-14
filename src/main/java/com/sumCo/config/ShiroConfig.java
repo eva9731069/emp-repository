@@ -67,7 +67,7 @@ public class ShiroConfig {
         filterMap.put("/favicon.ico", "anon");
         filterMap.put("/captcha.jpg", "anon");
         filterMap.put("/image/**", "anon");
-        filterMap.put("/uploadFile/**", "anon");//上传文件映射的地址
+        filterMap.put("/uploadFile/**", "anon");
         filterMap.put("/", "anon");
         filterMap.put("/**", "shiro");
         shiroFilter.setFilterChainDefinitionMap(filterMap);

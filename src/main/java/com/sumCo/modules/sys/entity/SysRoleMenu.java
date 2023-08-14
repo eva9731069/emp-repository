@@ -3,7 +3,7 @@ package com.sumCo.modules.sys.entity;
 import java.io.Serializable;
 
 /**
- * 角色与菜单对应关系
+ * 角色與菜單對應關係
  * 
  * @author chenshun
  * @email sunlightcs@gmail.com
@@ -18,13 +18,11 @@ public class SysRoleMenu implements Serializable {
 	 */
 	private Long roleId;
 
-	/**
-	 * 菜单ID
-	 */
+
 	private Long menuId;
 
 	/**
-	 * 设置：
+	 * 設置：
 	 * @param id 
 	 */
 	public void setId(Long id) {
@@ -32,7 +30,7 @@ public class SysRoleMenu implements Serializable {
 	}
 
 	/**
-	 * 获取：
+	 * 獲取：
 	 * @return Long
 	 */
 	public Long getId() {
@@ -40,7 +38,7 @@ public class SysRoleMenu implements Serializable {
 	}
 	
 	/**
-	 * 设置：角色ID
+	 * 設置：角色ID
 	 * @param roleId 角色ID
 	 */
 	public void setRoleId(Long roleId) {
@@ -48,7 +46,7 @@ public class SysRoleMenu implements Serializable {
 	}
 
 	/**
-	 * 获取：角色ID
+	 * 獲取：角色ID
 	 * @return Long
 	 */
 	public Long getRoleId() {
@@ -56,15 +54,15 @@ public class SysRoleMenu implements Serializable {
 	}
 	
 	/**
-	 * 设置：菜单ID
-	 * @param menuId 菜单ID
+	 * 設置：菜單ID
+	 * @param menuId 菜單ID
 	 */
 	public void setMenuId(Long menuId) {
 		this.menuId = menuId;
 	}
 
 	/**
-	 * 获取：菜单ID
+	 * 獲取：菜單ID
 	 * @return Long
 	 */
 	public Long getMenuId() {

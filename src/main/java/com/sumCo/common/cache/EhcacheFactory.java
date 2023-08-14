@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * @author oplus
- * @Description: TODO(Ehcache缓存工厂)
+ * @Description: TODO(Ehcache緩存工廠)
  * @date 2017-6-23 15:07
  */
 public class EhcacheFactory extends BaseCacheFactory {
@@ -36,10 +36,10 @@ public class EhcacheFactory extends BaseCacheFactory {
 			synchronized(locker) {
 				cache = cacheManager.getCache(cacheName);
 				if (cache == null) {
-					log.warn("无法找到缓存 [" + cacheName + "]的配置, 使用默认配置.");
+					log.warn("無法找到緩存 [" + cacheName + "]的配置, 使用默認配置.");
 					cacheManager.addCacheIfAbsent(cacheName);
 					cache = cacheManager.getCache(cacheName);
-					log.debug("缓存 [" + cacheName + "] 启动.");
+					log.debug("緩存 [" + cacheName + "] 啟動.");
 				}
 			}
 		}

@@ -26,7 +26,7 @@ import java.util.UUID;
 
 /**
  * @author oplus
- * @Description: TODO(attachment文件处理)
+ * @Description: TODO(attachment文件處理)
  * @date 2017-6-23 15:07
  */
 public class AttachmentUtils {
@@ -34,7 +34,7 @@ public class AttachmentUtils {
 	static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 
 	/**
-	 * 创建文件名
+	 * 創建文件名
 	 * @param suffix
 	 * @return
 	 */

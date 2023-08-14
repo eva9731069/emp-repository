@@ -38,7 +38,7 @@ public class SysAttachmentController extends AbstractController {
     @RequestMapping("/list")
     @RequiresPermissions("sys:attachment:list")
     public Result list(@RequestParam Map<String, Object> params){
-        //查询列表数据
+        //查詢列表數據
         Query query = new Query(params);
         List<SysAttachment> configList=sysAttachmentService.queryList(query);
         int total=sysAttachmentService.queryTotal(query);
@@ -57,7 +57,7 @@ public class SysAttachmentController extends AbstractController {
     }
 
     /**
-     * 上传文件
+     * 上傳文件
      */
     @RequestMapping("/upload")
     @RequiresPermissions("sys:attachment:upload")
@@ -65,7 +65,7 @@ public class SysAttachmentController extends AbstractController {
         try {
             List<MultipartFile> files=((MultipartHttpServletRequest) request).getFiles("file");
             if(files.isEmpty()){
-                throw new AppException("上传文件不能为空");
+                throw new AppException("上傳文件不能為空");
             }
 
             for(MultipartFile file:files){
@@ -89,12 +89,12 @@ public class SysAttachmentController extends AbstractController {
 
             return Result.ok();
         } catch (IOException e) {
-            throw new AppException("系统异常");
+            throw new AppException("系統異常");
         }
     }
 
     /**
-     * 下载文件
+     * 下載文件
      */
     @RequestMapping("/download/{id}")
     @RequiresPermissions("sys:attachment:download")
@@ -109,9 +109,9 @@ public class SysAttachmentController extends AbstractController {
     }
 
     /**
-     * 删除配置
+     * 刪除配置
      */
-    @SysLog("删除配置")
+    @SysLog("刪除配置")
     @RequestMapping("/delete")
     @RequiresPermissions("sys:attachment:delete")
     public Result delete(@RequestBody Long[] ids){

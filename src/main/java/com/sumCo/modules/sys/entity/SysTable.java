@@ -4,22 +4,22 @@ import java.util.List;
 
 /**
  * @author oplus
- * @Description: TODO(表数据)
+ * @Description: TODO(表數據)
  * @date 2017-6-23 15:07
  */
 public class SysTable {
 
-	//表的名称
+	//表的名稱
 	private String tableName;
-	//表的备注
+	//表的備註
 	private String comments;
 	//表的主键
 	private SysColumn pk;
 	//表的列名(不包含主键)
 	private List<SysColumn> columns;
-	//类名(第一个字母大写)，如：sys_user => SysUser
+	//類名(第一個字母大寫)，如：sys_user => SysUser
 	private String className;
-	//类名(第一个字母小写)，如：sys_user => sysUser
+	//類名(第一個字母小寫)，如：sys_user => sysUser
 	private String classname;
 	
 	public String getTableName() {

@@ -19,30 +19,26 @@ public class SysRole implements Serializable {
 	private Long id;
 
 	/**
-	 * 角色名称
+	 * 角色名稱
 	 */
-	@NotBlank(message="角色名称不能为空")
+	@NotBlank(message="角色名稱不能為空")
 	private String name;
 
 	/**
-	 * 备注
+	 * 備註
 	 */
 	private String remark;
 	
-	/**
-	 * 创建者ID
-	 */
+
 	private Long createUserId;
 	
 	private List<Long> menuIdList;
 	
-	/**
-	 * 创建时间
-	 */
+
 	private Date createTime;
 
 	/**
-	 * 设置：
+	 * 設置：
 	 * @param id
 	 */
 	public void setId(Long id) {
@@ -50,7 +46,7 @@ public class SysRole implements Serializable {
 	}
 
 	/**
-	 * 获取：
+	 * 獲取：
 	 * @return Long
 	 */
 	public Long getId() {
@@ -58,15 +54,15 @@ public class SysRole implements Serializable {
 	}
 	
 	/**
-	 * 设置：角色名称
-	 * @param name 角色名称
+	 * 設置：角色名稱
+	 * @param name 角色名稱
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
 	/**
-	 * 获取：角色名称
+	 * 獲取：角色名稱
 	 * @return String
 	 */
 	public String getName() {
@@ -74,15 +70,15 @@ public class SysRole implements Serializable {
 	}
 	
 	/**
-	 * 设置：备注
-	 * @param remark 备注
+	 * 設置：備註
+	 * @param remark 備註
 	 */
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
 
 	/**
-	 * 获取：备注
+	 * 獲取：備註
 	 * @return String
 	 */
 	public String getRemark() {

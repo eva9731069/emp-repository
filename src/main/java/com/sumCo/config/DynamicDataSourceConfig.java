@@ -15,7 +15,7 @@ import java.util.Map;
 
 /**
  * @author oplus
- * @Description: TODO(配置多数据源)
+ * @Description: TODO(配置多數據源)
  * @date 2017-6-23 15:07
  */
 @Configuration

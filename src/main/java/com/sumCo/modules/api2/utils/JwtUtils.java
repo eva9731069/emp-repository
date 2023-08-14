@@ -12,7 +12,7 @@ import java.util.Date;
 
 /**
  * @author oplus
- * @Description: TODO(jwt工具类)
+ * @Description: TODO(jwt工具類)
  * @date 2017-9-27 14:33
  */
 @ConfigurationProperties(prefix = "sys.jwt")
@@ -32,7 +32,7 @@ public class JwtUtils {
      */
     public String generateToken(long userId) {
         Date nowDate = new Date();
-        //过期时间
+        //過期時間
         Date expireDate = new Date(nowDate.getTime() + expire * 1000);
 
         return Jwts.builder()
@@ -57,7 +57,7 @@ public class JwtUtils {
     }
 
     /**
-     * token是否过期
+     * token是否過期
      * @param expiration
      * @return
      */

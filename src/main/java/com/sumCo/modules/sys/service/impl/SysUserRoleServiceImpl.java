@@ -20,14 +20,14 @@ public class SysUserRoleServiceImpl implements SysUserRoleService {
 	@Override
 	@Transactional
 	public void saveOrUpdate(Long userId, List<Long> roleIdList) {
-		//先删除用户与角色关系
+
 		this.delete(userId);
 
 		if(roleIdList.isEmpty()){
 			return ;
 		}
 		
-		//保存用户与角色关系
+
 		Map<String, Object> map = new HashMap<>();
 		map.put("userId", userId);
 		map.put("roleIdList", roleIdList);

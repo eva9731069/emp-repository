@@ -11,13 +11,13 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author oplus
- * @Description: TODO(Redis工具类)
+ * @Description: TODO(Redis工具類)
  * @date 2017-6-23 15:07
  */
 @Component
 public class RedisUtils {
 
-    //是否开启redis缓存  true开启   false关闭
+    //是否開啟redis緩存  true開啟   false關閉
     @Value("${spring.redis.open: #{false}}")
     private boolean open;
 
@@ -34,10 +34,10 @@ public class RedisUtils {
     @Autowired
     private ZSetOperations<String, Object> zSetOperations;
 
-    /**  默认过期时长，单位：秒 */
+    /**  默認過期時長，單位：秒 */
     public final static long DEFAULT_EXPIRE = 60 * 60 * 24;
 
-    /**  不设置过期时长 */
+    /**  不設置過期時長 */
     public final static long NOT_EXPIRE = -1;
 
     private final static Gson gson = new Gson();
@@ -155,7 +155,7 @@ public class RedisUtils {
     }
 
     /**
-     * JSON数据，转成Object
+     * JSON數據，轉成Object
      */
     private <T> T fromJson(String json, Class<T> clazz){
         if(!open){

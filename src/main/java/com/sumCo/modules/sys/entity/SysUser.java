@@ -11,20 +11,20 @@ import java.util.List;
 
 /**
  * @author oplus
- * @Description: TODO(系统用户)
+ * @Description: TODO(系統用戶)
  * @date 2017-6-23 15:07
  */
 public class SysUser implements Serializable {
 	
 	/**
-	 * 用户ID
+	 * 用戶ID
 	 */
 	private Long id;
 
 	/**
-	 * 用户名
+	 * 用戶名
 	 */
-	@NotBlank(message="用户名不能为空", groups = {AddGroup.class, UpdateGroup.class})
+	@NotBlank(message="用戶名不能為空", groups = {AddGroup.class, UpdateGroup.class})
 	private String username;
 
 	/**
@@ -32,56 +32,39 @@ public class SysUser implements Serializable {
 	 */
 	private String nickname;
 
-	/**
-	 * 密码
-	 */
-	@NotBlank(message="密码不能为空", groups = AddGroup.class)
+
+	@NotBlank(message="密碼不能為空", groups = AddGroup.class)
 	private String password;
 
-	/**
-	 * 盐
-	 */
+
 	private String salt;
 
-	/**
-	 * 邮箱
-	 */
-	//@NotBlank(message="邮箱不能为空", groups = {AddGroup.class, UpdateGroup.class})
-	//@Email(message="邮箱格式不正确", groups = {AddGroup.class, UpdateGroup.class})
+
+	//@NotBlank(message="郵箱不能為空", groups = {AddGroup.class, UpdateGroup.class})
+	//@Email(message="郵箱格式不正確", groups = {AddGroup.class, UpdateGroup.class})
 	private String email;
 
-	/**
-	 * 手机号码
-	 */
-	//@NotBlank(message="手机号码不能为空", groups = {AddGroup.class, UpdateGroup.class})
+
+	//@NotBlank(message="手機號碼不能為空", groups = {AddGroup.class, UpdateGroup.class})
 	private String mobile;
 
 
 	private String avatar;
 
-	/**
-	 * 状态  0：禁用   1：正常
-	 */
+
 	private Integer status;
 	
-	/**
-	 * 角色ID列表
-	 */
+
 	private List<Long> roleIdList;
-	
-	/**
-	 * 创建者ID
-	 */
+
 	private Long createUserId;
 
-	/**
-	 * 创建时间
-	 */
+
 	private Date createTime;
 
 
 	/**
-	 * 设置：
+	 * 設置：
 	 * @param id
 	 */
 	public void setId(Long id) {
@@ -89,7 +72,7 @@ public class SysUser implements Serializable {
 	}
 
 	/**
-	 * 获取：
+	 * 獲取：
 	 * @return Long
 	 */
 	public Long getId() {
@@ -97,15 +80,15 @@ public class SysUser implements Serializable {
 	}
 	
 	/**
-	 * 设置：用户名
-	 * @param username 用户名
+	 * 設置：用戶名
+	 * @param username 用戶名
 	 */
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
 	/**
-	 * 获取：用户名
+	 * 獲取：用戶名
 	 * @return String
 	 */
 	public String getUsername() {
@@ -121,15 +104,15 @@ public class SysUser implements Serializable {
 	}
 
 	/**
-	 * 设置：密码
-	 * @param password 密码
+	 * 設置：密碼
+	 * @param password 密碼
 	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
 	/**
-	 * 获取：密码
+	 * 獲取：密碼
 	 * @return String
 	 */
 	public String getPassword() {
@@ -137,15 +120,15 @@ public class SysUser implements Serializable {
 	}
 	
 	/**
-	 * 设置：邮箱
-	 * @param email 邮箱
+	 * 設置：郵箱
+	 * @param email 郵箱
 	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
 	/**
-	 * 获取：邮箱
+	 * 獲取：郵箱
 	 * @return String
 	 */
 	public String getEmail() {
@@ -153,15 +136,15 @@ public class SysUser implements Serializable {
 	}
 	
 	/**
-	 * 设置：手机号
-	 * @param mobile 手机号
+	 * 設置：手機號碼
+	 * @param mobile 手機號碼
 	 */
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
 
 	/**
-	 * 获取：手机号
+	 * 獲取：手機號碼
 	 * @return String
 	 */
 	public String getMobile() {
@@ -169,15 +152,15 @@ public class SysUser implements Serializable {
 	}
 	
 	/**
-	 * 设置：状态  0：禁用   1：正常
-	 * @param status 状态  0：禁用   1：正常
+	 * 設置：狀態  0：禁用   1：正常
+	 * @param status 狀態  0：禁用   1：正常
 	 */
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
 
 	/**
-	 * 获取：状态  0：禁用   1：正常
+	 * 獲取：狀態  0：禁用   1：正常
 	 * @return Integer
 	 */
 	public Integer getStatus() {
@@ -185,15 +168,15 @@ public class SysUser implements Serializable {
 	}
 	
 	/**
-	 * 设置：创建时间
-	 * @param createTime 创建时间
+	 * 設置：創建時間
+	 * @param createTime 創建時間
 	 */
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 
 	/**
-	 * 获取：创建时间
+	 * 獲取：創建時間
 	 * @return Date
 	 */
 	public Date getCreateTime() {

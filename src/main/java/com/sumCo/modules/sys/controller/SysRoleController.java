@@ -37,7 +37,7 @@ public class SysRoleController extends AbstractController {
 	@RequestMapping("/list")
 	@RequiresPermissions("sys:role:list")
 	public Result list(@RequestParam Map<String, Object> params){
-		//查询列表数据
+		//查詢列表數據
 		Query query = new Query(params);
 		List<SysRole> list = sysRoleService.queryList(query);
 		int total = sysRoleService.queryTotal(query);
@@ -64,7 +64,7 @@ public class SysRoleController extends AbstractController {
 	@RequiresPermissions("sys:role:info")
 	public Result info(@PathVariable("roleId") Long roleId){
 		SysRole role = sysRoleService.queryObject(roleId);
-		//查询角色对应的菜单
+		//查詢角色對應的菜單
 		List<Long> menuIdList = sysRoleMenuService.queryMenuIdList(roleId);
 		role.setMenuIdList(menuIdList);
 		return Result.ok().put("role", role);
@@ -95,9 +95,9 @@ public class SysRoleController extends AbstractController {
 	}
 	
 	/**
-	 * 删除角色
+	 * 刪除角色
 	 */
-	@SysLog("删除角色")
+	@SysLog("刪除角色")
 	@RequestMapping("/delete")
 	@RequiresPermissions("sys:role:delete")
 	public Result delete(@RequestBody Long[] roleIds){

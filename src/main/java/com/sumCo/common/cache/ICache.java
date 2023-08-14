@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * @author oplus
- * @Description: TODO(通用缓存接口)
+ * @Description: TODO(通用緩存接口)
  * @date 2017-6-23 15:07
  */
 public interface ICache {

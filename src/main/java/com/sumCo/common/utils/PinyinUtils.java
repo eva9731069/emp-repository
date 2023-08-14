@@ -9,27 +9,27 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
 
 /**
  * @author oplus
- * @Description: TODO(中文转拼音工具)
+ * @Description: TODO(中文轉拼音工具)
  * @date 2017-9-26 10:09
  */
 public class PinyinUtils {
 
     /**
-     * 将文字转为汉语拼音
-     * @param ChineseLanguage 要转成拼音的中文
+     * 將文字轉為漢語拼音
+     * @param ChineseLanguage 要轉成拼音的中文
      */
     private static String toHanyuPinyin(String ChineseLanguage, HanyuPinyinCaseType caseType){
         char[] cl_chars = ChineseLanguage.trim().toCharArray();
         String hanyupinyin = "";
         HanyuPinyinOutputFormat defaultFormat = new HanyuPinyinOutputFormat();
         defaultFormat.setCaseType(caseType);
-        defaultFormat.setToneType(HanyuPinyinToneType.WITHOUT_TONE);// 不带声调
+        defaultFormat.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
         defaultFormat.setVCharType(HanyuPinyinVCharType.WITH_V) ;
         try {
             for (int i=0; i<cl_chars.length; i++){
-                if (String.valueOf(cl_chars[i]).matches("[\u4e00-\u9fa5]+")){// 如果字符是中文,则将中文转为汉语拼音
+                if (String.valueOf(cl_chars[i]).matches("[\u4e00-\u9fa5]+")){
                     hanyupinyin += PinyinHelper.toHanyuPinyinStringArray(cl_chars[i], defaultFormat)[0];
-                } else {// 如果字符不是中文,则不转换
+                } else {
                     hanyupinyin += cl_chars[i];
                 }
             }
@@ -40,8 +40,8 @@ public class PinyinUtils {
     }
 
     /**
-     * 将文字转为大写汉语拼音
-     * @param ChineseLanguage 要转成拼音的中文
+     * 將文字轉為大寫漢語拼音
+     * @param ChineseLanguage 要轉成拼音的中文
      * @return
      */
     public static String toHanyuPinyinUpperCase(String ChineseLanguage){
@@ -49,8 +49,8 @@ public class PinyinUtils {
     }
 
     /**
-     * 将文字转为小写汉语拼音
-     * @param ChineseLanguage 要转成拼音的中文
+     * 將文字轉為小寫漢語拼音
+     * @param ChineseLanguage 要轉成拼音的中文
      * @return
      */
     public static String toHanyuPinyinLowerCase(String ChineseLanguage){
@@ -58,9 +58,9 @@ public class PinyinUtils {
     }
 
     /**
-     * 取第一个汉字的第一个字符
-     * @param ChineseLanguage 要转成拼音的中文
-     * @param caseType 大写还是小写
+     * 取第一個漢字的第一個字符
+     * @param ChineseLanguage 要轉成拼音的中文
+     * @param caseType 大寫還是小寫
      * @return
      */
     private static String getFirstLetter(String ChineseLanguage, HanyuPinyinCaseType caseType){
@@ -68,12 +68,12 @@ public class PinyinUtils {
         String hanyupinyin = "";
         HanyuPinyinOutputFormat defaultFormat = new HanyuPinyinOutputFormat();
         defaultFormat.setCaseType(caseType);
-        defaultFormat.setToneType(HanyuPinyinToneType.WITHOUT_TONE);// 不带声调
+        defaultFormat.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
         try {
             String str = String.valueOf(cl_chars[0]);
-            if (str.matches("[\u4e00-\u9fa5]+")) {// 如果字符是中文,则将中文转为汉语拼音,并取第一个字母
+            if (str.matches("[\u4e00-\u9fa5]+")) {
                 hanyupinyin = PinyinHelper.toHanyuPinyinStringArray(cl_chars[0], defaultFormat)[0].substring(0, 1);
-            } else {// 如果字符不是中文,则不转换
+            } else {
                 hanyupinyin += cl_chars[0];
             }
         } catch (BadHanyuPinyinOutputFormatCombination e) {
@@ -83,8 +83,8 @@ public class PinyinUtils {
     }
 
     /**
-     * 取第一个汉字的第一个大写字符
-     * @param ChineseLanguage 要转成拼音的中文
+     * 取第一個漢字的第一個大寫字符
+     * @param ChineseLanguage 要轉成拼音的中文
      * @return
      */
     public static String getFirstLetterUpperCase(String ChineseLanguage){
@@ -92,8 +92,8 @@ public class PinyinUtils {
     }
 
     /**
-     * 取第一个汉字的第一个小写字符
-     * @param ChineseLanguage 要转成拼音的中文
+     * 取第一個漢字的第一個小寫字符
+     * @param ChineseLanguage 要轉成拼音的中文
      * @return
      */
     public static String getFirstLetterLowerCase(String ChineseLanguage){

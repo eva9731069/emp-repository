@@ -8,7 +8,7 @@ import com.sumCo.modules.sys.entity.SysUser;
 
 /**
  * @author oplus
- * @Description: TODO(Shiro工具类)
+ * @Description: TODO(Shiro工具類)
  * @date 2017-6-23 15:07
  */
 public class ShiroUtils {

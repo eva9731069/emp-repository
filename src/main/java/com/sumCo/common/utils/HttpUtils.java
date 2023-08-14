@@ -40,7 +40,7 @@ public class HttpUtils {
 	private static final int mReadTimeOut = 1000 * 10; // 10秒
 	private static final int mConnectTimeOut = 1000 * 5; // 5秒
 	private static final String CHAR_SET = Constant.ENCODING_UTF_8;
-	private static final int mRetry = 2; // 默认尝试访问次数
+	private static final int mRetry = 2;
 
 	public static String get(String url) throws Exception {
 		return get(url, null);
@@ -105,7 +105,7 @@ public class HttpUtils {
 		if (ex != null)
 			throw ex;
 		else
-			throw new Exception("未知网络错误 ");
+			throw new Exception("未知網路錯誤 ");
 	}
 
 	private static String doGet(String strUrl, Map<String, String> headers) throws Exception {
@@ -185,7 +185,7 @@ public class HttpUtils {
 		if (ex != null)
 			throw ex;
 		else
-			throw new Exception("未知网络错误 ");
+			throw new Exception("未知網路錯誤 ");
 	}
 
 	private static String doPost(String strUrl, String postContent, Map<String, String> headers) throws Exception {

@@ -18,7 +18,7 @@ import java.util.Map;
 
 /**
  * @author oplus
- * @Description: TODO(系统日志)
+ * @Description: TODO(系統日誌)
  * @date 2017-6-23 15:07
  */
 @Controller
@@ -34,7 +34,7 @@ public class SysLogController {
 	@RequestMapping("/list")
 	@RequiresPermissions("sys:log:list")
 	public Result list(@RequestParam Map<String, Object> params){
-		//查询列表数据
+		//查詢列表數據
 		Query query = new Query(params);
 		List<SysLog> sysLogList = sysLogService.queryList(query);
 		int total = sysLogService.queryTotal(query);

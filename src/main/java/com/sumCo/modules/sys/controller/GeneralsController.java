@@ -34,7 +34,7 @@ public class GeneralsController extends AbstractController{
 	@RequestMapping("/list")
 	@RequiresPermissions("sys:generals:list")
 	public Result list(@RequestParam Map<String, Object> params){
-		//查询列表数据
+		//查詢列表數據
         Query query = new Query(params);
 
 		List<Generals> generalsList = generalsService.queryList(query);
@@ -80,7 +80,7 @@ public class GeneralsController extends AbstractController{
 	}
 	
 	/**
-	 * 删除
+	 * 刪除
 	 */
 	@RequestMapping("/delete")
 	@RequiresPermissions("sys:generals:delete")

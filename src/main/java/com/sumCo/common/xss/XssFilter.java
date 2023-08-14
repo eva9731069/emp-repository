@@ -6,12 +6,12 @@ import java.io.IOException;
 
 /**
  * @author oplus
- * @Description: TODO(XSS过滤)
+ * @Description: TODO(XSS過濾)
  * @date 2017-6-23 15:07
  */
 public class XssFilter implements Filter {
 
-	// 排除的url
+
 	private String exclude;
 
 	public XssFilter(String exclude) {

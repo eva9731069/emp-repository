@@ -4,16 +4,14 @@ import java.io.Serializable;
 
 /**
  * @author oplus
- * @Description: TODO(用户与角色对应关系)
+ * @Description: TODO(用戶與角色對應關係)
  * @date 2017-6-23 15:07
  */
 public class SysUserRole implements Serializable {
 	
 	private Long id;
 
-	/**
-	 * 用户ID
-	 */
+
 	private Long userId;
 
 	/**
@@ -22,7 +20,7 @@ public class SysUserRole implements Serializable {
 	private Long roleId;
 
 	/**
-	 * 设置：
+	 * 設置：
 	 * @param id 
 	 */
 	public void setId(Long id) {
@@ -30,7 +28,7 @@ public class SysUserRole implements Serializable {
 	}
 
 	/**
-	 * 获取：
+	 * 獲取：
 	 * @return Long
 	 */
 	public Long getId() {
@@ -38,15 +36,15 @@ public class SysUserRole implements Serializable {
 	}
 	
 	/**
-	 * 设置：用户ID
-	 * @param userId 用户ID
+	 * 設置：用戶ID
+	 * @param userId 用戶ID
 	 */
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 
 	/**
-	 * 获取：用户ID
+	 * 獲取：用戶ID
 	 * @return Long
 	 */
 	public Long getUserId() {
@@ -54,7 +52,7 @@ public class SysUserRole implements Serializable {
 	}
 	
 	/**
-	 * 设置：角色ID
+	 * 設置：角色ID
 	 * @param roleId 角色ID
 	 */
 	public void setRoleId(Long roleId) {
@@ -62,7 +60,7 @@ public class SysUserRole implements Serializable {
 	}
 
 	/**
-	 * 获取：角色ID
+	 * 獲取：角色ID
 	 * @return Long
 	 */
 	public Long getRoleId() {

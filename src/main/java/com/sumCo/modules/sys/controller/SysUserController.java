@@ -24,7 +24,7 @@ import java.util.Map;
 
 /**
  * @author oplus
- * @Description: TODO(系统用户)
+ * @Description: TODO(系統用户)
  * @date 2017-6-23 15:07
  */
 @RestController
@@ -38,12 +38,12 @@ public class SysUserController extends AbstractController {
 	private SysUserRoleService sysUserRoleService;
 	
 	/**
-	 * 所有用户列表
+	 * 所有用戶列表
 	 */
 	@RequestMapping("/list")
 	@RequiresPermissions("sys:user:list")
 	public Result list(@RequestParam Map<String, Object> params){
-		//查询列表数据
+		//查詢列表數據
 		Query query = new Query(params);
 		List<SysUser> userList = sysUserService.queryList(query);
 		int total = sysUserService.queryTotal(query);
@@ -54,7 +54,7 @@ public class SysUserController extends AbstractController {
 	}
 	
 	/**
-	 * 獲取登錄的使用者資訊
+	 * 獲取登入的使用者資訊
 	 */
 	@RequestMapping("/info")
 	public Result info(){
@@ -62,13 +62,13 @@ public class SysUserController extends AbstractController {
 	}
 	
 	/**
-	 * 修改登录用户密码
+	 * 修改登入用戶密碼
 	 */
 	@SysLog("修改密碼")
 	@RequestMapping("/updatePassword")
 	public Result updatePassword(String password, String newPassword){
 		if(StringUtils.isBlank(newPassword)){
-			throw new AppException("新密碼不可以無空值");
+			throw new AppException("新密碼不可以為空值");
 		}
 		
 		//sha256加密
@@ -76,7 +76,7 @@ public class SysUserController extends AbstractController {
 		//sha256加密
 		newPassword = new Sha256Hash(newPassword, getUser().getSalt()).toHex();
 
-		//更新密码
+		//更新密碼
 		int count = sysUserService.updatePassword(getUser(), password, newPassword);
 		if(count == 0){
 			return Result.error("密碼輸入不正確");
@@ -93,7 +93,7 @@ public class SysUserController extends AbstractController {
 	public Result info(@PathVariable("userId") Long userId){
 		SysUser user = sysUserService.queryObject(userId);
 		
-		//获取用户所属的角色列表
+		//獲取用戶所屬的角色列表
 		List<Long> roleIdList = sysUserRoleService.queryRoleIdList(userId);
 		user.setRoleIdList(roleIdList);
 		
@@ -101,7 +101,7 @@ public class SysUserController extends AbstractController {
 	}
 	
 	/**
-	 * 存 使用者
+	 * 儲存使用者
 	 */
 	@SysLog("儲存使用者")
 	@RequestMapping("/save")
@@ -113,9 +113,9 @@ public class SysUserController extends AbstractController {
 	}
 	
 	/**
-	 * 修改用户
+	 * 修改用戶
 	 */
-	@SysLog("修改用户")
+	@SysLog("修改用戶")
 	@RequestMapping("/update")
 	@RequiresPermissions("sys:user:update")
 	public Result update(@RequestBody SysUser user){
@@ -125,14 +125,14 @@ public class SysUserController extends AbstractController {
 	}
 	
 	/**
-	 * 删除用户
+	 * 刪除用戶
 	 */
-	@SysLog("删除用户")
+	@SysLog("刪除用戶")
 	@RequestMapping("/delete")
 	@RequiresPermissions("sys:user:delete")
 	public Result delete(@RequestBody Long[] userIds){
 		if(ArrayUtils.contains(userIds, 1L)){
-			return Result.error("系统管理員不能删除");
+			return Result.error("系統管理員不能刪除");
 		}
 		if(ArrayUtils.contains(userIds, getUserId())){
 			return Result.error("此使用者不可以刪除");

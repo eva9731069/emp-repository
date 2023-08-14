@@ -56,7 +56,7 @@
 		</if>
 	</select>
 	
-	<!-- 查询用户的权限列表 --> 
+	<!-- 查詢用戶的權限列表 -->
 	<select id="queryUserList" resultType="com.sumCo.modules.sys.entity.SysMenu">
 		select distinct m.*,p.name as parentName from sys_user_role ur
 		left join sys_menu p on p.id = m.parent_id

@@ -10,7 +10,7 @@ import java.util.List;
 public interface SysUserRoleDao extends BaseDao<SysUserRole> {
 	
 	/**
-	 * 根据用户ID，获取角色ID列表
+	 * 根據用戶ID，獲取角色ID列表
 	 */
 	List<Long> queryRoleIdList(Long userId);
 }

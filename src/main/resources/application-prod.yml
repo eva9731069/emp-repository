@@ -6,7 +6,7 @@ spring:
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.jdbc.Driver
         druid:
-            first:  #数据源1
+            first:  #數據源1
                 url: jdbc:mysql://localhost:3306/sbed?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
                 username: root
                 password: aa111111

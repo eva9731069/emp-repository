@@ -12,14 +12,10 @@ import com.sumCo.modules.sys.entity.SysAttachment;
  */
 public interface SysAttachmentService {
 
-    /**
-     * 获取List列表
-     */
+
     List<SysAttachment> queryList(Map<String, Object> map);
 
-    /**
-     * 获取总记录数
-     */
+
     int queryTotal(Map<String, Object> map);
 
     SysAttachment queryObject(Long id);

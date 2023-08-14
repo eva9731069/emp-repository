@@ -10,7 +10,7 @@ import java.util.Properties;
 
 /**
  * @author oplus
- * @Description: TODO(生成验证码配置)
+ * @Description: TODO(生成驗證碼配置)
  * @date 2017-6-23 15:07
  */
 @Configuration

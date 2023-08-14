@@ -26,7 +26,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Autowired
     private ApiInterceptor apiInterceptor;
 
-    //映射上传文件的地址
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/uploadFile/**").addResourceLocations("file:"+ FileUtils.getTempPath());
@@ -37,7 +37,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public FilterRegistrationBean shiroFilterRegistration() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(new DelegatingFilterProxy("shiroFilter"));
-        //该值缺省为false，表示生命周期由SpringApplicationContext管理，设置为true则表示由ServletContainer管理
+
         registration.addInitParameter("targetFilterLifecycle", "true");
         registration.setEnabled(true);
         registration.setOrder(Integer.MAX_VALUE - 1);

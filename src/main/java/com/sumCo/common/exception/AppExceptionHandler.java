@@ -11,7 +11,7 @@ import com.sumCo.common.utils.Result;
 
 /**
  * @author oplus
- * @Description: TODO(异常处理器)
+ * @Description: TODO(異常處理器)
  * @date 2017-6-23 15:07
  */
 @RestControllerAdvice
@@ -20,7 +20,7 @@ public class AppExceptionHandler {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	/**
-	 * 自定义异常
+	 * 自定義異常
 	 */
 	@ExceptionHandler(AppException.class)
 	public Result handleAppException(AppException e){
@@ -30,13 +30,13 @@ public class AppExceptionHandler {
 	@ExceptionHandler(DuplicateKeyException.class)
 	public Result handleDuplicateKeyException(DuplicateKeyException e){
 		logger.error(e.getMessage(), e);
-		return Result.error("数据库中已存在该记录");
+		return Result.error("數據庫中已存在該記錄");
 	}
 
 	@ExceptionHandler(AuthorizationException.class)
 	public Result handleAuthorizationException(AuthorizationException e){
 		logger.error(e.getMessage(), e);
-		return Result.error("没有权限，请联系管理员授权");
+		return Result.error("沒有權限，請聯繫管理員授權");
 	}
 
 	@ExceptionHandler(Exception.class)

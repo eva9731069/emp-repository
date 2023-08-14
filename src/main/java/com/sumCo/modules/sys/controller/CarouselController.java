@@ -18,7 +18,7 @@ import com.sumCo.modules.sys.service.CarouselService;
 
 /**
  * @author oplus
- * @Description: TODO(轮播图)
+ * @Description: TODO(輪播圖)
  * @date 2017-11-30 15:35:54
  */
 @RestController
@@ -34,7 +34,7 @@ public class CarouselController extends AbstractController{
 	@RequestMapping("/list")
 	@RequiresPermissions("sys:carousel:list")
 	public Result list(@RequestParam Map<String, Object> params){
-		//查询列表数据
+		//查詢列表數據
         Query query = new Query(params);
 
 		List<Carousel> carouselList = carouselService.queryList(query);
@@ -80,7 +80,7 @@ public class CarouselController extends AbstractController{
 	}
 	
 	/**
-	 * 删除
+	 * 刪除
 	 */
 	@RequestMapping("/delete")
 	@RequiresPermissions("sys:carousel:delete")

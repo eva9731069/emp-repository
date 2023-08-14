@@ -8,33 +8,33 @@ package com.sumCo.common;
 public class Constant {
 
     /**
-     * 超级管理员ID
+     * 超級管理員ID
      */
 	public static final int SUPER_ADMIN = 1;
 
     /**
-     * utf-8编码
+     * utf-8編碼
      */
 	public static final String ENCODING_UTF_8="UTF-8";
 
     /**
-     * X-Token sys请求的token
+     * X-Token sys請求的token
      */
     public static  final String X_TOKEN="X-Token";
     /**
-     * 菜单类型
+     * 菜單類型
      */
     public enum MenuType {
         /**
-         * 目录
+         * 目錄
          */
     	CATALOG(0),
         /**
-         * 菜单
+         * 菜單
          */
         MENU(1),
         /**
-         * 按钮
+         * 按鈕
          */
         BUTTON(2);
 
@@ -50,15 +50,15 @@ public class Constant {
     }
 
     /**
-     * 系统配置 状态
+     * 系統配置 狀態
      */
     public enum ConfigStatus {
         /**
-         * 隐藏
+         * 隱藏
          */
         HIDDEN(0),
         /**
-         * 显示
+         * 顯示
          */
         SHOW(1);
 
@@ -74,7 +74,7 @@ public class Constant {
     }
 
     /**
-     * 用户 状态
+     * 用戶 狀態
      */
     public enum UserStatus {
         /**

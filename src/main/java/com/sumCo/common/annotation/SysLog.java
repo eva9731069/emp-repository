@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 
 /**
  * @author oplus
- * @Description: TODO(系统日志注解)
+ * @Description: TODO(系統日誌注解)
  * @date 2017-6-23 15:07
  */
 @Target(ElementType.METHOD)

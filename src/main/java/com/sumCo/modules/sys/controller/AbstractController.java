@@ -8,7 +8,7 @@ import com.sumCo.modules.sys.entity.SysUser;
 
 /**
  * @author oplus
- * @Description: TODO(Controller公共组件)
+ * @Description: TODO(Controller公共組件)
  * @date 2017-6-23 15:07
  */
 public abstract class AbstractController {

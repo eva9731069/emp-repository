@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.Random;
 
 /**  
-* @Description: TODO(随机数工具类)
+* @Description: TODO(隨機數工具類)
 * @author oplus
 * @date 2016年10月10日 上午8:50:13
 */
@@ -35,7 +35,7 @@ public class RandomUtils {
 	}
 
 	/**
-	 * 随机生成六位随机数
+	 * 随機生成六位随機數
 	 * @return
 	 */
 	public static int randomSixNum(){

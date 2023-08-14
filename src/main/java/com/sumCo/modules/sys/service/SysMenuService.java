@@ -8,45 +8,35 @@ import com.sumCo.modules.sys.entity.SysMenu;
 public interface SysMenuService {
 	
 	/**
-	 * 根据父菜单，查询子菜单
-	 * @param parentId 父菜单ID
-	 * @param menuIdList  用户菜单ID
+	 * 根據父菜單，查詢子菜單
+	 * @param parentId 父菜單ID
+	 * @param menuIdList  用戶菜單ID
 	 */
 	List<SysMenu> queryListByParentId(Long parentId, List<Long> menuIdList);
 
 	/**
-	 * 根据父菜单，查询子菜单
-	 * @param parentId 父菜单ID
+	 * 根據父菜單，查詢子菜單
+	 * @param parentId 父菜單ID
 	 */
 	List<SysMenu> queryListByParentId(Long parentId);
 	
-	/**
-	 * 获取不包含按钮的菜单列表
-	 */
+
 	List<SysMenu> queryNotButtonList();
 	
-	/**
-	 * 获取用户菜单列表
-	 */
+
 	List<SysMenu> getUserMenuList(Long userId);
 	
-	/**
-	 * 查询菜单
-	 */
+
 	SysMenu queryObject(Long id);
 	
-	/**
-	 * 查询菜单列表
-	 */
+
 	List<SysMenu> queryList(Map<String, Object> map);
 	
-	/**
-	 * 查询总数
-	 */
+
 	int queryTotal(Map<String, Object> map);
 	
 	/**
-	 * 保存菜单
+	 * 保存菜單
 	 */
 	void save(SysMenu menu);
 	
@@ -56,12 +46,10 @@ public interface SysMenuService {
 	void update(SysMenu menu);
 	
 	/**
-	 * 删除
+	 * 刪除
 	 */
 	void deleteBatch(Long[] ids);
 	
-	/**
-	 * 查询用户的权限列表
-	 */
+
 	List<SysMenu> queryUserList(Long userId);
 }

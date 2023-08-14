@@ -90,7 +90,7 @@ public class SysConfigServiceImpl implements SysConfigService {
 		try {
 			return clazz.newInstance();
 		} catch (Exception e) {
-			throw new AppException("获取参数失败");
+			throw new AppException("獲取參數失敗");
 		}
 	}
 

@@ -7,7 +7,7 @@ import java.util.Map;
 
 /**
  * @author oplus
- * @Description: TODO(返回数据)
+ * @Description: TODO(返回數據)
  * @date 2017-6-23 15:07
  */
 public class Result extends HashMap<String, Object> {
@@ -15,7 +15,7 @@ public class Result extends HashMap<String, Object> {
 	private final static int CODE_SUCCESS=0;
 	
 	public static Result error() {
-		return error(HttpStatus.SC_INTERNAL_SERVER_ERROR, "未知异常，请联系管理员");
+		return error(HttpStatus.SC_INTERNAL_SERVER_ERROR, "未知異常，請聯繫管理員");
 	}
 	
 	public static Result error(String msg) {

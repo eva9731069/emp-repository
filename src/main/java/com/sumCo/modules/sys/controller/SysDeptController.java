@@ -34,7 +34,7 @@ public class SysDeptController extends AbstractController{
 	@RequestMapping("/list")
 	@RequiresPermissions("sys:dept:list")
 	public Result list(@RequestParam Map<String, Object> params){
-		//查询列表数据
+		//查詢列表數據
         Query query = new Query(params);
 
 		List<SysDept> sysDeptList = sysDeptService.queryList(query);
@@ -80,7 +80,7 @@ public class SysDeptController extends AbstractController{
 	}
 	
 	/**
-	 * 删除
+	 * 刪除
 	 */
 	@RequestMapping("/delete")
 	@RequiresPermissions("sys:dept:delete")

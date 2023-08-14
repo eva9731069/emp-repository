@@ -50,12 +50,12 @@ public class SysMenuServiceImpl implements SysMenuService {
 
 	@Override
 	public List<SysMenu> getUserMenuList(Long userId) {
-		//系统管理员，拥有最高权限
+		//系統管理員，擁有最高權限
 		if(userId != null){
 			return getAllMenuList(null);
 		}
 		
-		//用户菜单列表
+
 		List<Long> menuIdList = sysUserService.queryAllMenuId(userId);
 		return getAllMenuList(menuIdList);
 	}
@@ -98,26 +98,22 @@ public class SysMenuServiceImpl implements SysMenuService {
 		return sysMenuDao.queryUserList(userId);
 	}
 
-	/**
-	 * 获取所有菜单列表
-	 */
+
 	private List<SysMenu> getAllMenuList(List<Long> menuIdList){
-		//查询根菜单列表
+
 		List<SysMenu> menuList = queryListByParentId(0L, menuIdList);
-		//递归获取子菜单
+
 		getMenuTreeList(menuList, menuIdList);
 		
 		return menuList;
 	}
 
-	/**
-	 * 递归
-	 */
+
 	private List<SysMenu> getMenuTreeList(List<SysMenu> menuList, List<Long> menuIdList){
 		List<SysMenu> subMenuList = new ArrayList<SysMenu>();
 		
 		for(SysMenu entity : menuList){
-			if(entity.getType() == MenuType.CATALOG.getValue()){//目录
+			if(entity.getType() == MenuType.CATALOG.getValue()){
 				entity.setList(getMenuTreeList(queryListByParentId(entity.getId(), menuIdList), menuIdList));
 			}
 			subMenuList.add(entity);

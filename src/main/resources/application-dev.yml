@@ -6,7 +6,7 @@ spring:
         # type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.jdbc.Driver
         druid:
-            first:  #数据源1
+            first:  #數據源1
                 url: jdbc:mysql://34.80.130.231:3306/greenBuild?useSSL=false
                 username: root
                 password: mypassword

@@ -29,7 +29,7 @@ import java.util.Iterator;
 
 /**
  * @author oplus
- * @Description: TODO(图片处理)
+ * @Description: TODO(圖片處理)
  * @date 2017-6-23 15:07
  */
 public class ImageUtils {
@@ -60,7 +60,7 @@ public class ImageUtils {
 	}
 
 	/**
-	 * 图片大小压缩
+	 * 圖片大小壓縮
 	 *
 	 * @param src
 	 * @throws IOException
@@ -97,7 +97,7 @@ public class ImageUtils {
 	}
 
 	/**
-	 * 等比缩放，居中剪切
+	 * 等比縮放，居中剪切
 	 * 
 	 * @param src
 	 * @param dest
@@ -165,21 +165,21 @@ public class ImageUtils {
 
 	/**
 	 * @param watermarkImg
-	 *            水印图片位置
+	 *            水印圖片位置
 	 * @param srcImageFile
-	 *            源图片位置
+	 *            源圖片位置
 	 * @param destImageFile
-	 *            生成的图片位置
+	 *            生成的圖片位置
 	 * @param position
 	 *            水印打印的位置： 1->左上角，2->右上角，1->居中，1->左下角，1->右下角
 	 * @param xOffset
-	 *            x轴偏移量，xOffset小于0，自动偏移
+	 *            x軸偏移量，xOffset小於0，自動偏移
 	 * @param yOffset
-	 *            y轴偏移量，yOffset小于0，自动偏移
+	 *            y軸偏移量，yOffset小於0，自动偏移
 	 * @param radio
-	 *            默认为原图的 1/4
+	 *            默認為原圖的 1/4
 	 * @param alpha
-	 *            透明度（0~1），PNG图片建议设置为1
+	 *            透明度（0~1），PNG圖片建議設置為1
 	 */
 	public final static void pressImage(String watermarkImg, String srcImageFile, String destImageFile, int position,
 			int xOffset, int yOffset, float radio, float alpha) {
@@ -237,7 +237,7 @@ public class ImageUtils {
 
 			graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, alpha));
 			graphics.drawImage(wmImage, xPostion, yPostion, newWidth, newHeight, null);
-			// 水印文件结束
+			// 水印文件結束
 			graphics.dispose();
 			ImageIO.write((BufferedImage) image, "JPEG", new File(destImageFile));
 		} catch (Exception e) {

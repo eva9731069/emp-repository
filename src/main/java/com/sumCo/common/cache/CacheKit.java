@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * @author oplus
- * @Description: TODO(缓存工具类)
+ * @Description: TODO(緩存工具類)
  * @date 2017-6-23 15:07
  */
 public class CacheKit {

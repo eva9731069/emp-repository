@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * @author oplus
- * @Description: TODO(html处理工具)
+ * @Description: TODO(html處理工具)
  * @date 2017-6-23 15:07
  */
 public class JsoupUtils {
@@ -84,7 +84,7 @@ public class JsoupUtils {
 	}
 
 	/**
-	 * 做自己的白名单，允许base64的图片通过等
+	 * 做自己的白名單，允許base64的圖片通過等
 	 * 
 	 * @author michael
 	 */

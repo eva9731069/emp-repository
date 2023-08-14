@@ -9,12 +9,12 @@ import com.sumCo.modules.sys.entity.SysConfig;
 public interface SysConfigDao extends BaseDao<SysConfig> {
 	
 	/**
-	 * 根据key，查询SysConfig
+	 * 根據key，查詢SysConfig
 	 */
 	SysConfig queryObjectByKey(String paramKey);
 	
 	/**
-	 * 根据key，更新value
+	 * 根據key，更新value
 	 */
 	int updateValueByKey(@Param("key") String key, @Param("value") String value);
 	

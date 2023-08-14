@@ -6,13 +6,13 @@ import java.util.Date;
 
 /**
  * @author oplus
- * @Description: TODO(日期处理)
+ * @Description: TODO(日期處理)
  * @date 2017-6-23 15:07
  */
 public class DateUtils {
-	/** 时间格式(yyyy-MM-dd) */
+	/** 時間格式(yyyy-MM-dd) */
 	public final static String DATE_PATTERN = "yyyy-MM-dd";
-	/** 时间格式(yyyy-MM-dd HH:mm:ss) */
+	/** 時間格式(yyyy-MM-dd HH:mm:ss) */
 	public final static String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 	
 	public static String format(Date date) {
@@ -28,7 +28,7 @@ public class DateUtils {
     }
 
     /**
-     * 统计两个日期之间包含的天数。
+     * 統計兩個日期之間包含的天數。
      *
      * @param date1
      * @param date2

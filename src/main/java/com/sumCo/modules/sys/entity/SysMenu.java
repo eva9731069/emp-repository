@@ -7,51 +7,45 @@ import java.util.List;
 
 /**
  * @author oplus
- * @Description: TODO(菜单管理)
+ * @Description: TODO(菜單管理)
  * @date 2017-6-23 15:07
  */
 public class SysMenu implements Serializable {
 	
 	/**
-	 * 菜单ID
+	 * 菜單ID
 	 */
 	private Long id;
 
 	/**
-	 * 父菜单ID，一级菜单为0
+	 * 父菜單ID，一級菜單為0
 	 */
 	private Long parentId;
 	
 	/**
-	 * 父菜单名称
+	 * 父菜單名稱
 	 */
 	private String parentName;
 
 	/**
-	 * 菜单名称
+	 * 菜單名稱
 	 */
-	@NotBlank(message="菜单名称不能为空")
+	@NotBlank(message="菜單名稱不能為空")
 	private String name;
 
 	/**
-	 * 菜单URL
+	 * 菜單URL
 	 */
-	@NotBlank(message="菜单URL")
+	@NotBlank(message="菜單URL")
 	private String url;
 
-	/**
-	 * 授权(多个用逗号分隔，如：user:list,user:create)
-	 */
+
 	private String perms;
 
-	/**
-	 * 类型     0：目录   1：菜单   2：按钮
-	 */
+
 	private Integer type;
 
-	/**
-	 * 菜单图标
-	 */
+
 	private String icon;
 
 	/**
@@ -59,9 +53,7 @@ public class SysMenu implements Serializable {
 	 */
 	private Integer orderNum;
 	
-	/**
-	 * ztree属性
-	 */
+
 	private Boolean open;
 	
 	private List<?> list;
@@ -75,15 +67,15 @@ public class SysMenu implements Serializable {
 	}
 	
 	/**
-	 * 设置：父菜单ID，一级菜单为0
-	 * @param parentId 父菜单ID，一级菜单为0
+	 * 設置：父菜單ID，一級菜單為0
+	 * @param parentId 父菜單ID，一級菜單為0
 	 */
 	public void setParentId(Long parentId) {
 		this.parentId = parentId;
 	}
 
 	/**
-	 * 获取：父菜单ID，一级菜单为0
+	 * 獲取：父菜單ID，一級菜單為0
 	 * @return Long
 	 */
 	public Long getParentId() {
@@ -91,15 +83,15 @@ public class SysMenu implements Serializable {
 	}
 	
 	/**
-	 * 设置：菜单名称
-	 * @param name 菜单名称
+	 * 設置：菜單名稱
+	 * @param name 菜單名稱
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
 	/**
-	 * 获取：菜单名称
+	 * 獲取：菜單名稱
 	 * @return String
 	 */
 	public String getName() {
@@ -107,15 +99,15 @@ public class SysMenu implements Serializable {
 	}
 	
 	/**
-	 * 设置：菜单URL
-	 * @param url 菜单URL
+	 * 設置：菜單URL
+	 * @param url 菜單URL
 	 */
 	public void setUrl(String url) {
 		this.url = url;
 	}
 
 	/**
-	 * 获取：菜单URL
+	 * 獲取：菜單URL
 	 * @return String
 	 */
 	public String getUrl() {
@@ -139,15 +131,15 @@ public class SysMenu implements Serializable {
 	}
 
 	/**
-	 * 设置：菜单图标
-	 * @param icon 菜单图标
+	 * 設置：菜單圖標
+	 * @param icon 菜單圖標
 	 */
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
 
 	/**
-	 * 获取：菜单图标
+	 * 獲取：菜單圖標
 	 * @return String
 	 */
 	public String getIcon() {
@@ -155,7 +147,7 @@ public class SysMenu implements Serializable {
 	}
 	
 	/**
-	 * 设置：排序
+	 * 設置：排序
 	 * @param orderNum 排序
 	 */
 	public void setOrderNum(Integer orderNum) {
@@ -163,7 +155,7 @@ public class SysMenu implements Serializable {
 	}
 
 	/**
-	 * 获取：排序
+	 * 獲取：排序
 	 * @return Integer
 	 */
 	public Integer getOrderNum() {

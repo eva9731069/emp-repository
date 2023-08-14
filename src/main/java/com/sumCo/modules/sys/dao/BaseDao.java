@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * @author oplus
- * @Description: TODO(还需在XML文件里，有对应的SQL语句)
+ * @Description: TODO(還需在XML文件裡，有對應的SQL語句)
  * @date 2017-6-23 15:07
  */
 public interface BaseDao<T> {

@@ -22,7 +22,7 @@ import java.util.Set;
 
 /**
  * @author oplus
- * @Description: TODO(系统菜单)
+ * @Description: TODO(系統菜單)
  * @date 2017-6-23 15:07
  */
 @RestController
@@ -36,7 +36,7 @@ public class SysMenuController extends AbstractController {
 	private SysMenuService sysMenuService;
 
 	/**
-	 * 导航菜单
+	 * 導航菜單
 	 */
 	@RequestMapping("/nav")
 	public Result nav(){
@@ -46,7 +46,7 @@ public class SysMenuController extends AbstractController {
 	}
 	
 	/**
-	 * 所有菜单列表
+	 * 所有菜單列表
 	 */
 	@RequestMapping("/list")
 	@RequiresPermissions("sys:menu:list")
@@ -57,18 +57,18 @@ public class SysMenuController extends AbstractController {
 	}
 	
 	/**
-	 * 选择菜单(添加、修改菜单)
+	 * 選擇菜單(添加、修改菜單)
 	 */
 	@RequestMapping("/select")
 	@RequiresPermissions("sys:menu:select")
 	public Result select(){
-		//查询列表数据
+		//查詢列表數據
 		List<SysMenu> menuList = sysMenuService.queryNotButtonList();
 		
-		//添加顶级菜单
+		//添加顶級菜單
 		SysMenu root = new SysMenu();
 		root.setId(0L);
-		root.setName("一级菜单");
+		root.setName("一級菜單");
 		root.setParentId(-1L);
 		root.setOpen(true);
 		menuList.add(root);
@@ -77,7 +77,7 @@ public class SysMenuController extends AbstractController {
 	}
 	
 	/**
-	 * 菜单信息
+	 * 菜單信息
 	 */
 	@RequestMapping("/info/{menuId}")
 	@RequiresPermissions("sys:menu:info")
@@ -89,11 +89,11 @@ public class SysMenuController extends AbstractController {
 	/**
 	 * 保存
 	 */
-	@SysLog("保存菜单")
+	@SysLog("保存菜單")
 	@RequestMapping("/save")
 	@RequiresPermissions("sys:menu:save")
 	public Result save(@RequestBody SysMenu menu){
-		//数据校验
+		//數據校驗
 		verifyForm(menu);
 		
 		sysMenuService.save(menu);
@@ -104,11 +104,11 @@ public class SysMenuController extends AbstractController {
 	/**
 	 * 修改
 	 */
-	@SysLog("修改菜单")
+	@SysLog("修改菜單")
 	@RequestMapping("/update")
 	@RequiresPermissions("sys:menu:update")
 	public Result update(@RequestBody SysMenu menu){
-		//数据校验
+		//數據校驗
 		verifyForm(menu);
 				
 		sysMenuService.update(menu);
@@ -117,16 +117,16 @@ public class SysMenuController extends AbstractController {
 	}
 	
 	/**
-	 * 删除
+	 * 刪除
 	 */
-	@SysLog("删除菜单")
+	@SysLog("刪除菜單")
 	@RequestMapping("/delete")
 	@RequiresPermissions("sys:menu:delete")
 	public Result delete(long menuId){
-		//判断是否有子菜单或按钮
+		//判斷是否有子菜單或按鈕
 		List<SysMenu> menuList = sysMenuService.queryListByParentId(menuId);
 		if(menuList.size() > 0){
-			return Result.error("请先删除子菜单或按钮");
+			return Result.error("請先刪除子菜單或按鈕");
 		}
 
 		sysMenuService.deleteBatch(new Long[]{menuId});
@@ -135,44 +135,44 @@ public class SysMenuController extends AbstractController {
 	}
 	
 	/**
-	 * 验证参数是否正确
+	 * 驗整參數是否正確
 	 */
 	private void verifyForm(SysMenu menu){
 		if(StringUtils.isBlank(menu.getName())){
-			throw new AppException("菜单名称不能为空");
+			throw new AppException("菜單名稱不能為空");
 		}
 		
 		if(menu.getParentId() == null){
-			throw new AppException("上级菜单不能为空");
+			throw new AppException("上級菜單不能為空");
 		}
 		
-		//菜单
+		//菜單
 		if(menu.getType() == MenuType.MENU.getValue()){
 			if(StringUtils.isBlank(menu.getUrl())){
-				throw new AppException("菜单URL不能为空");
+				throw new AppException("菜單URL不能為空");
 			}
 		}
 		
-		//上级菜单类型
+		//上級菜單類型
 		int parentType = MenuType.CATALOG.getValue();
 		if(menu.getParentId() != 0){
 			SysMenu parentMenu = sysMenuService.queryObject(menu.getParentId());
 			parentType = parentMenu.getType();
 		}
 		
-		//目录、菜单
+		//目錄、菜單
 		if(menu.getType() == MenuType.CATALOG.getValue() ||
 				menu.getType() == MenuType.MENU.getValue()){
 			if(parentType != MenuType.CATALOG.getValue()){
-				throw new AppException("上级菜单只能为目录类型");
+				throw new AppException("上級菜單只能為目錄類型");
 			}
 			return ;
 		}
 		
-		//按钮
+		//按鈕
 		if(menu.getType() == MenuType.BUTTON.getValue()){
 			if(parentType != MenuType.MENU.getValue()){
-				throw new AppException("上级菜单只能为菜单类型");
+				throw new AppException("上級菜单只能為菜單類型");
 			}
 			return ;
 		}

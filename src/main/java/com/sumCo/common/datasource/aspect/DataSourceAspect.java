@@ -18,7 +18,7 @@ import java.lang.reflect.Method;
 
 /**
  * @author oplus
- * @Description: TODO(多数据源切面处理类-注解切换数据源)
+ * @Description: TODO(多數據源切面處理類-注解切換數據源)
  * @date 2017-9-26 16:55
  */
 @Aspect
@@ -37,7 +37,7 @@ public class DataSourceAspect implements Ordered {
         MethodSignature signature = (MethodSignature) point.getSignature();
         Method method = signature.getMethod();
 
-        //转换数据源
+        //轉換數據源
         DataSource ds = method.getAnnotation(DataSource.class);
         if(ds == null){
             DynamicDataSource.setDataSource(DataSourceNames.FIRST);

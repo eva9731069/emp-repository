@@ -16,13 +16,13 @@ public interface SysUserTokenService {
 
 	/**
 	 * 生成token
-	 * @param userId  用户ID
+	 * @param userId  用戶ID
 	 */
 	Map<String, Object> createToken(long userId);
 
 	/**
 	 * 退出，修改token值
-	 * @param userId  用户ID
+	 * @param userId  用戶ID
 	 */
 	void logout(long userId);
 

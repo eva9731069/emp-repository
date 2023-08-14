@@ -2,7 +2,7 @@ package com.sumCo.common.cache;
 
 /**
  * @author oplus
- * @Description: TODO(缓存工厂基类)
+ * @Description: TODO(緩存工廠基類)
  * @date 2017-6-23 15:07
  */
 public abstract class BaseCacheFactory implements ICache {

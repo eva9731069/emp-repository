@@ -7,7 +7,7 @@ import com.sumCo.modules.sys.entity.Carousel;
 
 /**
  * @author oplus
- * @Description: TODO(轮播图)
+ * @Description: TODO(輪播圖)
  * @date 2017-11-30 15:35:54
  */
 public interface CarouselService {

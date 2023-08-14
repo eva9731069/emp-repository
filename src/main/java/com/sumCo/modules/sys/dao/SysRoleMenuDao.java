@@ -10,7 +10,7 @@ import java.util.List;
 public interface SysRoleMenuDao extends BaseDao<SysRoleMenu> {
 	
 	/**
-	 * 根据角色ID，获取菜单ID列表
+	 * 根據角色ID，獲取菜單ID列表
 	 */
 	List<Long> queryMenuIdList(Long roleId);
 }

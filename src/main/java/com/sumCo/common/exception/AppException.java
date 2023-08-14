@@ -2,7 +2,7 @@ package com.sumCo.common.exception;
 
 /**
  * @author oplus
- * @Description: TODO(自定义异常)
+ * @Description: TODO(自定義異常)
  * @date 2017-6-23 15:07
  */
 public class AppException extends RuntimeException {
