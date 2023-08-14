@@ -140,7 +140,7 @@ public class SysUserServiceImpl implements SysUserService {
 		List<String> permsList;
 
 		//系统管理员，拥有最高权限
-		if(userId != null){
+		if(userId == Constant.SUPER_ADMIN){
 			List<SysMenu> menuList = sysMenuDao.queryList(new HashMap<>());
 			permsList = new ArrayList<>(menuList.size());
 			for(SysMenu menu : menuList){
