@@ -71,7 +71,7 @@ public class SysUserServiceImpl implements SysUserService {
 	public List<SysUser> queryList(Map<String, Object> map){
 		return sysUserDao.queryList(map);
 	}
-	
+
 	@Override
 	public int queryTotal(Map<String, Object> map) {
 		return sysUserDao.queryTotal(map);
@@ -87,7 +87,8 @@ public class SysUserServiceImpl implements SysUserService {
 		user.setSalt(salt);
 		sysUserDao.save(user);
 
-		//保存用户与角色关系
+
+
 		sysUserRoleService.saveOrUpdate(user.getId(), user.getRoleIdList());
 
 		sysUserRedis.saveOrUpdate(user);
@@ -104,8 +105,9 @@ public class SysUserServiceImpl implements SysUserService {
 			user.setPassword(new Sha256Hash(user.getPassword(), user.getSalt()).toHex());
 		}
 		sysUserDao.update(user);
-		
-		//保存用户与角色关系
+
+
+
 		sysUserRoleService.saveOrUpdate(user.getId(), user.getRoleIdList());
 	}
 
@@ -119,7 +121,8 @@ public class SysUserServiceImpl implements SysUserService {
 
 		sysUserDao.deleteBatch(ids);
 
-		//删除用户与角色关系
+
+
 		sysUserRoleService.deleteBatch(ids);
 	}
 
@@ -139,7 +142,8 @@ public class SysUserServiceImpl implements SysUserService {
 	public Set<String> getUserPermissions(Long userId) {
 		List<String> permsList;
 
-		//系统管理员，拥有最高权限
+
+		//系統管理員，擁有最高權限
 		if(userId != null){
 			List<SysMenu> menuList = sysMenuDao.queryList(new HashMap<>());
 			permsList = new ArrayList<>(menuList.size());
@@ -149,7 +153,8 @@ public class SysUserServiceImpl implements SysUserService {
 		}else{
 			permsList = sysUserDao.queryAllPerms(userId);
 		}
-		//用户权限列表
+
+
 		Set<String> permsSet = new HashSet<>();
 		for(String perms : permsList){
 			if(StringUtils.isBlank(perms)){

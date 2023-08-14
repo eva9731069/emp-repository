@@ -9,64 +9,61 @@ import com.sumCo.modules.sys.entity.SysUser;
 public interface SysUserService {
 
 	/**
-	 * 查询用户的所有权限
-	 * @param userId  用户ID
+	 *
+	 * 查詢用戶的所有權限
+	 * @param userId  用戶ID
 	 */
 	List<String> queryAllPerms(Long userId);
-	
+
 	/**
-	 * 查询用户的所有菜单ID
+	 *
+	 * 查詢用戶的所有菜單ID
 	 */
 	List<Long> queryAllMenuId(Long userId);
 
 	/**
-	 * 根据用户名，查询系统用户
+	 *
+	 * 根據用戶名，查詢系統用戶
 	 */
 	SysUser queryByUserName(String username);
-	
+
 	/**
-	 * 根据用户ID，查询用户
+	 *
+	 * 根據用戶ID，查詢用戶
 	 * @param id
 	 * @return
 	 */
 	SysUser queryObject(Long id);
-	
-	/**
-	 * 查询用户列表
-	 */
+
+
 	List<SysUser> queryList(Map<String, Object> map);
-	
-	/**
-	 * 查询总数
-	 */
+
+
 	int queryTotal(Map<String, Object> map);
-	
-	/**
-	 * 保存用户
-	 */
+
+
+
 	void save(SysUser user);
-	
-	/**
-	 * 修改用户
-	 */
+
+
+
 	void update(SysUser user);
-	
-	/**
-	 * 删除用户
-	 */
+
+
+
 	void deleteBatch(Long[] ids);
-	
+
 	/**
-	 * 修改密码
-	 * @param user       用户
-	 * @param password     原密码
-	 * @param newPassword  新密码
+	 *
+	 * 修改密碼
+	 * @param user       用戶
+	 * @param password     原密碼
+	 * @param newPassword  新密碼
 	 */
 	int updatePassword(SysUser user, String password, String newPassword);
 
-	/**
-	 * 获取用户权限列表
-	 */
+
+
 	Set<String> getUserPermissions(Long userId);
 
 }
