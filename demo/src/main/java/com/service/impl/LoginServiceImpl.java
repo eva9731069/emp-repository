@@ -24,6 +24,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public EmployeeVo loginVerify(EmployeeVo reqVo) {
         EmployeeVo empVo = empDao.queryEmp(reqVo.getEmpAccount(), reqVo.getEmpPassword());
+
         return empVo;
     }
 

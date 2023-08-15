@@ -1,9 +1,6 @@
 package com.mapper;
 
 import com.vo.EmployeeVo;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.type.JdbcType;
 
 import java.util.List;
 
@@ -17,10 +14,15 @@ public interface EmpDao {
 
     List<EmployeeVo> getEmpList(String empAccount, String empPassword);
 
+//     List<EmployeeVo> queryEmpDate();
+     EmployeeVo queryEmpDate();
     void insert(EmployeeVo vo);
 
     void delete(EmployeeVo vo);
 
     void edit(EmployeeVo vo);
+
+
+
 
 }

@@ -42,7 +42,8 @@ console.log("signup=>", this.empAccount, this.empPassword);
           if (this.sessionData != "") {
             router.push("/checkIn");
 
-
+console.log('auth=>'+response.data.auth);
+store.commit("setAuth", response.data.auth);
             store.commit("setEmpId", response.data.empNo);
             store.commit("setEmpName", response.data.chName);
             // store.commit("updateEncryptedData", response.data.encryptedData);

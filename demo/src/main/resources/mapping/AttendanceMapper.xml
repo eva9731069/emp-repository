@@ -7,6 +7,10 @@
         <result property="chName" column="ch_name"></result>
         <result property="checkInTime" column="check_in_time"></result>
         <result property="checkOutTime" column="check_out_time"></result>
+        <result property="missWorkDate" column="miss_work_date"></result>
+        <result property="missWorkStatus" column="miss_work_status"></result>
+        <result property="holidayType" column="holiday_type"></result>
+        <result property="holidayHour" column="holiday_hour"></result>
     </resultMap>
 
     <select id="empIsCheckIn" parameterType="CheckVo" resultMap="AttendanceRecMap">
@@ -21,6 +25,41 @@
         emp_no = #{empNo}
         AND DATE(check_out_time) = #{checkOutTime}
     </select>
+
+    <select id="queryEmpDate"  resultMap="AttendanceRecMap" parameterType="java.util.HashMap">
+        select
+        attendance_rec.emp_no, attendance_rec.ch_name, check_in_time::date,check_out_time::date,miss_work_date,miss_work_status,holiday_type,holiday_hour
+        from
+        attendance_rec join holiday_rec on attendance_rec.emp_no = holiday_rec.emp_no
+        WHERE 1=1
+        <if test="emp_no != null and emp_no != ''">
+            and attendance_rec.emp_no = #{empNo}
+        </if>
+        <if test=" startDate!= null and endDate != null">
+            AND check_in_time ::date BETWEEN to_date(#{startDate}, 'YYYY-MM-DD')
+            AND to_date(#{endDate}, 'YYYY-MM-DD')
+        </if>
+    </select>
+
+
+    <select id="queryEmpMonth"  resultMap="AttendanceRecMap" parameterType="java.util.HashMap">
+        select
+        attendance_rec.emp_no, attendance_rec.ch_name,check_in_time,check_out_time,miss_work_date,miss_work_status,holiday_type,holiday_hour
+        from
+        attendance_rec join holiday_rec on attendance_rec.emp_no = holiday_rec.emp_no
+        WHERE 1=1
+        <if test="emp_no != null and emp_no != ''">
+            and attendance_rec.emp_no = #{empNo}
+        </if>
+        <if test=" startDate!= null and endDate != null">
+            AND check_in_time ::date BETWEEN to_date(#{startDate}, 'YYYY-MM-DD')
+            AND to_date(#{endDate}, 'YYYY-MM-DD')
+        </if>
+    </select>
+
+
+
+
 
     <insert id="empCheckIn" parameterType="CheckVo">
         insert into ATTENDANCE_REC(emp_no, ch_name, check_in_time)

@@ -41,7 +41,13 @@ export default {
         router.push("/emp");
       } else if(tab === 'Jquery測試'){
         router.push("/jqueryTest");
-      } else {
+        } else if(tab === '出勤紀錄'){
+        router.push("/CheckInRec");
+      }else if(tab === '薪資查詢'){
+        router.push("/SalaryQuery"); 
+      }else if(tab === '薪資管理'){
+        router.push("/SalaryManage");
+      }else {
         router.push("/sunTest");
       }
     },

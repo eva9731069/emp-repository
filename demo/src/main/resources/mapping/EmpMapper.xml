@@ -7,6 +7,12 @@
         <result property="empPassword" column="emp_password"></result>
         <result property="chName" column="ch_name"></result>
         <result property="enName" column="en_name"></result>
+        <result property="jobSafe" column="job_safe"></result>
+        <result property="healthSafe" column="health_safe"></result>
+        <result property="basicSalary" column="basic_salary"></result>
+
+
+
     </resultMap>
 
     <select id= "queryEmp" resultMap="EmpResultMap" parameterType="EmployeeVo">
@@ -29,6 +35,13 @@
         select * from employee where emp_account=#{empAccount} and emp_password = #{empPassword}
     </select>
 
+    <select id="queryEmpDate" parameterType="EmployeeVo" resultMap="EmpResultMap">
+        select
+        salary_rec.emp_no, salary_rec.ch_name, salary,salary_time ,salary_rec.basic_salary,job_safe_money,health_safe_money,project_bonus
+        from employee left join salary_rec on employee.emp_no = salary_rec.emp_no
+
+    </select>
+
     <insert id="insert" parameterType="EmployeeVo">
         insert into EMPLOYEE(EMP_NO, EMP_ACCOUNT, EMP_PASSWORD, CH_NAME) values
            (#{empNo}, #{empAccount}, #{empPassword}, #{chName})
@@ -41,5 +54,8 @@
     <update id="edit" parameterType="EmployeeVo">
         update employee set EMP_PASSWORD = #{empPassword}, CH_NAME = #{chName} where emp_no = #{empNo}
     </update>
+
+
+
 
 </mapper>

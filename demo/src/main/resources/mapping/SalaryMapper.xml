@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.SalaryDao">
+    <resultMap id="SalaryResultMap" type="com.vo.SalaryVo">
+        <result property="empNo" column="emp_no"></result>
+        <result property="chName" column="ch_name"></result>
+        <result property="salary" column="salary"></result>
+        <result property="salaryTime" column="salary_time"></result>
+        <result property="basicSalary" column="basic_salary"></result>
+        <result property="jobSafeMoney" column="job_safe_money"></result>
+        <result property="healthSafeMoney" column="health_safe_money"></result>
+        <result property="projectBonus" column="project_bonus"></result>
+    </resultMap>
+
+    <select id="querySalary"  resultMap="SalaryResultMap">
+        select *
+        from salary_rec
+    </select>
+
+    <select id="queryEmpSalary"  resultMap="SalaryResultMap">
+        select *
+        from salary_rec
+        where emp_no = #{empNo}
+    </select>
+
+<!--    <select id="queryEmpDate" parameterType="SalaryVo" resultMap="SalaryResultMap">-->
+<!--        select-->
+<!--        salary_rec.emp_no, salary_rec.ch_name, salary,salary_time,salary_rec.basic_salary,job_safe_money,health_safe_money,project_bonus-->
+<!--        from employee left join salary_rec on employee.emp_no = salary_rec.emp_no-->
+<!--        and extract(year from salary_rec.salary_time) = cast(substring(#{yearMonth}, 1, 4) varchar)-->
+<!--        and extract(month from salary_rec.salary_time) = cast(substring(#{yearMonth}, 6, 2) varchar)-->
+<!--        where-->
+<!--        salary_rec.salary_time is null-->
+<!--&lt;!&ndash;        and  salary_rec.emp_no = #{empNo}&ndash;&gt;-->
+<!--    </select>-->
+
+    <insert id="addSalary" parameterType="SalaryVo">
+        insert into
+        salary_rec(emp_no,ch_name,salary,salary_time,basic_salary,job_safe_money,health_safe_money,project_bonus)
+        values( #{empNo}, #{chName}, #{salary}, #{salaryTime}, #{basicSalary}, #{jobSafeMoney}, #{healthSafeMoney}, #{projectBonus})
+    </insert>
+
+    <select id="queryEmpAllDate" parameterType="SalaryVo" resultMap="SalaryResultMap">
+        select *
+<!--        salary_rec.emp_no, salary_rec.ch_name, salary,cast(salary_time as varchar),salary_rec.basic_salary,job_safe_money,health_safe_money,project_bonus-->
+        from employee left join salary_rec on employee.emp_no = salary_rec.emp_no
+
+    </select>
+
+    <select id="queryOne" parameterType="SalaryVo" resultMap="SalaryResultMap">
+        select
+        salary_rec.emp_no, salary_rec.ch_name, salary,salary_time ,salary_rec.basic_salary,job_safe_money,health_safe_money,project_bonus
+        from employee left join salary_rec on employee.emp_no = salary_rec.emp_no
+        where
+        1=1
+        <if test="salaryTimeStart != null and salaryTimeEnd != null">
+            salary_rec.salary_time BETWEEN #{salaryTimeStart} AND #{salaryTimeEnd}
+        </if>
+        <if test="empNo != null and empNo !=''">
+        AND salary_rec.emp_no = #{empNo}
+        </if>
+    </select>
+
+
+
+
+
+
+    <select id="queryEmpDate" parameterType="SalaryVo" resultMap="SalaryResultMap">
+        select
+        salary_rec.emp_no, salary_rec.ch_name, salary,salary_time ,salary_rec.basic_salary,job_safe_money,health_safe_money,project_bonus
+        from employee left join salary_rec on employee.emp_no = salary_rec.emp_no
+        where
+        salary_rec.salary_time BETWEEN #{salaryTimeStart} AND #{salaryTimeEnd}
+        AND salary_rec.emp_no = #{empNo}
+<!--        salary_rec.salary_time ::date = #{salaryTime}-->
+<!--                and-->
+<!--        salary_rec.emp_no = #{empNo}-->
+    </select>
+    <select id="empSalary"  resultMap="SalaryResultMap">
+        select *
+        from salary_rec
+        where emp_no = #{empNo}
+    </select>
+
+</mapper>

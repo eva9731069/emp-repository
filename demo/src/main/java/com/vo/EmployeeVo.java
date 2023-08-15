@@ -37,6 +37,10 @@ public class EmployeeVo {
     byte[] resignPhoto;
     String empStatus;
     String auth;
+    String yearHoliday;
+    String jobSafe;
+    String healthSafe;
+    String basicSalary;
     
 
 }

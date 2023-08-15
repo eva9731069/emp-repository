@@ -55,7 +55,22 @@ const routes = [
         name: 'Function',
         path: "/Function",
         component: () => import('../components/FunctionView.vue'),
-    }
+    },
+    {
+        name: 'CheckInRec',
+        path: "/CheckInRec",
+        component: () => import('../components/CheckInRecView.vue'),
+    },
+    {
+        name: 'SalaryQuery',
+        path: "/SalaryQuery",
+        component: () => import('../components/SalaryQueryView.vue'),
+    },
+    {
+        name: 'SalaryManage',
+        path: "/SalaryManage",
+        component: () => import('../components/SalaryManageView.vue'),
+    },
 
 ]
 

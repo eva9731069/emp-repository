@@ -50,6 +50,8 @@ export default {
         router.push("/emp");
       } else if(tab === 'Jquery測試'){
         router.push("/Function");
+        // }else if(tab === '出勤紀錄'){
+        // router.push("/CheckInRec");
       } else {
         router.push("/sunTest");
       }

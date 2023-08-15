@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/user")
 @EnableAutoConfiguration
@@ -27,12 +29,32 @@ public class CheckController {
         private CheckService checkService;
 
         @RequestMapping(value = "/checkIn", method = RequestMethod.POST)
-        String checkIn(@RequestBody CheckFormBean reqVo, HttpSession session) {
-            return   checkService.checkIn(reqVo);
+        String checkIn(@RequestBody CheckFormBean reqBean, HttpSession session) {
+
+                return   checkService.checkIn(reqBean);
         }
         @RequestMapping(value = "/checkOut", method = RequestMethod.POST)
-        String checkOut(@RequestBody CheckFormBean reqVo, HttpSession session) {
-                return   checkService.checkOut(reqVo);
+        String checkOut(@RequestBody CheckFormBean reqBean, HttpSession session) {
+                return   checkService.checkOut(reqBean);
         }
+
+        @RequestMapping(value = "/empQueryDate", method = RequestMethod.POST)
+        List<CheckFormBean> queryDate(@RequestBody CheckFormBean reqBean){
+                String startDate = reqBean.getStartDate();
+                String endDate = reqBean.getEndDate();
+                String empNo = reqBean.getEmpNo();
+                log.info("startDate=>" + startDate );
+                log.info("endDate=>" + endDate );
+                List<CheckFormBean> DateList = checkService.queryEmpDate(startDate,endDate,empNo);
+
+
+                return DateList;
+        }
+
+
+
+
+
+
 
 }
