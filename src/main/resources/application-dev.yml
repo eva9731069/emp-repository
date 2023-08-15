@@ -7,7 +7,7 @@ spring:
         driverClassName: com.mysql.jdbc.Driver
         druid:
             first:  #數據源1
-                url: jdbc:mysql://34.80.130.231:3306/greenBuild?useSSL=false
+                url: jdbc:mysql://34.80.130.231:3306/workRec?useSSL=false
                 username: root
                 password: mypassword
             # initial-size: 10

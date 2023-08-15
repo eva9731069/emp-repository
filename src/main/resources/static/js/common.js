@@ -75,13 +75,15 @@ function hasPermission(permission) {
 
 //重寫alert
 window.alert = function (msg, callback) {
-    parent.layer.alert(msg, function (index) {
-        parent.layer.close(index);
+    parent.layer.confirm(msg, {
+        btn: ['確定']
+    }, function (index) {
         if (typeof(callback) === "function") {
             callback("ok");
         }
+        parent.layer.close(index);
     });
-}
+};
 
 //重寫confirm式樣框
 window.confirm = function (msg, callback) {
