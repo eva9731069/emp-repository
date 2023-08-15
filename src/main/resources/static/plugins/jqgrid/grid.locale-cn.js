@@ -119,8 +119,8 @@ $.jgrid.regional["cn"] = {
     },
     errors : {
         errcap : "錯誤",
-        nourl : "没有配置url",
-        norecords: "没有資料",
+        nourl : "沒有配置url",
+        norecords: "沒有資料",
         model : "colNames 和 colModel 長度不等！"
     },
     formatter : {

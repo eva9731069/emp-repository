@@ -9,7 +9,7 @@ $(function () {
 			{ label: 'email', name: 'email', width: 90 },
 			{ label: '手機號碼', name: 'mobile', width: 100 },
 			{ label: '狀態', name: 'status', width: 80, formatter: function(value, options, row){
-				return value === 0 ? 
+				return value === 2 ?
 					'<span class="label label-danger">停用</span>' : 
 					'<span class="label label-success">正常</span>';
 			}},
@@ -146,7 +146,7 @@ var vm = new Vue({
 			    data: JSON.stringify(vm.user),
 			    success: function(r){
 			    	if(r.code === 0){
-						alert('操作成功', function(){
+						alert('操作成功2', function(){
 							vm.reload();
 						});
 					}else{

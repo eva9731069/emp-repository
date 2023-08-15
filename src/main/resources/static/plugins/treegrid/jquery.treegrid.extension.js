@@ -239,10 +239,10 @@
         expandAll : true,
         striped : false,
         columns : [],
-        toolbar:
+        toolbar:null,
         height: 0,
-        expanderExpandedClass : 'glyphicon glyphicon-chevron-down',// 展开的按钮的图标
-        expanderCollapsedClass : 'glyphicon glyphicon-chevron-right'// 缩起的按钮的图标
+        expanderExpandedClass : 'glyphicon glyphicon-chevron-down',
+        expanderCollapsedClass : 'glyphicon glyphicon-chevron-right'
 
     };
 })(jQuery);

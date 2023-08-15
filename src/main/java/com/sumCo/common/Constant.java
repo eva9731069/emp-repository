@@ -80,7 +80,7 @@ public class Constant {
         /**
          * 禁用
          */
-        DISABLE(0),
+        DISABLE(2),
         /**
          * 正常
          */

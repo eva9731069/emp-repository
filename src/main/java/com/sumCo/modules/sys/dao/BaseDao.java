@@ -25,6 +25,8 @@ public interface BaseDao<T> {
 	int delete(Map<String, Object> map);
 	
 	int deleteBatch(Object[] id);
+	int deleteBatchTwo(Object[]id);
+	int deleteBatchThree(Object[]id);
 
 	T queryObject(Object id);
 	
