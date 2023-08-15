@@ -27,7 +27,7 @@ if(!$.jgrid.hasOwnProperty("regional")) {
 }
 $.jgrid.regional["cn"] = {
     defaults : {
-        recordtext: "{0} - {1}\u3000共 {2} 頁", // 共字前是全角空格
+        recordtext: "{0} - {1}\u3000共 {2} 筆", // 共字前是全角空格
         emptyrecords: "",
         loadtext: "讀取中...",
 		savetext: "Saving...",

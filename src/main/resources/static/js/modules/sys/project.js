@@ -1,12 +1,16 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: baseURL + '/sys/role/list',
-        datatype: "json",
+        datatype: "local",
         colModel: [			
-			{ label: '專案編號', name: 'id', index: 'id', key: true, hidden: true },
-			{ label: '專案名稱', name: 'name', index: 'name', width: 75 },
-			{ label: '備註', name: 'remark', width: 100 },
-			{ label: '開始時間', name: 'createTime', index: 'create_time', width: 80}
+			{ label: 'id', name: 'id', index: 'id', width: 50,hidden:true, key: true },
+			{ label: '部門名稱', name: 'name', index: 'name', width: 80 }, 			
+			{ label: '排序', name: 'orderNum', index: 'order_Num', width: 80 }, 			
+			{ label: '狀態', name: 'status', width: 80, formatter: function(value, options, row){
+				return value === 0 ? 
+					'<span class="label label-danger">停用</span>' : 
+					'<span class="label label-success">正常</span>';
+			}},			
+			{ label: '建立時間', name: 'createTime', index: 'create_time', width: 80 }			
         ],
 		viewrecords: true,
         height: 385,

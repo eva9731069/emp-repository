@@ -21,7 +21,7 @@ public class SysRole implements Serializable {
 	/**
 	 * 角色名稱
 	 */
-	@NotBlank(message="角色名稱不能為空")
+	@NotBlank(message="群組名稱不得為空")
 	private String name;
 
 	/**
