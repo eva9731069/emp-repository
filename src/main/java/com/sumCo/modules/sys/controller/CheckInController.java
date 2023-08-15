@@ -3,27 +3,27 @@ package com.sumCo.modules.sys.controller;
 import com.sumCo.common.utils.PageUtils;
 import com.sumCo.common.utils.Query;
 import com.sumCo.common.utils.Result;
+import com.sumCo.modules.sys.entity.CheckInVo;
 import com.sumCo.modules.sys.entity.SysDept;
+import com.sumCo.modules.sys.service.CheckInService;
 import com.sumCo.modules.sys.service.SysDeptService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author Honda
- * @Description: TODO(部門管理)
- * @date 2023-08-08 11:01:45
- */
+
 @RestController
 @RequestMapping("/sys/checkIn")
 public class CheckInController extends AbstractController{
 
 	@Autowired
-	private SysDeptService sysDeptService;
+	@Qualifier("CheckInServiceImpl")
+	private CheckInService checkInService;
 	
 	/**
 	 * 列表
@@ -32,14 +32,14 @@ public class CheckInController extends AbstractController{
 	@RequiresPermissions("sys:dept:list")
 	public Result list(@RequestParam Map<String, Object> params){
 		//查詢列表數據
-        Query query = new Query(params);
-
-		List<SysDept> sysDeptList = sysDeptService.queryList(query);
-		int total = sysDeptService.queryTotal(query);
+//        Query query = new Query(params);
+//
+//		List<SysDept> sysDeptList = sysDeptService.queryList(query);
+//		int total = sysDeptService.queryTotal(query);
+//
+//		PageUtils pageUtil = new PageUtils(sysDeptList, total, query.getLimit(), query.getPage());
 		
-		PageUtils pageUtil = new PageUtils(sysDeptList, total, query.getLimit(), query.getPage());
-		
-		return Result.ok().put("page", pageUtil);
+		return Result.ok().put("page", null);
 	}
 	
 	
@@ -48,8 +48,9 @@ public class CheckInController extends AbstractController{
 	 */
 	@RequestMapping("/info/{id}")
 	public Result info(@PathVariable("id") Long id){
-		SysDept sysDept = sysDeptService.queryObject(id);
-		
+//		SysDept sysDept = sysDeptService.queryObject(id);
+		SysDept sysDept = null;
+
 		return Result.ok().put("sysDept", sysDept);
 	}
 	
@@ -58,10 +59,12 @@ public class CheckInController extends AbstractController{
 	 */
 	@RequestMapping("/save")
 	@RequiresPermissions("sys:dept:save")
-	public Result save(@RequestBody SysDept sysDept){
-		logger.info("456");
-//		sysDept.setCreateTime(new Date());
-//		sysDeptService.save(sysDept);
+	public Result save(@RequestBody CheckInVo checkInVo){
+
+		logger.info("getStatus=>"+checkInVo.getStatus());
+
+		checkInService.checkIn(checkInVo);
+
 		
 		return Result.ok();
 	}
@@ -83,7 +86,7 @@ public class CheckInController extends AbstractController{
 	@RequestMapping("/delete")
 	@RequiresPermissions("sys:dept:delete")
 	public Result delete(@RequestBody Long[] ids){
-		sysDeptService.deleteBatch(ids);
+//		sysDeptService.deleteBatch(ids);
 		
 		return Result.ok();
 	}
