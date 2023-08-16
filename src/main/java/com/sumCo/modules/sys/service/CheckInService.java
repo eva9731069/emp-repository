@@ -8,7 +8,9 @@ import java.util.Map;
 
 
 public interface CheckInService {
-	void checkIn(CheckInVo checkInVo);
+	String checkIn(Long userId, String username);
+
+	String checkOut(Long userId, String username, String checkOutConfirm);
 	
 
 }

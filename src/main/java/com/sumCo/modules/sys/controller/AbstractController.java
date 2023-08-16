@@ -23,5 +23,9 @@ public abstract class AbstractController {
         return getUser().getId();
     }
 
+    protected String getUserName() {
+        return getUser().getUsername();
+    }
+
 
 }

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sumCo.modules.sys.dao.CheckInDao">
+
+    <resultMap type="com.sumCo.modules.sys.entity.CheckInVo" id="sysDeptMap">
+        <result property="userId" column="emp_no"/>
+        <result property="userName" column="ch_name"/>
+        <result property="checkInTime" column="check_in_time"/>
+        <result property="checkOutTime" column="check_out_time"/>
+        <result property="workStatus" column="miss_work_date"/>
+        <result property="missWorkStatus" column="miss_work_status"/>
+    </resultMap>
+
+    <insert id="empCheckIn" parameterType="com.sumCo.modules.sys.formBean.CheckInFormBean">
+        insert into attendance_rec(emp_no, ch_name, check_in_time)
+        values (#{userId}, #{userName}, NOW())
+    </insert>
+
+    <select id="queryObject" parameterType="com.sumCo.modules.sys.formBean.CheckInFormBean"
+            resultType="com.sumCo.modules.sys.entity.CheckInVo">
+        select * from attendance_rec
+        WHERE
+        CH_NAME = #{userName}
+        AND DATE(check_in_time) = CURRENT_DATE
+    </select>
+
+    <select id="empIsCheckOut" parameterType="String"
+            resultType="com.sumCo.modules.sys.entity.CheckInVo">
+        select * from attendance_rec
+        WHERE
+        CH_NAME = #{userName}
+        AND DATE(check_out_time) = CURRENT_DATE
+    </select>
+
+    <update id="empCheckOut" parameterType="com.sumCo.modules.sys.formBean.CheckInFormBean">
+        update attendance_rec
+        set
+        check_out_time = NOW()
+        where CH_NAME = #{userName}
+        AND DATE(check_in_time) = CURRENT_DATE
+    </update>
+
+
+</mapper>
