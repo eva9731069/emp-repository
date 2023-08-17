@@ -138,6 +138,26 @@
 			<if test="email != null and email != ''">`email` = #{email}, </if>
 			<if test="mobile != null and mobile != ''">`mobile` = #{mobile},</if>
 			<if test="status != null and status != ''">`status` = #{status}, </if>
+			<if test="enName != null and enName != ''">`en_name` = #{enName}, </if>
+			<if test="personId != null and personId != ''">`person_id` = #{personId}, </if>
+			<if test="gender != null and gender != ''">`gender` = #{gender}, </if>
+			<if test="birth != null and birth != ''">`birth` = #{birth}, </if>
+			<if test="age != null and age != ''">`age` = #{age}, </if>
+			<if test="bloodType != null and bloodType != ''">`blood_type` = #{bloodType}, </if>
+			<if test="personType != null and personType != ''">`person_type` = #{personType}, </if>
+			<if test="soldierType != null and soldierType != ''">`soldier_type` = #{soldierType}, </if>
+			<if test="marriedType != null and marriedType != ''">`married_type` = #{marriedType}, </if>
+			<if test="homeAddr != null and homeAddr != ''">`home_addr` = #{homeAddr}, </if>
+			<if test="contactAddr != null and contactAddr != ''">`contact_addr` = #{contactAddr}, </if>
+			<if test="pressingPerson != null and pressingPerson != ''">`pressing_person` = #{pressingPerson}, </if>
+			<if test="pressingRelation != null and pressingRelation != ''">`pressing_relation` = #{pressingRelation}, </if>
+			<if test="registerDate != null and registerDate != ''">`register_date` = #{registerDate}, </if>
+			<if test="resignDate != null and resignDate != ''">`resign_date` = #{resignDate}, </if>
+			<if test="empPhoto != null and empPhoto != ''">`emp_photo` = #{empPhoto}, </if>
+			<if test="resignPhoto != null and resignPhoto != ''">`resign_photo` = #{resignPhoto}, </if>
+			<if test="auth != null and auth != ''">`auth` = #{auth}, </if>
+			<if test="yearHoliday != null and yearHoliday != ''">`year_holiday` = #{yearHoliday}, </if>
+			<if test="basicSalary != null and basicSalary != ''">`basic_salary` = #{basicSalary}</if>
 		</set>
 		where id = #{id}
 	</update>
