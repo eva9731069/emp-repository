@@ -1,6 +1,6 @@
 server:
     port: 8080
-    context-path: /greenBuild/admin
+    context-path: /greenBuild/admin/login
 spring:
     datasource:
         # type: com.alibaba.druid.pool.DruidDataSource

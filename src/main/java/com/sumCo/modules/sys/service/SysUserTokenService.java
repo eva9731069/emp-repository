@@ -18,7 +18,7 @@ public interface SysUserTokenService {
 	 * 生成token
 	 * @param userId  用戶ID
 	 */
-	Map<String, Object> createToken(long userId, String username);
+	Map<String, Object> createToken(long userId, String username, String role);
 
 	/**
 	 * 退出，修改token值

@@ -107,7 +107,12 @@ var vm = new Vue({
 					if(r.code == 0){//登入成功
                         localStorage.setItem("X-Token", r.token);
                         localStorage.setItem("userName", r.userName);
-                      
+                        localStorage.setItem("role", r.role);
+
+                        console.log('auth=>' + localStorage.getItem("role"));
+                        console.log('userName=>' + localStorage.getItem("userName"));
+                        
+                       
                         parent.location.href = baseURL + '/index.html';
 					}else{
 						vm.error = true;

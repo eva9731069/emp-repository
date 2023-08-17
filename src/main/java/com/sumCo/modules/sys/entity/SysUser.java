@@ -1,5 +1,6 @@
 package com.sumCo.modules.sys.entity;
 
+import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.sumCo.common.validator.group.AddGroup;
@@ -14,6 +15,7 @@ import java.util.List;
  * @Description: TODO(系統用戶)
  * @date 2017-6-23 15:07
  */
+@Data
 public class SysUser implements Serializable {
 	
 	/**
@@ -100,7 +102,7 @@ public class SysUser implements Serializable {
 	private byte[] empPhoto;
 	private byte[] resignPhoto;
 //	@NotBlank(message="權限不能為空", groups = {AddGroup.class, UpdateGroup.class})
-	private String auth;
+	private String role;
 //	@NotBlank(message="剩餘特休時數不能為空", groups = {AddGroup.class, UpdateGroup.class})
 	private String yearHoliday;
 //	@NotBlank(message="底薪不能為空", groups = {AddGroup.class, UpdateGroup.class})
@@ -417,14 +419,6 @@ public class SysUser implements Serializable {
 
 	public void setResignPhoto(byte[] resignPhoto) {
 		this.resignPhoto = resignPhoto;
-	}
-
-	public String getAuth() {
-		return auth;
-	}
-
-	public void setAuth(String auth) {
-		this.auth = auth;
 	}
 
 	public String getYearHoliday() {

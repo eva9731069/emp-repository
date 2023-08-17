@@ -83,7 +83,7 @@ public class SysLoginController extends AbstractController {
 
         //用戶信息
         SysUser user = sysUserService.queryByUserName(username);
-
+        logger.info("getUsername=>"+user.getUsername());
         //帳號不存在
         if (user == null) {
             return Result.error("帳號不存在");
@@ -100,7 +100,7 @@ public class SysLoginController extends AbstractController {
         }
 
         //生成token，並保存到數據庫
-        Map<String, Object> result = sysUserTokenService.createToken(user.getId(), getUser().getUsername());
+        Map<String, Object> result = sysUserTokenService.createToken(user.getId(), user.getUsername(), user.getRole());
         Result r = Result.ok().put(result);
         return r;
     }

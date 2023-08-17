@@ -55,8 +55,30 @@ var vm = new Vue({
 		checkIn: {}
 	},
 	methods: {
-		query: function () {
-			vm.reload();
+		query: function (event) {
+			var checkResult = vm.checkQueryParam(event.target.id);
+			console.log("checkResult=>" + checkResult);
+			if (checkResult === false) {
+				return;
+			}
+console.log('auth=>>>'+localStorage.getItem("role"));
+			if (localStorage.getItem("role") === 'emp') {
+				vm.q.userName = localStorage.getItem("userName");
+			}
+
+
+			vm.showList = true;
+			var page = $("#jqGrid").jqGrid('getGridParam', 'page');
+			$("#jqGrid").jqGrid('setGridParam', {
+				datatype: "json", // 設置 datatype 為 json，表示從後端獲取數據
+				url: baseURL + '/sys/checkIn/list', // 更新 URL，改為您的後端 URL
+				postData: {
+					'userName': vm.q.userName,
+					'startDate': vm.q.startDate,
+					'endDate': vm.q.endDate,
+				},
+				page: page
+			}).trigger("reloadGrid");
 		},
 		add: function () {
 			console.log('1');
@@ -175,8 +197,11 @@ var vm = new Vue({
 		//         })
 		//     },
 		reload: function (event) {
-			var checkResult = vm.checkQueryParam();
+		
 
+
+			var checkResult = vm.checkQueryParam(event.target.id);
+			console.log("checkResult=>" + checkResult);
 			if (checkResult === false) {
 				return;
 			}
@@ -194,23 +219,39 @@ var vm = new Vue({
 				page: page
 			}).trigger("reloadGrid");
 		},
-		checkQueryParam: function (event) {
+		checkQueryParam: function (triggeredButtonId) {
+			console.log('auth=>' + localStorage.getItem("role"));
+			console.log('userName=>' + localStorage.getItem("userName"));
 			var token = localStorage.getItem("userName");
-			console.log('userName=>'+token);
-			console.log('userId=>'+vm.getUser(userId));
-			if (vm.q.userName === null || vm.q.userName.trim() === '') {
-				alert('員工帳號不可為空');
-				return false;
-			}
-			if (vm.q.startDate === null || vm.q.startDate.trim() === '') {
-				alert('日期起日不可為空');
-				return false;
+			console.log('userName=>' + token);
+
+			console.log('triggeredButtonId aa=>' + triggeredButtonId);
+
+
+			if (localStorage.getItem("role") === 'emp') {
+				vm.q.userName = localStorage.getItem("userName");
 			}
 
-			if (vm.q.endDate === null || vm.q.endDate.trim() === '') {
-				alert('日期迄日不可為空');
-				return false;
+			console.log('vm.q.userName=>' + vm.q.userName);
+			
+
+			if (triggeredButtonId !== 'back') {
+				if (vm.q.userName === null || vm.q.userName.trim() === '') {
+					alert('員工帳號不可為空');
+					return false;
+				}
+
+				if (vm.q.startDate === null || vm.q.startDate.trim() === '') {
+					alert('日期起日不可為空');
+					return false;
+				}
+
+				if (vm.q.endDate === null || vm.q.endDate.trim() === '') {
+					alert('日期迄日不可為空');
+					return false;
+				}
 			}
+
 
 		},
 	}
