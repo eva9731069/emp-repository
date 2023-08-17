@@ -85,17 +85,6 @@ $(function () {
 			// { label: '離職日期', name: 'resignDate', width: 100 },
 			// { label: '大頭貼', name: 'empPhoto', width: 100 },
 			// { label: '離職證明', name: 'resignPhoto', width: 100 },
-			// {
-			// 	label: '權限', name: 'auth', width: 80, formatter: function (value, options, row) {
-			// 		if (value === '0') {
-			// 			return '<span class="label label-primary">一般員工</span>';
-			// 		} else if (value === '1') {
-			// 			return '<span class="label label-danger">人事</span>';
-			// 		} else {
-			// 			return '<span class="label label-default">管理員</span>';
-			// 		}
-			// 	}
-			// },
 			// { label: '剩餘特休時數', name: 'yearHoliday', width: 100 },
 			// { label: '底薪', name: 'basicSalary', width: 100 },
 			{
@@ -109,6 +98,8 @@ $(function () {
 					}
 				}
 			},
+			
+			
 			// { label: '建立時間', name: 'createTime', index: "create_time", width: 80 }
 		],
 		viewrecords: true,
@@ -169,7 +160,7 @@ var vm = new Vue({
 			personType: 0,
 			soldierType: 0,
 			marriedType: 0,
-			auth: 0,
+			
 
 			deptId: null,
 			deptName: null,
@@ -195,7 +186,7 @@ var vm = new Vue({
 				personType: 0,
 				soldierType: 0,
 				marriedType: 0,
-				auth: 0,
+			
 				roleIdList: []
 			};
 
@@ -284,6 +275,7 @@ var vm = new Vue({
 		getRoleList: function () {
 			$.get(baseURL + "/sys/role/select", function (r) {
 				vm.roleList = r.list;
+				
 			});
 		},
 		deptTree: function () {

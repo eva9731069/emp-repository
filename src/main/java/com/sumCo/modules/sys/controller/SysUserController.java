@@ -34,139 +34,142 @@ import java.util.Map;
 @RequestMapping("/sys/user")
 public class SysUserController extends AbstractController {
 
-	@Autowired
-	private SysUserService sysUserService;
+    @Autowired
+    private SysUserService sysUserService;
 
-	@Autowired
-	private SysUserRoleService sysUserRoleService;
-	@Autowired
-	private SysUserDao sysUserDao;
-	
-	/**
-	 * 所有用戶列表
-	 */
-	@RequestMapping("/list")
-	@RequiresPermissions("sys:user:list")
-	public Result list(@RequestParam Map<String, Object> params){
-		//查詢列表數據
-		Query query = new Query(params);
-		List<SysUser> userList = sysUserService.queryList(query);
+    @Autowired
+    private SysUserRoleService sysUserRoleService;
+    @Autowired
+    private SysUserDao sysUserDao;
 
-
-		for(SysUser   vo:userList){
-			System.out.println("getUsername=>"+vo.getUsername());
-			System.out.println("getGender=>"+vo.getGender());
-			System.out.println("===============");
-		}
+    /**
+     * 所有用戶列表
+     */
+    @RequestMapping("/list")
+    @RequiresPermissions("sys:user:list")
+    public Result list(@RequestParam Map<String, Object> params) {
+        //查詢列表數據
+        Query query = new Query(params);
+        List<SysUser> userList = sysUserService.queryList(query);
 
 
-		int total = sysUserService.queryTotal(query);
-		
-		PageUtils pageUtil = new PageUtils(userList, total, query.getLimit(), query.getPage());
-		
-		return Result.ok().put("page", pageUtil);
-	}
-	
-	/**
-	 * 獲取登入的使用者資訊
-	 */
-	@RequestMapping("/info")
-	public Result info(){
-		return Result.ok().put("user", getUser());
-	}
-	
-	/**
-	 * 修改登入用戶密碼
-	 */
-	@SysLog("修改密碼")
-	@RequestMapping("/updatePassword")
-	public Result updatePassword(String password, String newPassword){
-		if(StringUtils.isBlank(newPassword)){
-			throw new AppException("新密碼不可以為空值");
-		}
-		
-		//sha256加密
-		password = new Sha256Hash(password, getUser().getSalt()).toHex();
-		//sha256加密
-		newPassword = new Sha256Hash(newPassword, getUser().getSalt()).toHex();
+        for (SysUser vo : userList) {
+            System.out.println("getUsername=>" + vo.getUsername());
+            System.out.println("getGender=>" + vo.getGender());
+            System.out.println("===============");
+        }
 
-		//更新密碼
-		int count = sysUserService.updatePassword(getUser(), password, newPassword);
-		if(count == 0){
-			return Result.error("密碼輸入不正確");
-		}
-		
-		return Result.ok();
-	}
-	
-	/**
-	 * 使用者資訊
-	 */
-	@RequestMapping("/info/{userId}")
-	@RequiresPermissions("sys:user:info")
-	public Result info(@PathVariable("userId") Long userId){
-		SysUser user = sysUserService.queryObject(userId);
-		
-		//獲取用戶所屬的角色列表
-		List<Long> roleIdList = sysUserRoleService.queryRoleIdList(userId);
-		user.setRoleIdList(roleIdList);
-		
-		return Result.ok().put("user", user);
-	}
-	
-	/**
-	 * 儲存使用者
-	 */
-	@SysLog("儲存使用者")
-	@RequestMapping("/save")
-	@RequiresPermissions("sys:user:save")
-	public Result save(@RequestBody SysUser user){
-		ValidatorUtils.validateEntity(user, AddGroup.class);
-		sysUserService.save(user);
-		return Result.ok();
-	}
-	
-	/**
-	 * 修改用戶
-	 */
-	@SysLog("修改用戶")
-	@RequestMapping("/update")
-	@RequiresPermissions("sys:user:update")
-	public Result update(@RequestBody SysUser user){
-		ValidatorUtils.validateEntity(user, UpdateGroup.class);
-		sysUserService.update(user);
-		return Result.ok();
-	}
-	
-	/**
-	 * 刪除用戶
-	 */
-	@SysLog("刪除用戶")
-	@RequestMapping("/delete")
-	@RequiresPermissions("sys:user:delete")
-	public Result delete(@RequestBody Long[] userIds){
-		if(ArrayUtils.contains(userIds, 1L)){
-			return Result.error("系統管理員不能刪除");
-		}
-		if(ArrayUtils.contains(userIds, getUserId())){
-			return Result.error("此使用者不可以刪除");
-		}
-		sysUserService.deleteBatch(userIds);
-		return Result.ok();
-	}
 
-	@RequestMapping("/uploadPhoto")
-	public Result upload(@RequestParam("empPhoto")MultipartFile empPhoto) {
+        int total = sysUserService.queryTotal(query);
 
-		try{
-			byte[] empPhotoFile = empPhoto.getBytes();
-			SysUser user = new SysUser();
-			user.setEmpPhoto(empPhotoFile);
-			sysUserDao.upload(user);
-			return Result.ok();
-		}catch (Exception e){
-			e.printStackTrace();
-			return Result.error();
-		}
-	}
+        PageUtils pageUtil = new PageUtils(userList, total, query.getLimit(), query.getPage());
+
+        return Result.ok().put("page", pageUtil);
+    }
+
+    /**
+     * 獲取登入的使用者資訊
+     */
+    @RequestMapping("/info")
+    public Result info() {
+        return Result.ok().put("user", getUser());
+    }
+
+    /**
+     * 修改登入用戶密碼
+     */
+    @SysLog("修改密碼")
+    @RequestMapping("/updatePassword")
+    public Result updatePassword(String password, String newPassword) {
+        if (StringUtils.isBlank(newPassword)) {
+            throw new AppException("新密碼不可以為空值");
+        }
+
+        //sha256加密
+        password = new Sha256Hash(password, getUser().getSalt()).toHex();
+        //sha256加密
+        newPassword = new Sha256Hash(newPassword, getUser().getSalt()).toHex();
+
+        //更新密碼
+        int count = sysUserService.updatePassword(getUser(), password, newPassword);
+        if (count == 0) {
+            return Result.error("密碼輸入不正確");
+        }
+
+        return Result.ok();
+    }
+
+    /**
+     * 使用者資訊
+     */
+    @RequestMapping("/info/{userId}")
+    @RequiresPermissions("sys:user:info")
+    public Result info(@PathVariable("userId") Long userId) {
+        SysUser user = sysUserService.queryObject(userId);
+
+        //獲取用戶所屬的角色列表
+        List<Long> roleIdList = sysUserRoleService.queryRoleIdList(userId);
+        user.setRoleIdList(roleIdList);
+
+        return Result.ok().put("user", user);
+    }
+
+    /**
+     * 儲存使用者
+     */
+    @SysLog("儲存使用者")
+    @RequestMapping("/save")
+    @RequiresPermissions("sys:user:save")
+    public Result save(@RequestBody SysUser user) {
+
+
+        ValidatorUtils.validateEntity(user, AddGroup.class);
+        sysUserService.save(user);
+
+        return Result.ok();
+    }
+
+    /**
+     * 修改用戶
+     */
+    @SysLog("修改用戶")
+    @RequestMapping("/update")
+    @RequiresPermissions("sys:user:update")
+    public Result update(@RequestBody SysUser user) {
+        ValidatorUtils.validateEntity(user, UpdateGroup.class);
+        sysUserService.update(user);
+        return Result.ok();
+    }
+
+    /**
+     * 刪除用戶
+     */
+    @SysLog("刪除用戶")
+    @RequestMapping("/delete")
+    @RequiresPermissions("sys:user:delete")
+    public Result delete(@RequestBody Long[] userIds) {
+        if (ArrayUtils.contains(userIds, 1L)) {
+            return Result.error("系統管理員不能刪除");
+        }
+        if (ArrayUtils.contains(userIds, getUserId())) {
+            return Result.error("此使用者不可以刪除");
+        }
+        sysUserService.deleteBatch(userIds);
+        return Result.ok();
+    }
+
+    @RequestMapping("/uploadPhoto")
+    public Result upload(@RequestParam("empPhoto") MultipartFile empPhoto) {
+
+        try {
+            byte[] empPhotoFile = empPhoto.getBytes();
+            SysUser user = new SysUser();
+            user.setEmpPhoto(empPhotoFile);
+            sysUserDao.upload(user);
+            return Result.ok();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.error();
+        }
+    }
 }

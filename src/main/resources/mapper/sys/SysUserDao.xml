@@ -89,7 +89,7 @@
 		    `resign_date`,
 		    `emp_photo`,
 		    `resign_photo`,
-		    `auth`,
+		    `role`,
 		    `year_holiday`,
 		    `basic_salary`
 		)
@@ -123,7 +123,19 @@
 		    #{resignDate},
 		    #{empPhoto},
 		    #{resignPhoto},
-		    #{auth},
+		<foreach collection="roleIdList" item="item" index="index" separator="," >
+			<choose>
+				<when test="item == 5">
+					'emp',
+				</when>
+				<when test="item == 6">
+					'personnel',
+				</when>
+				<otherwise>
+					'admin',
+				</otherwise>
+			</choose>
+		</foreach>
 		    #{yearHoliday},
 		    #{basicSalary}
 		)
@@ -141,7 +153,7 @@
 			<if test="enName != null and enName != ''">`en_name` = #{enName}, </if>
 			<if test="personId != null and personId != ''">`person_id` = #{personId}, </if>
 			<if test="gender != null and gender != ''">`gender` = #{gender}, </if>
-			<if test="birth != null and birth != ''">`birth` = #{birth}, </if>
+			<if test="birth != null">`birth` = #{birth}, </if>
 			<if test="age != null and age != ''">`age` = #{age}, </if>
 			<if test="bloodType != null and bloodType != ''">`blood_type` = #{bloodType}, </if>
 			<if test="personType != null and personType != ''">`person_type` = #{personType}, </if>
@@ -151,11 +163,11 @@
 			<if test="contactAddr != null and contactAddr != ''">`contact_addr` = #{contactAddr}, </if>
 			<if test="pressingPerson != null and pressingPerson != ''">`pressing_person` = #{pressingPerson}, </if>
 			<if test="pressingRelation != null and pressingRelation != ''">`pressing_relation` = #{pressingRelation}, </if>
-			<if test="registerDate != null and registerDate != ''">`register_date` = #{registerDate}, </if>
-			<if test="resignDate != null and resignDate != ''">`resign_date` = #{resignDate}, </if>
+			<if test="registerDate != null ">`register_date` = #{registerDate}, </if>
+			<if test="resignDate != null ">`resign_date` = #{resignDate}, </if>
 			<if test="empPhoto != null and empPhoto != ''">`emp_photo` = #{empPhoto}, </if>
 			<if test="resignPhoto != null and resignPhoto != ''">`resign_photo` = #{resignPhoto}, </if>
-			<if test="auth != null and auth != ''">`auth` = #{auth}, </if>
+			<if test="role != null and role != ''">`role` = #{role}, </if>
 			<if test="yearHoliday != null and yearHoliday != ''">`year_holiday` = #{yearHoliday}, </if>
 			<if test="basicSalary != null and basicSalary != ''">`basic_salary` = #{basicSalary}</if>
 		</set>

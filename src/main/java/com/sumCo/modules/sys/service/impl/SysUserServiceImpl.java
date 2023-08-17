@@ -87,10 +87,9 @@ public class SysUserServiceImpl implements SysUserService {
         user.setSalt(salt);
         sysUserDao.save(user);
 
-
         sysUserRoleService.saveOrUpdate(user.getId(), user.getRoleIdList());
 
-        sysUserRedis.saveOrUpdate(user);
+sysUserRedis.saveOrUpdate(user);
     }
 
     @Override
