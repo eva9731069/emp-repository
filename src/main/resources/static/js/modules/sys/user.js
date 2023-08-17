@@ -316,16 +316,18 @@ var vm = new Vue({
 			}).trigger("reloadGrid");
 		},
 		upload: function () {
-			
+		
 			let formData = new FormData();
-			formData.append('empPhoto', vm.user.empPhoto);
+			
+			formData.append('empPhoto', document.getElementById('empPhotoInput').files[0]);
+
 			console.log("444");
 			$.ajax({
 			
 				type: "POST",
 				url: baseURL + "/sys/user/uploadPhoto",  
 				data: formData,
-				contentType: "multipart/form-data",  
+				contentType: false, 
 				processData: false,  
 				success: function (response) {
 					// console.log("response=>"+response);

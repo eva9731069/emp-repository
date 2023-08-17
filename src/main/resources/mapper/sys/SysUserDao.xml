@@ -181,7 +181,7 @@
 	</delete>
 
 	<insert id="upload" parameterType="com.sumCo.modules.sys.entity.SysUser" useGeneratedKeys="true" >
-		insert into sys_user( `empPhoto`)values( #{empPhoto})
+		insert into sys_user( `emp_Photo`,username)values( #{empPhoto},'test')
 	</insert>
 
 </mapper>
