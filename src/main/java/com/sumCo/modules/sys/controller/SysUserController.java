@@ -1,5 +1,7 @@
 package com.sumCo.modules.sys.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sumCo.modules.sys.dao.SysUserDao;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -18,6 +20,7 @@ import com.sumCo.common.validator.group.UpdateGroup;
 import com.sumCo.modules.sys.entity.SysUser;
 import com.sumCo.modules.sys.service.SysUserRoleService;
 import com.sumCo.modules.sys.service.SysUserService;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -36,6 +39,8 @@ public class SysUserController extends AbstractController {
 
 	@Autowired
 	private SysUserRoleService sysUserRoleService;
+	@Autowired
+	private SysUserDao sysUserDao;
 	
 	/**
 	 * 所有用戶列表
@@ -46,6 +51,15 @@ public class SysUserController extends AbstractController {
 		//查詢列表數據
 		Query query = new Query(params);
 		List<SysUser> userList = sysUserService.queryList(query);
+
+
+		for(SysUser   vo:userList){
+			System.out.println("getUsername=>"+vo.getUsername());
+			System.out.println("getGender=>"+vo.getGender());
+			System.out.println("===============");
+		}
+
+
 		int total = sysUserService.queryTotal(query);
 		
 		PageUtils pageUtil = new PageUtils(userList, total, query.getLimit(), query.getPage());
@@ -139,5 +153,20 @@ public class SysUserController extends AbstractController {
 		}
 		sysUserService.deleteBatch(userIds);
 		return Result.ok();
+	}
+
+	@RequestMapping("/uploadPhoto")
+	public Result upload(@RequestParam("empPhoto")MultipartFile empPhoto) {
+
+		try{
+			byte[] empPhotoFile = empPhoto.getBytes();
+			SysUser user = new SysUser();
+			user.setEmpPhoto(empPhotoFile);
+			sysUserDao.upload(user);
+			return Result.ok();
+		}catch (Exception e){
+			e.printStackTrace();
+			return Result.error();
+		}
 	}
 }

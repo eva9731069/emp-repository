@@ -40,12 +40,12 @@ public class SysUser implements Serializable {
 	private String salt;
 
 
-	//@NotBlank(message="郵箱不能為空", groups = {AddGroup.class, UpdateGroup.class})
-	//@Email(message="郵箱格式不正確", groups = {AddGroup.class, UpdateGroup.class})
+	@NotBlank(message="郵箱不能為空", groups = {AddGroup.class, UpdateGroup.class})
+//	@Email(message="郵箱格式不正確", groups = {AddGroup.class, UpdateGroup.class})
 	private String email;
 
 
-	//@NotBlank(message="手機號碼不能為空", groups = {AddGroup.class, UpdateGroup.class})
+	@NotBlank(message="手機號碼不能為空", groups = {AddGroup.class, UpdateGroup.class})
 	private String mobile;
 
 
@@ -61,6 +61,50 @@ public class SysUser implements Serializable {
 
 
 	private Date createTime;
+	private String empAccount;
+//	@NotBlank(message="英文名稱不能為空", groups = {AddGroup.class, UpdateGroup.class})
+	private String enName;
+//	@NotBlank(message="身分證字號不能為空", groups = {AddGroup.class, UpdateGroup.class})
+	private String personId;
+//	@NotBlank(message="性別不能為空", groups = {AddGroup.class, UpdateGroup.class})
+	private String gender;
+//	@NotBlank(message="生日不能為空", groups = {AddGroup.class, UpdateGroup.class})
+	private Date birth;
+//	@NotBlank(message="年齡不能為空", groups = {AddGroup.class, UpdateGroup.class})
+	private String age;
+//	@NotBlank(message="血型不能為空", groups = {AddGroup.class, UpdateGroup.class})
+	private String bloodType;
+//	@NotBlank(message="身分類別不能為空", groups = {AddGroup.class, UpdateGroup.class})
+	private String personType;
+//	@NotBlank(message="兵役狀況不能為空", groups = {AddGroup.class, UpdateGroup.class})
+	private String soldierType;
+//	@NotBlank(message="婚姻狀態不能為空", groups = {AddGroup.class, UpdateGroup.class})
+	private String marriedType;
+//	@NotBlank(message="戶籍地址不能為空", groups = {AddGroup.class, UpdateGroup.class})
+	private String homeAddr;
+//	@NotBlank(message="聯絡地址不能為空", groups = {AddGroup.class, UpdateGroup.class})
+	private String contactAddr;
+//	@NotBlank(message="住家電話不能為空", groups = {AddGroup.class, UpdateGroup.class})
+	private String homePhone;
+//	@NotBlank(message="緊急聯絡人不能為空", groups = {AddGroup.class, UpdateGroup.class})
+	private String pressingPerson;
+//	@NotBlank(message="緊急連絡人關係不能為空", groups = {AddGroup.class, UpdateGroup.class})
+	private String pressingRelation;
+//	@NotBlank(message="緊急連絡電話不能為空", groups = {AddGroup.class, UpdateGroup.class})
+	private String pressingPhone;
+//	@NotBlank(message="報到日期不能為空", groups = {AddGroup.class, UpdateGroup.class})
+	private Date registerDate;
+
+	private Date resignDate;
+//	@NotBlank(message="大頭貼不能為空", groups = {AddGroup.class, UpdateGroup.class})
+	private byte[] empPhoto;
+	private byte[] resignPhoto;
+//	@NotBlank(message="權限不能為空", groups = {AddGroup.class, UpdateGroup.class})
+	private String auth;
+//	@NotBlank(message="剩餘特休時數不能為空", groups = {AddGroup.class, UpdateGroup.class})
+	private String yearHoliday;
+//	@NotBlank(message="底薪不能為空", groups = {AddGroup.class, UpdateGroup.class})
+	private String basicSalary;
 
 
 	/**
@@ -213,5 +257,189 @@ public class SysUser implements Serializable {
 
 	public void setCreateUserId(Long createUserId) {
 		this.createUserId = createUserId;
+	}
+
+	public String getEmpAccount() {
+		return empAccount;
+	}
+
+	public void setEmpAccount(String empAccount) {
+		this.empAccount = empAccount;
+	}
+
+	public String getPersonId() {
+		return personId;
+	}
+
+	public void setPersonId(String personId) {
+		this.personId = personId;
+	}
+
+	public String getEnName() {
+		return enName;
+	}
+
+	public void setEnName(String enName) {
+		this.enName = enName;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public Date getBirth() {
+		return birth;
+	}
+
+	public void setBirth(Date birth) {
+		this.birth = birth;
+	}
+
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
+	}
+
+	public String getBloodType() {
+		return bloodType;
+	}
+
+	public void setBloodType(String bloodType) {
+		this.bloodType = bloodType;
+	}
+
+	public String getPersonType() {
+		return personType;
+	}
+
+	public void setPersonType(String personType) {
+		this.personType = personType;
+	}
+
+	public String getSoldierType() {
+		return soldierType;
+	}
+
+	public void setSoldierType(String soldierType) {
+		this.soldierType = soldierType;
+	}
+
+	public String getMarriedType() {
+		return marriedType;
+	}
+
+	public void setMarriedType(String marriedType) {
+		this.marriedType = marriedType;
+	}
+
+	public String getHomeAddr() {
+		return homeAddr;
+	}
+
+	public void setHomeAddr(String homeAddr) {
+		this.homeAddr = homeAddr;
+	}
+
+	public String getContactAddr() {
+		return contactAddr;
+	}
+
+	public void setContactAddr(String contactAddr) {
+		this.contactAddr = contactAddr;
+	}
+
+	public String getHomePhone() {
+		return homePhone;
+	}
+
+	public void setHomePhone(String homePhone) {
+		this.homePhone = homePhone;
+	}
+
+	public String getPressingPerson() {
+		return pressingPerson;
+	}
+
+	public void setPressingPerson(String pressingPerson) {
+		this.pressingPerson = pressingPerson;
+	}
+
+	public String getPressingRelation() {
+		return pressingRelation;
+	}
+
+	public void setPressingRelation(String pressingRelation) {
+		this.pressingRelation = pressingRelation;
+	}
+
+	public String getPressingPhone() {
+		return pressingPhone;
+	}
+
+	public void setPressingPhone(String pressingPhone) {
+		this.pressingPhone = pressingPhone;
+	}
+
+	public Date getRegisterDate() {
+		return registerDate;
+	}
+
+	public void setRegisterDate(Date registerDate) {
+		this.registerDate = registerDate;
+	}
+
+	public Date getResignDate() {
+		return resignDate;
+	}
+
+	public void setResignDate(Date resignDate) {
+		this.resignDate = resignDate;
+	}
+
+	public byte[] getEmpPhoto() {
+		return empPhoto;
+	}
+
+	public void setEmpPhoto(byte[] empPhoto) {
+		this.empPhoto = empPhoto;
+	}
+
+	public byte[] getResignPhoto() {
+		return resignPhoto;
+	}
+
+	public void setResignPhoto(byte[] resignPhoto) {
+		this.resignPhoto = resignPhoto;
+	}
+
+	public String getAuth() {
+		return auth;
+	}
+
+	public void setAuth(String auth) {
+		this.auth = auth;
+	}
+
+	public String getYearHoliday() {
+		return yearHoliday;
+	}
+
+	public void setYearHoliday(String yearHoliday) {
+		this.yearHoliday = yearHoliday;
+	}
+
+	public String getBasicSalary() {
+		return basicSalary;
+	}
+
+	public void setBasicSalary(String basicSalary) {
+		this.basicSalary = basicSalary;
 	}
 }

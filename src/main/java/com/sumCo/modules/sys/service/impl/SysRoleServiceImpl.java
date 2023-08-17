@@ -65,8 +65,11 @@ public class SysRoleServiceImpl implements SysRoleService {
 	@Override
 	@Transactional
 	public void deleteBatch(Long[] ids) {
-		sysRoleDao.deleteBatch(ids);
 
+		sysRoleDao.deleteBatch(ids);
+		sysRoleDao.deleteBatchTwo(ids);
+		sysRoleDao.deleteBatchThree(ids);
+		
 		sysRoleMenuService.deleteBatch(ids);
 	}
 

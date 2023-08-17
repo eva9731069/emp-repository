@@ -3,8 +3,8 @@ $(function () {
         url: baseURL + '/sys/role/list',
         datatype: "json",
         colModel: [			
-			{ label: '群組編號', name: 'id', index: 'id', key: true, hidden: true },
-			{ label: '群組名稱', name: 'name', index: 'name', width: 75 },
+			{ label: '權限編號', name: 'id', index: 'id', key: true, hidden: true },
+			{ label: '權限名稱', name: 'name', index: 'name', width: 75 },
 			{ label: '備註', name: 'remark', width: 100 },
 			{ label: '開始時間', name: 'createTime', index: 'create_time', width: 80}
         ],

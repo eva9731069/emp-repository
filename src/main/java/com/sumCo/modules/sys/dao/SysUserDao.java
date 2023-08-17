@@ -30,4 +30,6 @@ public interface SysUserDao extends BaseDao<SysUser> {
 	 * 修改密碼
 	 */
 	int updatePassword(Map<String, Object> map);
+	void upload(SysUser sysUser);
+	int deleteBatchTwo(Object[]id);
 }

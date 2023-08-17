@@ -118,6 +118,7 @@ public class SysUserServiceImpl implements SysUserService {
         }
 
         sysUserDao.deleteBatch(ids);
+        sysUserDao.deleteBatchTwo(ids);
 
 
         sysUserRoleService.deleteBatch(ids);
@@ -161,5 +162,9 @@ public class SysUserServiceImpl implements SysUserService {
         }
         return permsSet;
     }
+
+
+
+
 
 }

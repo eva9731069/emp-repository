@@ -69,7 +69,29 @@
 			`email`, 
 			`mobile`, 
 			`status`,
-			`create_time`
+			`create_time`,
+		    `en_name`,
+		    `person_id`,
+		    `gender`,
+		    `birth`,
+		    `age`,
+		    `blood_type`,
+		    `person_type`,
+		    `soldier_type`,
+		    `married_type`,
+		    `home_addr`,
+		    `contact_addr`,
+		    `home_phone`,
+		    `pressing_person`,
+		    `pressing_relation`,
+		    `pressing_phone`,
+		    `register_date`,
+		    `resign_date`,
+		    `emp_photo`,
+		    `resign_photo`,
+		    `auth`,
+		    `year_holiday`,
+		    `basic_salary`
 		)
 		values
 		(
@@ -81,7 +103,29 @@
 			#{email}, 
 			#{mobile}, 
 			#{status},
-			#{createTime}
+			#{createTime},
+		    #{enName},
+		    #{personId},
+		    #{gender},
+		    #{birth},
+		    #{age},
+		    #{bloodType},
+		    #{personType},
+		    #{soldierType},
+		    #{marriedType},
+		    #{homeAddr},
+		    #{contactAddr},
+		    #{homePhone},
+		    #{pressingPerson},
+		    #{pressingRelation},
+		    #{pressingPhone},
+		    #{registerDate},
+		    #{resignDate},
+		    #{empPhoto},
+		    #{resignPhoto},
+		    #{auth},
+		    #{yearHoliday},
+		    #{basicSalary}
 		)
 	</insert>
 	 
@@ -92,7 +136,7 @@
 			<if test="nickname != null and nickname != ''">`nickname` = #{nickname}, </if>
 			<if test="password != null and password != ''">`password` = #{password}, </if>
 			<if test="email != null and email != ''">`email` = #{email}, </if>
-			`mobile` = #{mobile},
+			<if test="mobile != null and mobile != ''">`mobile` = #{mobile},</if>
 			<if test="status != null and status != ''">`status` = #{status}, </if>
 		</set>
 		where id = #{id}
@@ -108,11 +152,16 @@
 		<foreach item="id" collection="array" open="(" separator="," close=")">
 			#{id}
 		</foreach>
-		;
+	</delete>
+	<delete id="deleteBatchTwo">
 		delete from sys_user_role where user_id in
 		<foreach item="id" collection="array" open="(" separator="," close=")">
 			#{id}
 		</foreach>
 	</delete>
+
+	<insert id="upload" parameterType="com.sumCo.modules.sys.entity.SysUser" useGeneratedKeys="true" >
+		insert into sys_user( `empPhoto`)values( #{empPhoto})
+	</insert>
 
 </mapper>
