@@ -61,7 +61,7 @@ public class SysUserTokenServiceImpl implements SysUserTokenService {
 	}
 
 	@Override
-	public Map<String, Object> createToken(long userId) {
+	public Map<String, Object> createToken(long userId, String userName) {
 		//生成一個token
 		String token = TokenGenerator.generateValue();
 
@@ -93,6 +93,7 @@ public class SysUserTokenServiceImpl implements SysUserTokenService {
 		Map<String, Object> result = new HashMap<>();
 		result.put("token", token);
 		result.put("expire", EXPIRE);
+		result.put("userName", userName);
 		return result;
 	}
 

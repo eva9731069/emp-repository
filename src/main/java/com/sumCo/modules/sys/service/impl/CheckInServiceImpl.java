@@ -85,6 +85,19 @@ public class CheckInServiceImpl implements CheckInService {
         return msg;
     }
 
+    @Override
+    public List<CheckInVo> queryList(Map<String, Object> paramMap) {
+        List<CheckInVo> checkVoList = checkInDao.queryList(paramMap);
+
+        for (CheckInVo vo : checkVoList) {
+            System.out.println("getCheckOutTime=>" + vo.getCheckOutTime());
+            System.out.println("getCheckInTime=>" + vo.getCheckInTime());
+        }
+
+
+        return checkVoList;
+    }
+
     private long countWorkTime(Timestamp checkInTime) {
         // 取得現在時間
         Timestamp now = new Timestamp(System.currentTimeMillis());

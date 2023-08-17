@@ -4,6 +4,9 @@ import com.sumCo.modules.sys.entity.CheckInVo;
 import com.sumCo.modules.sys.formBean.CheckInFormBean;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+import java.util.Map;
+
 @Mapper
 public interface CheckInDao extends BaseDao<CheckInVo> {
 
@@ -12,5 +15,6 @@ public interface CheckInDao extends BaseDao<CheckInVo> {
     void empCheckOut(CheckInFormBean checkInFormBean);
 
     CheckInVo empIsCheckOut(String userName);
+
 	
 }

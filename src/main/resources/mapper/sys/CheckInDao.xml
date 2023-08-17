@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sumCo.modules.sys.dao.CheckInDao">
 
-    <resultMap type="com.sumCo.modules.sys.entity.CheckInVo" id="sysDeptMap">
+    <resultMap type="com.sumCo.modules.sys.entity.CheckInVo" id="checkInMap">
         <result property="userId" column="emp_no"/>
         <result property="userName" column="ch_name"/>
         <result property="checkInTime" column="check_in_time"/>
@@ -30,6 +30,27 @@
         WHERE
         CH_NAME = #{userName}
         AND DATE(check_out_time) = CURRENT_DATE
+    </select>
+
+    <select id="queryList" resultType="com.sumCo.modules.sys.entity.CheckInVo">
+        SELECT
+        attendance_rec.emp_no,
+        attendance_rec.ch_name,
+        CHECK_IN_TIME,
+        CHECK_OUT_TIME,
+        miss_work_date,
+        miss_work_status,
+        holiday_type,
+        holiday_hour
+        FROM
+        attendance_rec
+        left JOIN
+        holiday_rec ON attendance_rec.emp_no = holiday_rec.emp_no
+        WHERE
+        <if test="userName != null and userName != ''">
+            attendance_rec.ch_name = #{userName}
+        </if>
+        AND DATE(attendance_rec.check_in_time) BETWEEN #{startDate} AND #{endDate}
     </select>
 
     <update id="empCheckOut" parameterType="com.sumCo.modules.sys.formBean.CheckInFormBean">

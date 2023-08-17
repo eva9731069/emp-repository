@@ -35,95 +35,95 @@ import java.util.Map;
 @RestController
 public class SysLoginController extends AbstractController {
 
-	@Autowired
-	private Producer producer;
-	@Autowired
-	private SysUserService sysUserService;
-	@Autowired
-	private SysUserTokenService sysUserTokenService;
+    @Autowired
+    private Producer producer;
+    @Autowired
+    private SysUserService sysUserService;
+    @Autowired
+    private SysUserTokenService sysUserTokenService;
 
-	@RequestMapping("/captcha.jpg")
-	public void captcha(HttpServletResponse response)throws ServletException, IOException {
-		response.setHeader("Cache-Control", "no-store, no-cache");
-		response.setContentType("image/jpeg");
+    @RequestMapping("/captcha.jpg")
+    public void captcha(HttpServletResponse response) throws ServletException, IOException {
+        response.setHeader("Cache-Control", "no-store, no-cache");
+        response.setContentType("image/jpeg");
 
-		//生成文字驗證碼
-		String text = producer.createText();
-		//生成圖片驗證碼
-		BufferedImage image = producer.createImage(text);
-		//保存到shiro session
-		ShiroUtils.setSessionAttribute(Constants.KAPTCHA_SESSION_KEY, text);
+        //生成文字驗證碼
+        String text = producer.createText();
+        //生成圖片驗證碼
+        BufferedImage image = producer.createImage(text);
+        //保存到shiro session
+        ShiroUtils.setSessionAttribute(Constants.KAPTCHA_SESSION_KEY, text);
 
-		ServletOutputStream out = response.getOutputStream();
-		ImageIO.write(image, "jpg", out);
-		IOUtils.closeQuietly(out);
-	}
+        ServletOutputStream out = response.getOutputStream();
+        ImageIO.write(image, "jpg", out);
+        IOUtils.closeQuietly(out);
+    }
 
-	/**
-	 * 驗證碼開關
-	 */
-	@RequestMapping("/sys/doGetKaptchaOnOff")
-	public Result doGetKaptchaOnOff(){
-		boolean kaptchaOnOff=SpringContextUtils.getBean(KaptchaConfig.class).getKaptchaOpen();
-		return Result.ok().put("kaptchaOnOff", kaptchaOnOff);
-	}
+    /**
+     * 驗證碼開關
+     */
+    @RequestMapping("/sys/doGetKaptchaOnOff")
+    public Result doGetKaptchaOnOff() {
+        boolean kaptchaOnOff = SpringContextUtils.getBean(KaptchaConfig.class).getKaptchaOpen();
+        return Result.ok().put("kaptchaOnOff", kaptchaOnOff);
+    }
 
-	/**
-	 * 登入
-	 */
-	@RequestMapping(value = "/sys/login", method = RequestMethod.POST)
-	public Result login(String username, String password, String captcha)throws IOException {
-		//驗證碼
-		if(SpringContextUtils.getBean(KaptchaConfig.class).getKaptchaOpen()){
-			String kaptcha = getKaptcha(Constants.KAPTCHA_SESSION_KEY);
-			if(!captcha.equalsIgnoreCase(kaptcha)){
-				return Result.error("驗證碼不正確");
-			}
-		}
+    /**
+     * 登入
+     */
+    @RequestMapping(value = "/sys/login", method = RequestMethod.POST)
+    public Result login(String username, String password, String captcha) throws IOException {
+        //驗證碼
+        if (SpringContextUtils.getBean(KaptchaConfig.class).getKaptchaOpen()) {
+            String kaptcha = getKaptcha(Constants.KAPTCHA_SESSION_KEY);
+            if (!captcha.equalsIgnoreCase(kaptcha)) {
+                return Result.error("驗證碼不正確");
+            }
+        }
 
-		//用戶信息
-		SysUser user = sysUserService.queryByUserName(username);
+        //用戶信息
+        SysUser user = sysUserService.queryByUserName(username);
 
-		//帳號不存在
-		if(user == null) {
-			return Result.error("帳號不存在");
-		}
+        //帳號不存在
+        if (user == null) {
+            return Result.error("帳號不存在");
+        }
 
-		//密碼錯誤
+        //密碼錯誤
 //		if(!user.getPassword().equals(new Sha256Hash(password, user.getSalt()).toHex())) {
 //			return Result.error("密碼不正確");
 //		}
 
-		//帳號鎖定
-		if(Constant.UserStatus.DISABLE.getValue() == user.getStatus()){
-			return Result.error("帳號已被鎖定,請聯繫管理員");
-		}
+        //帳號鎖定
+        if (Constant.UserStatus.DISABLE.getValue() == user.getStatus()) {
+            return Result.error("帳號已被鎖定,請聯繫管理員");
+        }
 
-		//生成token，並保存到數據庫
-		Map<String, Object> result=sysUserTokenService.createToken(user.getId());
-		Result r =Result.ok().put(result);
-		return r;
-	}
+        //生成token，並保存到數據庫
+        Map<String, Object> result = sysUserTokenService.createToken(user.getId(), getUser().getUsername());
+        Result r = Result.ok().put(result);
+        return r;
+    }
 
     /**
-	 * 退出
-	 */
-	@RequestMapping(value = "/sys/logout", method = RequestMethod.POST)
-	public Result logout() {
-		sysUserTokenService.logout(getUserId());
-		return Result.ok();
-	}
+     * 退出
+     */
+    @RequestMapping(value = "/sys/logout", method = RequestMethod.POST)
+    public Result logout() {
+        sysUserTokenService.logout(getUserId());
+        return Result.ok();
+    }
 
-	/**
-	 *从session中獲取記錄的驗證碼
-	 */
-	private String getKaptcha(String key) {
-		Object kaptcha = ShiroUtils.getSessionAttribute(key);
-		if(kaptcha == null){
-			throw new AppException("驗證碼已失效");
-		}
-		ShiroUtils.getSession().removeAttribute(key);
-		return kaptcha.toString();
-	}
-	
+    /**
+     * 从session中獲取記錄的驗證碼
+     */
+    private String getKaptcha(String key) {
+        Object kaptcha = ShiroUtils.getSessionAttribute(key);
+        if (kaptcha == null) {
+            throw new AppException("驗證碼已失效");
+        }
+        ShiroUtils.getSession().removeAttribute(key);
+        return kaptcha.toString();
+    }
+
 }

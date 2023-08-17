@@ -31,17 +31,20 @@ public class CheckInController extends AbstractController {
      * 列表
      */
     @RequestMapping("/list")
-    @RequiresPermissions("sys:dept:list")
     public Result list(@RequestParam Map<String, Object> params) {
-        //查詢列表數據
-//        Query query = new Query(params);
-//
-//		List<SysDept> sysDeptList = sysDeptService.queryList(query);
-//		int total = sysDeptService.queryTotal(query);
-//
-//		PageUtils pageUtil = new PageUtils(sysDeptList, total, query.getLimit(), query.getPage());
+        Query query = new Query(params);
 
-        return Result.ok().put("page", null);
+        logger.info((String) query.get("userName"));
+        logger.info((String) query.get("startDate"));
+        logger.info((String) query.get("endDate"));
+
+//
+		List<CheckInVo> checkInList = checkInService.queryList(query);
+		int total = checkInList.size();
+//
+		PageUtils pageUtil = new PageUtils(checkInList, total, query.getLimit(), query.getPage());
+
+        return Result.ok().put("page", pageUtil);
     }
 
 

@@ -3,16 +3,17 @@ $(function () {
 		datatype: "local",
 		colModel: [
 			{ label: 'id', name: 'id', index: 'id', width: 50, hidden: true, key: true },
-			{ label: '員工名稱', name: 'name', index: 'name', width: 80 },
-			{ label: '上班打卡時間', name: 'orderNum', index: 'order_Num', width: 80 },
+			{ label: '員工名稱', name: 'chName', index: 'chName', width: 80 },
+			{ label: '上班打卡時間', name: 'checkInTime', index: 'order_Num', width: 80 },
+			{ label: '下班打卡時間', name: 'checkOutTime', index: 'order_Num', width: 80 },
+			{ label: '曠職日期', name: 'missWorkDate', index: 'order_Num', width: 80 },
 			{
-				label: '下班打卡時間', name: 'status', width: 80, formatter: function (value, options, row) {
-					return value === 0 ?
-						'<span class="label label-danger">上班</span>' :
-						'<span class="label label-success">下班</span>';
+				label: '曠職狀態', name: 'missWorkStatus', width: 80, formatter: function (value, options, row) {
+					return value === 'Y' ?
+						'<span class="label label-danger">曠職</span>' :
+						'<span class="label label-success">未曠職</span>';
 				}
 			},
-			// { label: '建立時間', name: 'createTime', index: 'create_time', width: 80 }
 		],
 		viewrecords: true,
 		height: 385,
@@ -45,7 +46,9 @@ var vm = new Vue({
 	el: '#rapp',
 	data: {
 		q: {
-			keyword: null
+			userName: null,
+			startDate: null,
+			endDate: null
 		},
 		showList: true,
 		title: null,
@@ -172,14 +175,43 @@ var vm = new Vue({
 		//         })
 		//     },
 		reload: function (event) {
+			var checkResult = vm.checkQueryParam();
+
+			if (checkResult === false) {
+				return;
+			}
+
 			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam', 'page');
 			$("#jqGrid").jqGrid('setGridParam', {
 				datatype: "json", // 設置 datatype 為 json，表示從後端獲取數據
-				url: baseURL + '/sys/dept/list', // 更新 URL，改為您的後端 URL
-				postData: { 'keyword': vm.q.keyword },
+				url: baseURL + '/sys/checkIn/list', // 更新 URL，改為您的後端 URL
+				postData: {
+					'userName': vm.q.userName,
+					'startDate': vm.q.startDate,
+					'endDate': vm.q.endDate,
+				},
 				page: page
 			}).trigger("reloadGrid");
-		}
+		},
+		checkQueryParam: function (event) {
+			var token = localStorage.getItem("userName");
+			console.log('userName=>'+token);
+			console.log('userId=>'+vm.getUser(userId));
+			if (vm.q.userName === null || vm.q.userName.trim() === '') {
+				alert('員工帳號不可為空');
+				return false;
+			}
+			if (vm.q.startDate === null || vm.q.startDate.trim() === '') {
+				alert('日期起日不可為空');
+				return false;
+			}
+
+			if (vm.q.endDate === null || vm.q.endDate.trim() === '') {
+				alert('日期迄日不可為空');
+				return false;
+			}
+
+		},
 	}
 });

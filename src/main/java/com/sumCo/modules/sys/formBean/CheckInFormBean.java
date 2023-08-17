@@ -20,4 +20,8 @@ public class CheckInFormBean implements Serializable {
 
 	private String isCheckOutConfirm;
 
+	private String startDate;
+
+	private String endDate;
+
 }
