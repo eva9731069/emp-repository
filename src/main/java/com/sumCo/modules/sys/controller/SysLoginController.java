@@ -83,7 +83,7 @@ public class SysLoginController extends AbstractController {
 
         //用戶信息
         SysUser user = sysUserService.queryByUserName(username);
-        logger.info("getUsername=>"+user.getUsername());
+  
         //帳號不存在
         if (user == null) {
             return Result.error("帳號不存在");

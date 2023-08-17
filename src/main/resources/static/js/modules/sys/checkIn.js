@@ -57,16 +57,15 @@ var vm = new Vue({
 	methods: {
 		query: function (event) {
 			var checkResult = vm.checkQueryParam(event.target.id);
-			console.log("checkResult=>" + checkResult);
+
 			if (checkResult === false) {
 				return;
 			}
-console.log('auth=>>>'+localStorage.getItem("role"));
+			
 			if (localStorage.getItem("role") === 'emp') {
 				vm.q.userName = localStorage.getItem("userName");
 			}
-
-
+			
 			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam', 'page');
 			$("#jqGrid").jqGrid('setGridParam', {
@@ -81,20 +80,9 @@ console.log('auth=>>>'+localStorage.getItem("role"));
 			}).trigger("reloadGrid");
 		},
 		add: function () {
-			console.log('1');
 			vm.showList = false;
 			vm.title = "員工打卡功能";
 			vm.checkIn = {};
-		},
-		update: function (event) {
-			var id = getSelectedRow();
-			if (id == null) {
-				return;
-			}
-			vm.showList = false;
-			vm.title = "修改";
-
-			vm.getInfo(id)
 		},
 		saveOrUpdate: function (event) {
 			if (vm.checkIn.status === undefined) {
@@ -109,7 +97,6 @@ console.log('auth=>>>'+localStorage.getItem("role"));
 				contentType: "application/json",
 				data: JSON.stringify(vm.checkIn),
 				success: function (r) {
-					console.log("data=>" + JSON.stringify(vm.checkIn));
 					if (r.code === 0) {
 						if (r.msg === "尚未超過9小時") {
 							confirm('上班時間尚未超過9小時，確定要打卡嗎？', function () {
@@ -131,7 +118,6 @@ console.log('auth=>>>'+localStorage.getItem("role"));
 				status: "1",
 				isCheckOutConfirm: "true"
 			};
-			console.log('confirmCheckOut');
 			if (vm.checkIn.status === undefined) {
 				alert('請選擇上班或下班');
 				return;
@@ -144,7 +130,6 @@ console.log('auth=>>>'+localStorage.getItem("role"));
 				contentType: "application/json",
 				data: JSON.stringify(data),
 				success: function (r) {
-					console.log("data=>" + JSON.stringify(vm.checkIn));
 					if (r.code === 0) {
 						alert(r.msg, function (index) {
 							// vm.reload();
@@ -156,52 +141,10 @@ console.log('auth=>>>'+localStorage.getItem("role"));
 			});
 
 		},
-
-		// },
-		// del: function (event) {
-		// 	var ids = getSelectedRows();
-		// 	if(ids == null){
-		// 		return ;
-		// 	}
-
-		// 	confirm('確定刪除此筆資料？', function(){
-		// 		$.ajax({
-		// 			type: "POST",
-		// 		    url: baseURL + "/sys/dept/delete",
-		//             contentType: "application/json",
-		// 		    data: JSON.stringify(ids),
-		// 		    success: function(r){
-		// 				if(r.code == 0){
-		// 					alert('操作成功', function(index){
-		// 						$("#jqGrid").trigger("reloadGrid");
-		// 					});
-		// 				}else{
-		// 					alert(r.msg);
-		// 				}
-		// 			}
-		// 		});
-		// 	});
-		// },
-		// getInfo: function(id){
-		// 	$.get(baseURL + "/sys/dept/info/"+id, function(r){
-		//         vm.checkIn = r.checkIn;
-		//     });
-		// },
-		//  getDept: function(){
-		//         //加載部門樹
-		//         $.get(baseURL + "/sys/dept/select", function(r){
-		//             ztree = $.fn.zTree.init($("#deptTree"), setting, r.deptList);
-		//             var node = ztree.getNodeByParam("id", vm.dept.parentId);
-		//             ztree.selectNode(node);
-		//             vm.dept.parentName = node.name;
-		//         })
-		//     },
 		reload: function (event) {
-		
-
-
+			//傳入參數檢查
 			var checkResult = vm.checkQueryParam(event.target.id);
-			console.log("checkResult=>" + checkResult);
+			
 			if (checkResult === false) {
 				return;
 			}
@@ -220,20 +163,10 @@ console.log('auth=>>>'+localStorage.getItem("role"));
 			}).trigger("reloadGrid");
 		},
 		checkQueryParam: function (triggeredButtonId) {
-			console.log('auth=>' + localStorage.getItem("role"));
-			console.log('userName=>' + localStorage.getItem("userName"));
-			var token = localStorage.getItem("userName");
-			console.log('userName=>' + token);
-
-			console.log('triggeredButtonId aa=>' + triggeredButtonId);
-
-
+			
 			if (localStorage.getItem("role") === 'emp') {
 				vm.q.userName = localStorage.getItem("userName");
 			}
-
-			console.log('vm.q.userName=>' + vm.q.userName);
-			
 
 			if (triggeredButtonId !== 'back') {
 				if (vm.q.userName === null || vm.q.userName.trim() === '') {

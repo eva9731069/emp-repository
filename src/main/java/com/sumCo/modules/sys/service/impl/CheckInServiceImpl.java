@@ -2,10 +2,8 @@ package com.sumCo.modules.sys.service.impl;
 
 import com.sumCo.modules.sys.dao.CheckInDao;
 import com.sumCo.modules.sys.entity.CheckInVo;
-import com.sumCo.modules.sys.entity.SysDept;
 import com.sumCo.modules.sys.formBean.CheckInFormBean;
 import com.sumCo.modules.sys.service.CheckInService;
-import com.sumCo.modules.sys.service.SysDeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -88,12 +86,6 @@ public class CheckInServiceImpl implements CheckInService {
     @Override
     public List<CheckInVo> queryList(Map<String, Object> paramMap) {
         List<CheckInVo> checkVoList = checkInDao.queryList(paramMap);
-
-        for (CheckInVo vo : checkVoList) {
-            System.out.println("getCheckOutTime=>" + vo.getCheckOutTime());
-            System.out.println("getCheckInTime=>" + vo.getCheckInTime());
-        }
-
 
         return checkVoList;
     }
