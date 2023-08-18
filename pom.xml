@@ -200,7 +200,7 @@
     </dependencies>
 
     <build>
-        <finalName>genCode-0.0.1-SNAPSHOT</finalName>
+        <finalName>greenBuild-0.0.1-SNAPSHOT</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
