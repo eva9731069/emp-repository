@@ -1,5 +1,6 @@
 package com.sumCo.modules.sys.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sumCo.common.annotation.SysLog;
 import com.sumCo.common.exception.AppException;
 import com.sumCo.common.utils.PageUtils;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -110,39 +112,55 @@ public class SysUserController extends AbstractController {
     @SysLog("儲存使用者")
     @RequestMapping("/save")
     @RequiresPermissions("sys:user:save")
-    public Result save(@RequestBody SysUser user) {
-
-        if(user.getRoleIdList().isEmpty()){
-            return Result.error("權限不可為空");
-        }
-
-        if(user.getRoleIdList().size() > 1){
-            return Result.error("不可選擇多個權限");
-        }
-
-        ValidatorUtils.validateEntity(user, AddGroup.class);
-        sysUserService.save(user);
-
-        return Result.ok();
-    }
-
-    /**
-     * 修改用戶
-     */
-    @SysLog("修改用戶")
-    @RequestMapping("/update")
-    @RequiresPermissions("sys:user:update")
-    public Result update(@RequestBody SysUser user) {
+    public Result save(@RequestParam("user") String userJson, @RequestParam("empPhoto") MultipartFile empPhoto) {
 
         try {
-            if(user.getRoleIdList().isEmpty()){
+            ObjectMapper objectMapper = new ObjectMapper();
+            SysUser user = objectMapper.readValue(userJson, SysUser.class);
+
+            byte[] empPhotoFile = empPhoto.getBytes();
+
+            user.setEmpPhoto(empPhotoFile);
+
+            if (user.getRoleIdList().isEmpty()) {
                 return Result.error("權限不可為空");
             }
 
-            if(user.getRoleIdList().size() > 1){
+            if (user.getRoleIdList().size() > 1) {
                 return Result.error("不可選擇多個權限");
             }
 
+            ValidatorUtils.validateEntity(user, AddGroup.class);
+            sysUserService.save(user);
+
+            return Result.ok();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.error();
+        }
+    }
+
+    @SysLog("修改用戶")
+    @RequestMapping("/update")
+    @RequiresPermissions("sys:user:update")
+    public Result update(@RequestParam("user") String userJson, @RequestParam("empPhoto") MultipartFile empPhoto) throws IOException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        SysUser user = objectMapper.readValue(userJson, SysUser.class);
+
+        byte[] empPhotoFile = empPhoto.getBytes();
+
+        user.setEmpPhoto(empPhotoFile);
+
+        if (user.getRoleIdList().isEmpty()) {
+            return Result.error("權限不可為空");
+        }
+
+        if (user.getRoleIdList().size() > 1) {
+            return Result.error("不可選擇多個權限");
+        }
+
+        try {
             ValidatorUtils.validateEntity(user, UpdateGroup.class);
             sysUserService.update(user);
         } catch (NullPointerException e) {
@@ -169,18 +187,4 @@ public class SysUserController extends AbstractController {
         return Result.ok();
     }
 
-    @RequestMapping("/uploadPhoto")
-    public Result upload(@RequestParam("empPhoto") MultipartFile empPhoto) {
-
-        try {
-            byte[] empPhotoFile = empPhoto.getBytes();
-            SysUser user = new SysUser();
-            user.setEmpPhoto(empPhotoFile);
-            sysUserDao.upload(user);
-            return Result.ok();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Result.error();
-        }
-    }
 }

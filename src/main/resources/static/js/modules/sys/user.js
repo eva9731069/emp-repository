@@ -15,8 +15,8 @@ $(function () {
 						return '<span class="label label-primary">男生</span>';
 					} else if (value === '1') {
 						return '<span class="label label-danger">女生</span>';
+					}
 				}
-			}
 			},
 			{ label: '生日', name: 'birth', width: 100 },
 
@@ -98,8 +98,8 @@ $(function () {
 					}
 				}
 			},
-			
-			
+
+
 			// { label: '建立時間', name: 'createTime', index: "create_time", width: 80 }
 		],
 		viewrecords: true,
@@ -164,9 +164,9 @@ var vm = new Vue({
 		}
 	},
 	methods: {
-		
+
 		query: function () {
-			
+
 			vm.reload();
 		},
 		add: function () {
@@ -174,15 +174,13 @@ var vm = new Vue({
 			vm.title = "新增";
 			vm.roleList = {};
 			vm.user = {
-				deptName: null, 
-				deptId: null, 
-				status: 1, 
+				status: 1,
 				gender: 0,
 				bloodType: 0,
 				personType: 0,
 				soldierType: 0,
 				marriedType: 0,
-			
+
 				roleIdList: []
 			};
 
@@ -229,11 +227,24 @@ var vm = new Vue({
 		},
 		saveOrUpdate: function () {
 			var url = vm.user.id == null ? "/sys/user/save" : "/sys/user/update";
+
+			if (vm.user.id != null) {
+				//修改會員時，不會有建立時間;只有新增會員才會有建立時間
+				vm.user.createTime = null;
+			}
+
+			var formData = new FormData();
+
+			formData.append('user', JSON.stringify(vm.user)); 
+			
+			formData.append('empPhoto', document.getElementById('empPhotoInput').files[0]);
+
 			$.ajax({
 				type: "POST",
 				url: baseURL + url,
-				contentType: "application/json",
-				data: JSON.stringify(vm.user),
+				contentType: false,
+				processData: false,
+				data: formData,
 				success: function (r) {
 					if (r.code === 0) {
 						alert('操作成功', function () {
@@ -254,28 +265,7 @@ var vm = new Vue({
 		getRoleList: function () {
 			$.get(baseURL + "/sys/role/select", function (r) {
 				vm.roleList = r.list;
-				
-			});
-		},
-		deptTree: function () {
-			layer.open({
-				type: 1,
-				offset: '50px',
-				skin: 'layui-layer-molv',
-				title: "選取部門",
-				area: ['300px', '450px'],
-				shade: 0,
-				shadeClose: false,
-				content: jQuery("#deptLayer"),
-				btn: ['確定', '取消'],
-				btn1: function (index) {
-					var node = ztree.getSelectedNodes();
-					//選擇上級部門
-					vm.user.deptId = node[0].id;
-					vm.user.deptName = node[0].name;
 
-					layer.close(index);
-				}
 			});
 		},
 		reload: function () {
@@ -286,64 +276,6 @@ var vm = new Vue({
 				page: page
 			}).trigger("reloadGrid");
 		},
-		upload: function () {
-		
-			let formData = new FormData();
-			
-			formData.append('empPhoto', document.getElementById('empPhotoInput').files[0]);
 
-			console.log("444");
-			$.ajax({
-			
-				type: "POST",
-				url: baseURL + "/sys/user/uploadPhoto",  
-				data: formData,
-				contentType: false, 
-				processData: false,  
-				success: function (response) {
-					// console.log("response=>"+response);
-					if (response.code === 0) {
-						alert('上傳成功');
-					} else {
-						console.log("code=>"+response.code);
-						alert('上傳失敗');
-					}
-				},
-				error: function () {
-					// console.log("response=>"+response);
-					// console.log("code=>"+response.code);
-					alert('上傳失敗1');
-				}
-			});
-		}
-		// upload: function () {
-		// 	var xhr = new XMLHttpRequest();
-		// 	var formData = new FormData();
-		// 	formData.append('empPhoto', vm.user.empPhoto);
-			
-		// 	xhr.open('POST', baseURL + "/sys/user/uploadPhoto", true);
-			
-		// 	xhr.setRequestHeader('Content-Type', 'multipart/form-data; boundary=' + formData._boundary);
-			
-		// 	xhr.onreadystatechange = function () {
-		// 		if (xhr.readyState === XMLHttpRequest.DONE) {
-		// 			if (xhr.status === 200) {
-		// 				var response = JSON.parse(xhr.responseText);
-		// 				console.log("response=>"+response);
-		// 				if (response.code === 0) {
-		// 					alert('上傳成功');
-		// 				} else {
-		// 					console.log("code=>" + response.code);
-		// 					alert('上傳失敗');
-		// 				}
-		// 			} else {
-		// 				alert('上傳失敗1');
-		// 			}
-		// 		}
-		// 	};
-			
-		// 	xhr.send(formData);
-		// }
-		
 	}
 });
