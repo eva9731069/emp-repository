@@ -83,16 +83,18 @@ public class SysLoginController extends AbstractController {
 
         //用戶信息
         SysUser user = sysUserService.queryByUserName(username);
-  
+
         //帳號不存在
         if (user == null) {
             return Result.error("帳號不存在");
         }
 
-        //密碼錯誤
-//		if(!user.getPassword().equals(new Sha256Hash(password, user.getSalt()).toHex())) {
-//			return Result.error("密碼不正確");
-//		}
+
+        //密碼驗證
+        if (!new Sha256Hash(user.getPassword(), user.getSalt()).toHex().equals(new Sha256Hash(password, user.getSalt()).toHex())) {
+            return Result.error("密碼不正確");
+        }
+
 
         //帳號鎖定
         if (Constant.UserStatus.DISABLE.getValue() == user.getStatus()) {

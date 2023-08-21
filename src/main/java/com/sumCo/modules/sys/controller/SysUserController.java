@@ -1,14 +1,5 @@
 package com.sumCo.modules.sys.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sumCo.modules.sys.dao.SysUserDao;
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.crypto.hash.Sha256Hash;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import com.sumCo.common.annotation.SysLog;
 import com.sumCo.common.exception.AppException;
 import com.sumCo.common.utils.PageUtils;
@@ -17,9 +8,16 @@ import com.sumCo.common.utils.Result;
 import com.sumCo.common.validator.ValidatorUtils;
 import com.sumCo.common.validator.group.AddGroup;
 import com.sumCo.common.validator.group.UpdateGroup;
+import com.sumCo.modules.sys.dao.SysUserDao;
 import com.sumCo.modules.sys.entity.SysUser;
 import com.sumCo.modules.sys.service.SysUserRoleService;
 import com.sumCo.modules.sys.service.SysUserService;
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.crypto.hash.Sha256Hash;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -51,14 +49,6 @@ public class SysUserController extends AbstractController {
         //查詢列表數據
         Query query = new Query(params);
         List<SysUser> userList = sysUserService.queryList(query);
-
-
-        for (SysUser vo : userList) {
-            System.out.println("getUsername=>" + vo.getUsername());
-            System.out.println("getGender=>" + vo.getGender());
-            System.out.println("===============");
-        }
-
 
         int total = sysUserService.queryTotal(query);
 
@@ -115,13 +105,20 @@ public class SysUserController extends AbstractController {
     }
 
     /**
-     * 儲存使用者
+     * 新增使用者
      */
     @SysLog("儲存使用者")
     @RequestMapping("/save")
     @RequiresPermissions("sys:user:save")
     public Result save(@RequestBody SysUser user) {
 
+        if(user.getRoleIdList().isEmpty()){
+            return Result.error("權限不可為空");
+        }
+
+        if(user.getRoleIdList().size() > 1){
+            return Result.error("不可選擇多個權限");
+        }
 
         ValidatorUtils.validateEntity(user, AddGroup.class);
         sysUserService.save(user);
@@ -136,8 +133,22 @@ public class SysUserController extends AbstractController {
     @RequestMapping("/update")
     @RequiresPermissions("sys:user:update")
     public Result update(@RequestBody SysUser user) {
-        ValidatorUtils.validateEntity(user, UpdateGroup.class);
-        sysUserService.update(user);
+
+        try {
+            if(user.getRoleIdList().isEmpty()){
+                return Result.error("權限不可為空");
+            }
+
+            if(user.getRoleIdList().size() > 1){
+                return Result.error("不可選擇多個權限");
+            }
+
+            ValidatorUtils.validateEntity(user, UpdateGroup.class);
+            sysUserService.update(user);
+        } catch (NullPointerException e) {
+            return Result.error(e.getMessage());
+        }
+
         return Result.ok();
     }
 

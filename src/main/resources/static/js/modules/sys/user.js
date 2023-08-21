@@ -5,7 +5,7 @@ $(function () {
 		colModel: [
 			{ label: '使用者編號', name: 'id', index: 'id', key: true, hidden: true },
 			{ label: '使用者名稱', name: 'username', width: 75 },
-			// { label: '暱稱', name: 'nickname', width: 75 },
+			// { label: '密碼', name: 'password', width: 75 },
 			{ label: 'email', name: 'email', width: 90 },
 			// { label: '英文名稱', name: 'enName', width: 100 },
 			{ label: '身分證字號', name: 'personId', width: 100 },
@@ -76,9 +76,9 @@ $(function () {
 			// 	}
 			// },
 			// { label: '戶籍地址', name: 'homeAddr', width: 100 },
-			{ label: '聯絡地址', name: 'contactAddr', width: 100 },
+			// { label: '聯絡地址', name: 'contactAddr', width: 100 },
 			{ label: '住家電話', name: 'homePhone', width: 100 },
-			{ label: '緊急聯絡人', name: 'pressingPerson', width: 100 },
+			// { label: '緊急聯絡人', name: 'pressingPerson', width: 100 },
 			// { label: '緊急連絡人關係', name: 'pressingRelation', width: 100 },
 			{ label: '緊急連絡電話', name: 'pressingPhone', width: 100 },
 			// { label: '報到日期', name: 'registerDate', width: 100 },
@@ -160,10 +160,6 @@ var vm = new Vue({
 			personType: 0,
 			soldierType: 0,
 			marriedType: 0,
-			
-
-			deptId: null,
-			deptName: null,
 			roleIdList: []
 		}
 	},
@@ -193,20 +189,6 @@ var vm = new Vue({
 			//獲取角色信息
 			this.getRoleList();
 
-			vm.getDept();
-			
-		},
-		getDept: function () {
-			//加載部門樹
-			$.get(baseURL + "/sys/dept/list", function (r) {
-				ztree = $.fn.zTree.init($("#deptTree"), setting, r);
-				var node = ztree.getNodeByParam("id", vm.user.deptId);
-				if (node != null) {
-					ztree.selectNode(node);
-
-					vm.user.deptName = node.name;
-				}
-			});
 		},
 		update: function () {
 			var userId = getSelectedRow();
@@ -255,7 +237,6 @@ var vm = new Vue({
 				success: function (r) {
 					if (r.code === 0) {
 						alert('操作成功', function () {
-							
 							vm.reload();
 						});
 					} else {
@@ -267,9 +248,7 @@ var vm = new Vue({
 		getUser: function (userId) {
 			$.get(baseURL + "/sys/user/info/" + userId, function (r) {
 				vm.user = r.user;
-				vm.user.password = null;
-
-				vm.getDept();
+				// vm.user.password = null;
 			});
 		},
 		getRoleList: function () {

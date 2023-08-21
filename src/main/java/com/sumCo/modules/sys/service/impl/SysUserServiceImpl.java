@@ -80,16 +80,17 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     @Transactional
     public void save(SysUser user) {
+
         user.setCreateTime(new Date());
         //sha256加密
         String salt = RandomStringUtils.randomAlphanumeric(20);
-        user.setPassword(new Sha256Hash(user.getPassword(), salt).toHex());
+        user.setPassword(user.getPassword());
         user.setSalt(salt);
         sysUserDao.save(user);
 
         sysUserRoleService.saveOrUpdate(user.getId(), user.getRoleIdList());
 
-sysUserRedis.saveOrUpdate(user);
+        sysUserRedis.saveOrUpdate(user);
     }
 
     @Override
@@ -98,12 +99,12 @@ sysUserRedis.saveOrUpdate(user);
         sysUserRedis.delete(user);
 
         if (StringUtils.isBlank(user.getPassword())) {
-            user.setPassword(null);
-        } else {
-            user.setPassword(new Sha256Hash(user.getPassword(), user.getSalt()).toHex());
+            throw new NullPointerException("密碼不可為空");
         }
-        sysUserDao.update(user);
 
+        user.setPassword(user.getPassword());
+
+        sysUserDao.update(user);
 
         sysUserRoleService.saveOrUpdate(user.getId(), user.getRoleIdList());
     }
