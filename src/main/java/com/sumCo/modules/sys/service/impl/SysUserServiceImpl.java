@@ -1,12 +1,5 @@
 package com.sumCo.modules.sys.service.impl;
 
-import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.shiro.crypto.hash.Sha256Hash;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.sumCo.common.Constant;
 import com.sumCo.modules.sys.dao.SysMenuDao;
 import com.sumCo.modules.sys.dao.SysUserDao;
@@ -16,6 +9,11 @@ import com.sumCo.modules.sys.redis.SysUserRedis;
 import com.sumCo.modules.sys.service.SysRoleService;
 import com.sumCo.modules.sys.service.SysUserRoleService;
 import com.sumCo.modules.sys.service.SysUserService;
+import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 

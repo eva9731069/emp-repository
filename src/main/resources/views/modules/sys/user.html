@@ -1,275 +1,325 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>管理員列表</title>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-<link rel="stylesheet" href="../../css/bootstrap.min.css">
-<link rel="stylesheet" href="../../css/font-awesome.min.css">
-<link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css">
-<link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css">
-<link rel="stylesheet" href="../../css/main.css">
-<script src="../../libs/jquery.min.js"></script>
-<script src="../../plugins/layer/layer.js"></script>
-<script src="../../libs/bootstrap.min.js"></script>
-<script src="../../libs/vue.min.js"></script>
-<script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
-<script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
-<script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
-<script src="../../js/common.js"></script>
+	<title>管理員列表</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<link rel="stylesheet" href="../../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../css/font-awesome.min.css">
+	<link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css">
+	<link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css">
+	<link rel="stylesheet" href="../../css/main.css">
+	<script src="../../libs/jquery.min.js"></script>
+	<script src="../../plugins/layer/layer.js"></script>
+	<script src="../../libs/bootstrap.min.js"></script>
+	<script src="../../libs/vue.min.js"></script>
+	<script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
+	<script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
+	<script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
+	<script src="../../js/common.js"></script>
 </head>
+
 <body>
-<div id="rapp" v-cloak>
-	<div v-show="showList">
-		<div class="grid-btn">
-			<div class="form-group col-sm-2">
-				<input type="text" class="form-control" v-model="q.keyword" @keyup.enter="query" placeholder="請輸入使用者，信箱">
+	<div id="rapp" v-cloak>
+		<div v-show="showList">
+			<div class="grid-btn">
+				<div class="form-group col-sm-2">
+					<input type="text" class="form-control" v-model="q.keyword" @keyup.enter="query"
+						placeholder="請輸入使用者，信箱">
+				</div>
+				<a class="btn btn-default" @click="query"><i class="fa fa-search">&nbsp;查詢</i></a>
+				<a v-if="hasPermission('sys:user:save')" class="btn btn-primary" @click="add"><i
+						class="fa fa-plus"></i>&nbsp;新增</a>
+				<a v-if="hasPermission('sys:user:update')" class="btn btn-info" @click="update"><i
+						class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+				<a v-if="hasPermission('sys:user:delete')" class="btn btn-danger" @click="del"><i
+						class="fa fa-trash-o"></i>&nbsp;刪除</a>
 			</div>
-			<a class="btn btn-default" @click="query"><i class="fa fa-search">&nbsp;查詢</i></a>
-			<a v-if="hasPermission('sys:user:save')" class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
-			<a v-if="hasPermission('sys:user:update')" class="btn btn-info" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
-			<a v-if="hasPermission('sys:user:delete')" class="btn btn-danger" @click="del"><i class="fa fa-trash-o"></i>&nbsp;刪除</a>
+			<table id="jqGrid"></table>
+			<div id="jqGridPager"></div>
 		</div>
-	    <table id="jqGrid"></table>
-	    <div id="jqGridPager"></div>
-    </div>
-    
-    <div v-show="!showList" class="panel panel-default">
-		<div class="panel-heading">{{title}}</div>
-		<form class="form-horizontal">
-			<div class="form-group">
-			   	<div class="col-sm-2 control-label">使用者</div>
-			   	<div class="col-sm-10">
-					
-			      <input type="text" class="form-control" v-model="user.username" placeholder="登入帳號"/>
-			    </div>
-			</div>
-			<!-- <div class="form-group">
-				<div class="col-sm-2 control-label">暱稱</div>
+		<div class="row">
+			<div v-show="!showList" class="panel panel-default">
+				<div class="panel-heading">{{title}}</div>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" v-model="user.nickname" placeholder="暱稱"/>
+					<div class="card">
+						<div class="card-body">
+							<form class="form-horizontal">
+								<div class="form-group">
+									<div class="col-sm-2 control-label">使用者</div>
+									<div class="col-sm-10">
+
+										<input type="text" class="form-control" v-model="user.username"
+											placeholder="登入帳號" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-sm-2 control-label">密碼</div>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" v-model="user.password"
+											placeholder="密碼" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 control-label">email</div>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" v-model="user.email"
+											placeholder="email" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 control-label">手機電話</div>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" v-model="user.mobile"
+											placeholder="手機電話" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 control-label">英文名稱</div>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" v-model="user.enName"
+											placeholder="英文名稱" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 control-label">身分證字號</div>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" v-model="user.personId"
+											placeholder="身分證字號" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 control-label">性別</div>
+									<label class="radio-inline">
+										<input type="radio" name="gender" value="0" v-model="user.gender" /> 男生
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="gender" value="1" v-model="user.gender" /> 女生
+									</label>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 control-label">生日</div>
+									<div class="col-sm-10">
+										<input type="date" class="form-control" v-model="user.birth"
+											placeholder="請輸入日期" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 control-label">年齡</div>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" v-model="user.age" placeholder="年齡" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 control-label">血型</div>
+									<label class="radio-inline">
+										<input type="radio" name="bloodType" value="0" v-model="user.bloodType" /> O型
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="bloodType" value="1" v-model="user.bloodType" /> AB型
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="bloodType" value="2" v-model="user.bloodType" /> A型
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="bloodType" value="3" v-model="user.bloodType" /> B型
+									</label>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 control-label">身分類別</div>
+									<label class="radio-inline">
+										<input type="radio" name="personType" value="0" v-model="user.personType" /> 一般
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="personType" value="1" v-model="user.personType" /> 原住民
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="personType" value="2" v-model="user.personType" />
+										身心障礙
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="personType" value="3" v-model="user.personType" /> 新住民
+									</label>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 control-label">兵役狀況</div>
+									<label class="radio-inline">
+										<input type="radio" name="soldierType" value="0" v-model="user.soldierType" />
+										未服役
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="soldierType" value="1" v-model="user.soldierType" />
+										現役
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="soldierType" value="2" v-model="user.soldierType" />
+										替代役
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="soldierType" value="3" v-model="user.soldierType" />
+										免疫
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="soldierType" value="4" v-model="user.soldierType" />
+										已服役
+									</label>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 control-label">婚姻狀態</div>
+									<label class="radio-inline">
+										<input type="radio" name="marriedType" value="0" v-model="user.marriedType" />
+										未婚
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="marriedType" value="1" v-model="user.marriedType" />
+										離異
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="marriedType" value="2" v-model="user.marriedType" />
+										喪偶
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="marriedType" value="3" v-model="user.marriedType" />
+										已婚
+									</label>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 control-label">戶籍地址</div>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" v-model="user.homeAddr"
+											placeholder="戶籍地址" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 control-label">聯絡地址</div>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" v-model="user.contactAddr"
+											placeholder="聯絡地址" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 control-label">住家電話</div>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" v-model="user.homePhone"
+											placeholder="住家電話" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 control-label">緊急聯絡人</div>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" v-model="user.pressingPerson"
+											placeholder="緊急聯絡人" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 control-label">緊急連絡人關係</div>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" v-model="user.pressingRelation"
+											placeholder="緊急連絡人關係" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 control-label">緊急連絡電話</div>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" v-model="user.pressingPhone"
+											placeholder="緊急連絡電話" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 control-label">報到日期</div>
+									<div class="col-sm-10">
+										<input type="date" class="form-control" v-model="user.registerDate"
+											placeholder="報到日期" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 control-label">離職日期</div>
+									<div class="col-sm-10">
+										<input type="date" class="form-control" v-model="user.resignDate"
+											placeholder="離職日期" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 control-label">離職證明</div>
+									<div class="col-sm-10">
+										<input type="file" class="form-control" v-model="user.resignPhoto"
+											placeholder="離職證明" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 control-label">剩餘特休時數</div>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" v-model="user.yearHoliday"
+											placeholder="剩餘特休時數" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 control-label">底薪</div>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" v-model="user.basicSalary"
+											placeholder="底薪" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 control-label">權限名稱</div>
+									<div class="col-sm-10">
+										<label v-for="role in roleList" class="checkbox-inline">
+											<input type="checkbox" :value="role.id"
+												v-model="user.roleIdList">{{role.name}}
+										</label>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 control-label">狀態</div>
+									<label class="radio-inline">
+										<input type="radio" name="status" value="0" v-model="user.status" /> 在職中
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="status" value="1" v-model="user.status" /> 留職停薪
+									</label>
+									<label class="radio-inline">
+										<input type="radio" name="status" value="2" v-model="user.status" /> 已離職
+									</label>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-2 control-label"></div>
+									<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="確定" />
+									&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload"
+										value="返回" />
+									&nbsp;&nbsp;
+								</div>
+							</form>
+						</div>
+					</div>
 				</div>
-			</div> -->
-			<div class="form-group">
-			   	<div class="col-sm-2 control-label">密碼</div>
-			   	<div class="col-sm-10">
-			      <input type="text" class="form-control" v-model="user.password" placeholder="密碼"/>
-			    </div>
-			</div>
-			<div class="form-group">
-			   	<div class="col-sm-2 control-label">email</div>
-			   	<div class="col-sm-10">
-			      <input type="text" class="form-control" v-model="user.email" placeholder="email"/>
-			    </div>
-			</div>
-			<div class="form-group">
-			   	<div class="col-sm-2 control-label">手機電話</div>
-			   	<div class="col-sm-10">
-			      <input type="text" class="form-control" v-model="user.mobile" placeholder="手機電話"/>
-			    </div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-2 control-label">英文名稱</div>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" v-model="user.enName" placeholder="英文名稱"/>
+				<div class="col-sm-2">
+					<div class="card">
+						<div class="card-body">
+							<form class="form-horizontal">
+								<img style="width: 250px;height: 250px;" :src="baseURL+'/image/video.jpg'">
+								</br>
+								<div class="form-group">
+									<div class="badge text-wrap" style="width: 18rem;margin-left: 40px;">
+										<input id="empPhotoInput" type="file" name="empPhoto" placeholder="大頭貼" />大頭貼上傳
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
 				</div>
+
 			</div>
-			<div class="form-group">
-				<div class="col-sm-2 control-label">身分證字號</div>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" v-model="user.personId" placeholder="身分證字號"/>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-2 control-label">性別</div>
-				<label class="radio-inline">
-					<input type="radio" name="gender" value="0" v-model="user.gender"/> 男生
-				</label>
-				<label class="radio-inline">
-					<input type="radio" name="gender" value="1" v-model="user.gender"/> 女生
-				</label>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-2 control-label">生日</div>
-				<div class="col-sm-10">
-					<input type="date" class="form-control" v-model="user.birth" placeholder="請輸入日期"/>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-2 control-label">年齡</div>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" v-model="user.age" placeholder="年齡"/>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-2 control-label">血型</div>
-				<label class="radio-inline">
-					<input type="radio" name="bloodType" value="0" v-model="user.bloodType"/> O型
-				</label>
-				<label class="radio-inline">
-					<input type="radio" name="bloodType" value="1" v-model="user.bloodType"/> AB型
-				</label>
-				<label class="radio-inline">
-					<input type="radio" name="bloodType" value="2" v-model="user.bloodType"/> A型
-				</label>
-				<label class="radio-inline">
-					<input type="radio" name="bloodType" value="3" v-model="user.bloodType"/> B型
-				</label>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-2 control-label">身分類別</div>
-				<label class="radio-inline">
-					<input type="radio" name="personType" value="0" v-model="user.personType"/> 一般
-				</label>
-				<label class="radio-inline">
-					<input type="radio" name="personType" value="1" v-model="user.personType"/> 原住民
-				</label>
-				<label class="radio-inline">
-					<input type="radio" name="personType" value="2" v-model="user.personType"/> 身心障礙
-				</label>
-				<label class="radio-inline">
-					<input type="radio" name="personType" value="3" v-model="user.personType"/> 新住民
-				</label>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-2 control-label">兵役狀況</div>
-				<label class="radio-inline">
-					<input type="radio" name="soldierType" value="0" v-model="user.soldierType"/> 未服役
-				</label>
-				<label class="radio-inline">
-					<input type="radio" name="soldierType" value="1" v-model="user.soldierType"/> 現役
-				</label>
-				<label class="radio-inline">
-					<input type="radio" name="soldierType" value="2" v-model="user.soldierType"/> 替代役
-				</label>
-				<label class="radio-inline">
-					<input type="radio" name="soldierType" value="3" v-model="user.soldierType"/> 免疫
-				</label>
-				<label class="radio-inline">
-					<input type="radio" name="soldierType" value="4" v-model="user.soldierType"/> 已服役
-				</label>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-2 control-label">婚姻狀態</div>
-				<label class="radio-inline">
-					<input type="radio" name="marriedType" value="0" v-model="user.marriedType"/> 未婚
-				</label>
-				<label class="radio-inline">
-					<input type="radio" name="marriedType" value="1" v-model="user.marriedType"/> 離異
-				</label>
-				<label class="radio-inline">
-					<input type="radio" name="marriedType" value="2" v-model="user.marriedType"/> 喪偶
-				</label>
-				<label class="radio-inline">
-					<input type="radio" name="marriedType" value="3" v-model="user.marriedType"/> 已婚
-				</label>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-2 control-label">戶籍地址</div>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" v-model="user.homeAddr" placeholder="戶籍地址"/>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-2 control-label">聯絡地址</div>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" v-model="user.contactAddr" placeholder="聯絡地址"/>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-2 control-label">住家電話</div>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" v-model="user.homePhone" placeholder="住家電話"/>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-2 control-label">緊急聯絡人</div>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" v-model="user.pressingPerson" placeholder="緊急聯絡人"/>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-2 control-label">緊急連絡人關係</div>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" v-model="user.pressingRelation" placeholder="緊急連絡人關係"/>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-2 control-label">緊急連絡電話</div>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" v-model="user.pressingPhone" placeholder="緊急連絡電話"/>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-2 control-label">報到日期</div>
-				<div class="col-sm-10">
-					<input type="date" class="form-control" v-model="user.registerDate" placeholder="報到日期"/>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-2 control-label">離職日期</div>
-				<div class="col-sm-10">
-					<input type="date" class="form-control" v-model="user.resignDate" placeholder="離職日期"/>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-2 control-label">大頭貼</div>
-				<div class="col-sm-10">
-					<input id="empPhotoInput" type="file" name="empPhoto" class="form-control" placeholder="大頭貼" />
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-2 control-label">離職證明</div>
-				<div class="col-sm-10">
-					<input type="file" class="form-control" v-model="user.resignPhoto" placeholder="離職證明"/>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-2 control-label">剩餘特休時數</div>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" v-model="user.yearHoliday" placeholder="剩餘特休時數"/>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-2 control-label">底薪</div>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" v-model="user.basicSalary" placeholder="底薪"/>
-				</div>
-			</div>
-			<div class="form-group">
-			   	<div class="col-sm-2 control-label">權限名稱</div>
-			   	<div class="col-sm-10">
-				   	<label v-for="role in roleList" class="checkbox-inline">
-					  <input type="checkbox"  :value="role.id" v-model="user.roleIdList">{{role.name}}
-					</label>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-2 control-label">狀態</div> 
-				<label class="radio-inline">
-				  <input type="radio" name="status" value="0" v-model="user.status"/> 在職中
-				</label>
-				<label class="radio-inline">
-				  <input type="radio" name="status" value="1" v-model="user.status"/> 留職停薪
-				</label>
-				<label class="radio-inline">
-					<input type="radio" name="status" value="2" v-model="user.status"/> 已離職
-				</label>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-2 control-label"></div> 
-				<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="確定"/>
-				&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
-				&nbsp;&nbsp;
-			</div>
-		</form>
+		</div>
+
 	</div>
-</div>
 
 
-<script src="../../js/modules/sys/user.js"></script>
+	<script src="../../js/modules/sys/user.js"></script>
 
 
 </body>
+
 </html>
