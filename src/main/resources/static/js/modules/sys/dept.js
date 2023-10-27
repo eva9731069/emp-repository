@@ -89,17 +89,27 @@ var vm = new Vue({
 			});
 		},
 		del: function (event) {
-			var ids = getSelectedRows();
-			if (ids == null) {
-				return;
-			}
+			// var ids = getSelectedRows();
+			// if (ids == null) {
+			// 	return;
+			// }
+			var selectedRowId = $("#jqGrid").jqGrid('getGridParam', 'selrow');
+			var selectedRowData = $("#jqGrid").jqGrid('getRowData', selectedRowId);
+			var nameValue = selectedRowData.name;
+			// console.log('nameValue=>' + nameValue);
+			var requestData = {
+				// Add other data properties if needed
+				name: nameValue
+			};
+
+			
 
 			confirm('確定刪除此筆資料？', function () {
 				$.ajax({
 					type: "POST",
 					url: baseURL + "/sys/dept/delete",
 					contentType: "application/json",
-					data: JSON.stringify(ids),
+					data: JSON.stringify(requestData),
 					success: function (r) {
 						if (r.code == 0) {
 							alert('操作成功', function (index) {
@@ -113,6 +123,11 @@ var vm = new Vue({
 			});
 		},
 		getInfo: function (id) {
+			var selectedRowId = $("#jqGrid").jqGrid('getGridParam', 'selrow');
+			var selectedRowData = $("#jqGrid").jqGrid('getRowData', selectedRowId);
+			var nameValue = selectedRowData.name;
+
+			console.log('nameValue=>' + nameValue);
 			$.get(baseURL + "/sys/dept/info/" + id, function (r) {
 				vm.sysDept = r.sysDept;
 			});

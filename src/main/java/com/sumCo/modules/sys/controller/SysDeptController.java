@@ -50,8 +50,11 @@ public class SysDeptController extends AbstractController{
 	 * 資訊
 	 */
 	@RequestMapping("/info/{id}")
-	public Result info(@PathVariable("id") Long id){
-		SysDept sysDept = sysDeptService.queryObject(id);
+	public Result info(@RequestBody SysDept sysDept){
+
+
+
+//		SysDept sysDept = sysDeptService.queryObject(id);
 		
 		return Result.ok().put("sysDept", sysDept);
 	}
@@ -84,8 +87,12 @@ public class SysDeptController extends AbstractController{
 	 */
 	@RequestMapping("/delete")
 	@RequiresPermissions("sys:dept:delete")
-	public Result delete(@RequestBody Long[] ids){
-		sysDeptService.deleteBatch(ids);
+	public Result delete(@RequestBody SysDept sysDept){
+
+
+		logger.info("getName=>"+sysDept.getName());
+
+//		sysDeptService.deleteBatch(ids);
 		
 		return Result.ok();
 	}

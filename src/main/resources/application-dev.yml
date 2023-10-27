@@ -1,5 +1,5 @@
 server:
-    port: 8080
+    port: 8081
     context-path: /greenBuild/admin/login
 spring:
     datasource:
@@ -7,9 +7,9 @@ spring:
         driverClassName: com.mysql.jdbc.Driver
         druid:
             first:  #數據源1
-                url: jdbc:mysql://34.80.130.231:3306/workRec?useSSL=false
+                url: jdbc:mysql://localhost:3306/jimDatabase?useSSL=false
                 username: root
-                password: mypassword
+                password: Honda7788
             # initial-size: 10
             # max-active: 100
             # min-idle: 10
