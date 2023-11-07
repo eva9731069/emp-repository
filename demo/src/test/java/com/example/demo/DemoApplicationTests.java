@@ -1,16 +1,27 @@
 package com.example.demo;
 
 
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
 import com.util.JdbcConnector;
+import com.util.MongoDBConnector;
+import com.vo.CheckVo;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.junit.platform.commons.util.StringUtils;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
+import org.bson.Document;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -20,17 +31,19 @@ class DemoApplicationTests {
 
     static List<String> exlHeaders = new ArrayList<String>();
 
-    static List<Object> dataList = new ArrayList<>();
+    static List<CheckVo> dataList = new ArrayList<>();
 
 
     static {
-        exlHeaders.addAll(Arrays.asList(new String[] { "產品代號", "發行機構", "募集起日", "募集迄日", "主架構", "次架構", "幣別", "保本率%",
-                "產品期限", "產品期限單位", "固定配息%", "服務類型" }));
+        exlHeaders.addAll(Arrays.asList(new String[]{"產品代號", "發行機構", "募集起日", "募集迄日", "主架構", "次架構", "幣別", "保本率%",
+                "產品期限", "產品期限單位", "固定配息%", "服務類型"}));
 
     }
 
 
     static Connection connection = JdbcConnector.getConnection();
+
+    static MongoDatabase mongodbConnection = MongoDBConnector.getConnection();
 
 
     DemoApplicationTests() throws SQLException {
@@ -40,14 +53,6 @@ class DemoApplicationTests {
     public static Sheet creatSheet(Workbook workbook, String sheetName) {
         // 創建第二個工作表
         Sheet sheet2 = workbook.createSheet(sheetName);
-
-        System.out.println("getSheetName=>"+sheet2.getSheetName());
-
-
-        // 在第二個工作表中寫入資料
-        Row row2 = sheet2.createRow(0);
-        Cell cell2 = row2.createCell(0);
-        cell2.setCellValue("Hello from Sheet2");
 
 
         return sheet2;
@@ -63,16 +68,37 @@ class DemoApplicationTests {
         sheetNames.add("0505");
 
 
-        List<Object> rowData1 = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "4", "d"); // 設置第一行的數據
+//        List<Object> rowData1 = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "4", "d"); // 設置第一行的數據
 
 //        List<Object> rowData2 = Arrays.asList(1, 2, 3, 8, 5, "", 7, 8, 6, 0, "4", "g"); // 設置第一行的數據
 
-        dataList.add(rowData1);
+        CheckVo vo = new CheckVo();
+        vo.setEmpNo("emp123");
+        vo.setChName("jim");
+        vo.setSheetName("0101");
+
+        CheckVo vo3 = new CheckVo();
+        vo3.setEmpNo("emp567");
+        vo3.setChName("tomo");
+        vo3.setSheetName("0101");
+
+
+        CheckVo vo2 = new CheckVo();
+        vo2.setEmpNo("emp234");
+        vo2.setChName("alex");
+        vo2.setSheetName("0105");
+
+        List<CheckVo> rowData1 = new ArrayList<>(); // 設置第一行的數據
+        rowData1.add(vo);
+        rowData1.add(vo3);
+        rowData1.add(vo2);
+
+        dataList.addAll(rowData1);
 
         Workbook workbook = new XSSFWorkbook();
 
-        for(String name:sheetNames){
-            poi(name,workbook,dataList);
+        for (String name : sheetNames) {
+            poi(name, workbook, dataList);
         }
 
         // 儲存Excel檔案
@@ -81,7 +107,7 @@ class DemoApplicationTests {
             System.out.println("Excel檔案成功寫入。");
         } catch (IOException e) {
             e.printStackTrace();
-        } finally{
+        } finally {
             try {
                 workbook.close();
             } catch (IOException e) {
@@ -92,17 +118,26 @@ class DemoApplicationTests {
     }
 
 
-    public static void poi(String sheetNames, Workbook workbook, List<Object> dataList) {
+    public static void poi(String sheetNames, Workbook workbook, List<CheckVo> dataList) {
+
         System.out.println("begin");
         // 創建新的工作簿
 
 
         // 創建工作表
-        Sheet sheet = creatSheet(workbook,sheetNames);
+        Sheet sheet = creatSheet(workbook, sheetNames);
+
+
+        System.out.println("sheet.getSheetName();" + sheet.getSheetName());
 
         // 創建表頭樣式
         Font headerFont = workbook.createFont();
         headerFont.setBold(true);
+//            Sheet sheet = null;
+//if(sheet.issheet.getSheetName())
+//            Sheet sheet = creatSheet(workbook, data.getSheetName());
+
+//            Sheet sheet = workbook.getSheet(data.getSheetName());
 
 
         // 定義表頭資料
@@ -114,19 +149,24 @@ class DemoApplicationTests {
         for (int i = 0; i < exlHeaders.size(); i++) {
             Cell headerCell = headerRow.createCell(i);
             headerCell.setCellValue(exlHeaders.get(i));
-
         }
 
-
-//        dataList.add(rowData2);
-
         // 寫入數據
-        for (int rowIndex = 0; rowIndex < DemoApplicationTests.dataList.size(); rowIndex++) {
+        for (int rowIndex = 0; rowIndex < dataList.size(); rowIndex++) {
+
+
             Row dataRow = sheet.createRow(rowIndex + 1);
-            List<Object> rowData = (List<Object>) DemoApplicationTests.dataList.get(rowIndex);
+            CheckVo checkVo = dataList.get(rowIndex);
+            List<Object> rowData = new ArrayList<>();
+            rowData.add(checkVo.getEmpNo());
+            rowData.add(checkVo.getChName());
+
+
+//            List<Object> rowData = (List<Object>) dataList.get(rowIndex);
             for (int colIndex = 0; colIndex < rowData.size(); colIndex++) {
                 Cell dataCell = dataRow.createCell(colIndex);
                 Object cellValue = rowData.get(colIndex);
+                System.out.println("cellValue=>" + cellValue);
                 if (cellValue instanceof Integer) {
                     dataCell.setCellValue((Integer) cellValue);
                 } else if (cellValue instanceof String) {
@@ -138,8 +178,8 @@ class DemoApplicationTests {
             }
         }
 
-//        creatSheet(workbook);
 
+//        creatSheet(workbook);
 
 
         // 關閉工作簿
@@ -151,21 +191,25 @@ class DemoApplicationTests {
         System.out.println("end");
     }
 
-    public static void main (String[]args) throws ParseException {
-        callPoi();
-        //        ====================
-//        System.out.println(dao.queryById("xxxxxxxx"));
-//        System.out.println("start");
-//        String sql = "update ATTENDANCE_REC set ch_name='7' where emp_no='Emp123'";
-//        System.out.println("end");
-//        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-//            stmt.executeUpdate();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        ====================
+    public static void main(String[] args) throws ParseException, UnsupportedEncodingException {
+        MongoCollection<Document> collection = mongodbConnection.getCollection("test");
+        System.out.println("集合 test 选择成功");
 
+        Document document = new Document("title", "MongoDBttt").
+                append("description", "databasettt").
+                append("likes", 100333).
+                append("by", "Flyttt");
+        List<Document> documents = new ArrayList<Document>();
+        documents.add(document);
+        collection.insertMany(documents);
+        System.out.println("文档插入成功");
+
+        FindIterable<Document> findIterable = collection.find();
+        MongoCursor<Document> mongoCursor = findIterable.iterator();
+        while(mongoCursor.hasNext()){
+            System.out.println(mongoCursor.next());
+        }
     }
-
+    
 
 }
