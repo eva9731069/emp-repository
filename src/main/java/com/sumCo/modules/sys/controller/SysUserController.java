@@ -13,6 +13,7 @@ import com.sumCo.modules.sys.dao.SysUserDao;
 import com.sumCo.modules.sys.entity.SysUser;
 import com.sumCo.modules.sys.service.SysUserRoleService;
 import com.sumCo.modules.sys.service.SysUserService;
+import net.sf.jasperreports.engine.JRException;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -21,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +43,13 @@ public class SysUserController extends AbstractController {
     private SysUserRoleService sysUserRoleService;
     @Autowired
     private SysUserDao sysUserDao;
+
+    @RequestMapping("/exportReport")
+    public String exportReport() throws JRException, FileNotFoundException {
+        String userList = sysUserService.exportReport("pdf");
+
+        return userList;
+    }
 
     /**
      * 所有用戶列表

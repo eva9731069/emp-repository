@@ -9,12 +9,20 @@ import com.sumCo.modules.sys.redis.SysUserRedis;
 import com.sumCo.modules.sys.service.SysRoleService;
 import com.sumCo.modules.sys.service.SysUserRoleService;
 import com.sumCo.modules.sys.service.SysUserService;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ResourceUtils;
 
+import javax.annotation.Resource;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 @Service("sysUserService")
@@ -68,6 +76,28 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public List<SysUser> queryList(Map<String, Object> map) {
         return sysUserDao.queryList(map);
+    }
+
+    @Override
+    public String exportReport(String reportFormat) throws FileNotFoundException, JRException {
+        String path = "C:\\Users\\eva97\\Downloads\\";
+        List<SysUser> list = sysUserDao.queryJsReport();
+        File file = ResourceUtils.getFile("classpath:empList.jrxml");
+        JasperReport jsReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+        Map<String, Object> map = new HashMap<>();
+        map.put("Jasper", "Java tech");//必要參數，可是看不出作用是什麼
+
+        JasperPrint jsPrint = JasperFillManager.fillReport(jsReport, map, dataSource);
+
+        if(reportFormat.equalsIgnoreCase("pdf")){
+            JasperExportManager.exportReportToPdfFile(jsPrint,path+"empList.pdf");
+        }
+        if(reportFormat.equalsIgnoreCase("html")){
+            JasperExportManager.exportReportToPdfFile(jsPrint,path+"empList.html");
+        }
+
+        return "匯出report成功";
     }
 
     @Override

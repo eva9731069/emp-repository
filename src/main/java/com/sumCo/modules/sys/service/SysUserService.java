@@ -1,10 +1,12 @@
 package com.sumCo.modules.sys.service;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import com.sumCo.modules.sys.entity.SysUser;
+import net.sf.jasperreports.engine.JRException;
 
 public interface SysUserService {
 
@@ -37,6 +39,8 @@ public interface SysUserService {
 
 
 	List<SysUser> queryList(Map<String, Object> map);
+
+	String exportReport(String reportFormat) throws FileNotFoundException, JRException;
 
 
 	int queryTotal(Map<String, Object> map);

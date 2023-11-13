@@ -204,6 +204,14 @@
             <version>3.12.11</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>6.20.5</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
