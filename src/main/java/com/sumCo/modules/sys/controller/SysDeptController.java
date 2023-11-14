@@ -27,7 +27,7 @@ public class SysDeptController extends AbstractController{
 
 	@Autowired
 	private SysDeptService sysDeptService;
-	
+
 	/**
 	 * 列表
 	 */
@@ -35,30 +35,27 @@ public class SysDeptController extends AbstractController{
 	@RequiresPermissions("sys:dept:list")
 	public Result list(@RequestParam Map<String, Object> params){
 		//查詢列表數據
-        Query query = new Query(params);
+		Query query = new Query(params);
 
 		List<SysDept> sysDeptList = sysDeptService.queryList(query);
 		int total = sysDeptService.queryTotal(query);
-		
+
 		PageUtils pageUtil = new PageUtils(sysDeptList, total, query.getLimit(), query.getPage());
-		
+
 		return Result.ok().put("page", pageUtil);
 	}
-	
-	
+
+
 	/**
 	 * 資訊
 	 */
 	@RequestMapping("/info/{id}")
-	public Result info(@RequestBody SysDept sysDept){
+	public Result info(@PathVariable("id") Long id){
+		SysDept sysDept = sysDeptService.queryObject(id);
 
-
-
-//		SysDept sysDept = sysDeptService.queryObject(id);
-		
 		return Result.ok().put("sysDept", sysDept);
 	}
-	
+
 	/**
 	 * 儲存
 	 */
@@ -67,10 +64,10 @@ public class SysDeptController extends AbstractController{
 	public Result save(@RequestBody SysDept sysDept){
 		sysDept.setCreateTime(new Date());
 		sysDeptService.save(sysDept);
-		
+
 		return Result.ok();
 	}
-	
+
 	/**
 	 * 修改
 	 */
@@ -78,23 +75,19 @@ public class SysDeptController extends AbstractController{
 	@RequiresPermissions("sys:dept:update")
 	public Result update(@RequestBody SysDept sysDept){
 		sysDeptService.update(sysDept);
-		
+
 		return Result.ok();
 	}
-	
+
 	/**
 	 * 刪除
 	 */
 	@RequestMapping("/delete")
 	@RequiresPermissions("sys:dept:delete")
-	public Result delete(@RequestBody SysDept sysDept){
+	public Result delete(@RequestBody Long[] ids){
+		sysDeptService.deleteBatch(ids);
 
-
-		logger.info("getName=>"+sysDept.getName());
-
-//		sysDeptService.deleteBatch(ids);
-		
 		return Result.ok();
 	}
-	
+
 }
