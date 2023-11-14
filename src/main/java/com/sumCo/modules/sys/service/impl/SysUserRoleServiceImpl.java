@@ -25,12 +25,7 @@ public class SysUserRoleServiceImpl implements SysUserRoleService {
 	@Override
 	@Transactional
 	public void saveOrUpdate(Long userId, List<Long> roleIdList, String roleName) {
-
 		this.delete(userId);
-
-		if(roleIdList.isEmpty()){
-			return ;
-		}
 
 		SysRole sysRole = sysRoleDao.queryByRoleName(roleName);
 

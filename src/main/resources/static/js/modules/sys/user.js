@@ -237,6 +237,11 @@ var vm = new Vue({
 
 			formData.append('user', JSON.stringify(vm.user)); 
 
+			if (document.getElementById('empPhotoInput').files[0] === undefined) {
+				alert('請選擇大頭貼照片');
+				return;
+			}
+
 			formData.append('empPhoto', document.getElementById('empPhotoInput').files[0]);
 
 			$.ajax({
