@@ -7,6 +7,10 @@
         select * from sys_role where id = #{value}
     </select>
 
+    <select id="queryByRoleName" resultType="com.sumCo.modules.sys.entity.SysRole">
+        select * from sys_role where name = #{value}
+    </select>
+
     <select id="queryList" resultType="com.sumCo.modules.sys.entity.SysRole">
         select * from sys_role
         <where>

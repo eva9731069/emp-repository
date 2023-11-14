@@ -131,7 +131,7 @@ public class SysUserController extends AbstractController {
 
             user.setEmpPhoto(empPhotoFile);
 
-            if (user.getRoleIdList().isEmpty()) {
+            if (null == user.getRoleName()) {
                 return Result.error("權限不可為空");
             }
 
@@ -161,7 +161,7 @@ public class SysUserController extends AbstractController {
 
         user.setEmpPhoto(empPhotoFile);
 
-        if (user.getRoleIdList().isEmpty()) {
+        if (null ==user.getRoleName()) {
             return Result.error("權限不可為空");
         }
 

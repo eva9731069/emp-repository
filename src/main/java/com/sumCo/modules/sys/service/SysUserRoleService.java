@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface SysUserRoleService {
 	
-	void saveOrUpdate(Long userId, List<Long> roleIdList);
+	void saveOrUpdate(Long userId, List<Long> roleIdList, String roleName);
 	
 	/**
 	 * 根據用戶ID，獲取角色ID列表

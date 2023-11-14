@@ -127,19 +127,7 @@
         #{resignDate},
         #{empPhoto},
         #{resignPhoto},
-        <foreach collection="roleIdList" item="item" index="index" separator=",">
-            <choose>
-                <when test="item == 5">
-                    'emp',
-                </when>
-                <when test="item == 6">
-                    'personnel',
-                </when>
-                <otherwise>
-                    'admin',
-                </otherwise>
-            </choose>
-        </foreach>
+        #{roleName},
         #{yearHoliday},
         #{basicSalary}
         )
@@ -175,22 +163,8 @@
             <!--            <if test="role != null and role != ''">`role` = #{role},</if>-->
             <if test="yearHoliday != null and yearHoliday != ''">`year_holiday` = #{yearHoliday},</if>
             <if test="basicSalary != null and basicSalary != ''">`basic_salary` = #{basicSalary}</if>
+            <if test="roleName != null and roleName != ''">`role` = #{roleName}</if>
 
-            <if test="roleIdList != null and !roleIdList.isEmpty()">
-                <foreach collection="roleIdList" item="item" index="index" separator=",">
-                    <choose>
-                        <when test="item == 5">
-                            role='emp'
-                        </when>
-                        <when test="item == 6">
-                            role='personnel'
-                        </when>
-                        <otherwise>
-                            role='admin'
-                        </otherwise>
-                    </choose>
-                </foreach>
-            </if>
 
         </set>
         where id = #{id}

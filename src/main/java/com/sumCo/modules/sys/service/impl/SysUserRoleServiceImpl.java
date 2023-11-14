@@ -1,5 +1,7 @@
 package com.sumCo.modules.sys.service.impl;
 
+import com.sumCo.modules.sys.dao.SysRoleDao;
+import com.sumCo.modules.sys.entity.SysRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,20 +19,25 @@ public class SysUserRoleServiceImpl implements SysUserRoleService {
 	@Autowired
 	private SysUserRoleDao sysUserRoleDao;
 
+	@Autowired
+	private SysRoleDao sysRoleDao;
+
 	@Override
 	@Transactional
-	public void saveOrUpdate(Long userId, List<Long> roleIdList) {
+	public void saveOrUpdate(Long userId, List<Long> roleIdList, String roleName) {
 
 		this.delete(userId);
 
 		if(roleIdList.isEmpty()){
 			return ;
 		}
-		
+
+		SysRole sysRole = sysRoleDao.queryByRoleName(roleName);
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("userId", userId);
 		map.put("roleIdList", roleIdList);
+		map.put("roleId", sysRole.getId());
 		sysUserRoleDao.save(map);
 	}
 

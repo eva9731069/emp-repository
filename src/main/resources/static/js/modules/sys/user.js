@@ -160,7 +160,8 @@ var vm = new Vue({
 			personType: 0,
 			soldierType: 0,
 			marriedType: 0,
-			roleIdList: []
+			roleIdList: [],
+			roleName:"",
 		}
 	},
 	methods: {
@@ -227,7 +228,6 @@ var vm = new Vue({
 		},
 		saveOrUpdate: function () {
 			var url = vm.user.id == null ? "/sys/user/save" : "/sys/user/update";
-
 			if (vm.user.id != null) {
 				//修改會員時，不會有建立時間;只有新增會員才會有建立時間
 				vm.user.createTime = null;
@@ -236,7 +236,7 @@ var vm = new Vue({
 			var formData = new FormData();
 
 			formData.append('user', JSON.stringify(vm.user)); 
-			
+
 			formData.append('empPhoto', document.getElementById('empPhotoInput').files[0]);
 
 			$.ajax({
@@ -259,6 +259,7 @@ var vm = new Vue({
 		getUser: function (userId) {
 			$.get(baseURL + "/sys/user/info/" + userId, function (r) {
 				vm.user = r.user;
+
 				// vm.user.password = null;
 			});
 		},
@@ -276,6 +277,9 @@ var vm = new Vue({
 				page: page
 			}).trigger("reloadGrid");
 		},
+		updateSelectedRoles(roleName) {
+			vm.user.roleName = roleName;
+		  }
 
 	}
 });

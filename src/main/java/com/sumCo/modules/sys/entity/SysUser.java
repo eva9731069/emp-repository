@@ -112,6 +112,8 @@ public class SysUser implements Serializable {
 
 	private String name;
 
+	private String roleName;
+
 
 
 }

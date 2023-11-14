@@ -9,4 +9,6 @@ public interface SysRoleDao extends BaseDao<SysRole> {
 
 
 
+    SysRole queryByRoleName(String roleName);
+
 }
