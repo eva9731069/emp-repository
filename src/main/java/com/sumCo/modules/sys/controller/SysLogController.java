@@ -3,6 +3,8 @@ package com.sumCo.modules.sys.controller;
 import com.sumCo.modules.sys.service.NoSqlService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.bson.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,34 +28,38 @@ import java.util.Map;
 @Controller
 @RequestMapping("/sys/log")
 public class SysLogController {
-	@Autowired
-	private SysLogService sysLogService;
+    @Autowired
+    private SysLogService sysLogService;
 
-	@Autowired
-	private NoSqlService noSqlService;
+    @Autowired
+    private NoSqlService noSqlService;
 
-	@ResponseBody
-	@RequestMapping("/list")
-	@RequiresPermissions("sys:log:list")
-	public Result list(@RequestParam Map<String, Object> params){
-		Query query = new Query(params);
+    protected Logger logger = LoggerFactory.getLogger(getClass());
 
-		List<SysLog> sysLogList = null;
+    @ResponseBody
+    @RequestMapping("/list")
+    @RequiresPermissions("sys:log:list")
+    public Result list(@RequestParam Map<String, Object> params) {
+        Query query = new Query(params);
 
-		//優先查詢noSql，增加查詢效能
-		Document whereQ = new Document();
-		whereQ.put("userName","admin");
-		sysLogList = noSqlService.queryByUserName(whereQ, "sysLog");
+        List<SysLog> sysLogList = null;
 
-		//noSql查詢不到改查db
-		if(sysLogList.size() < 1){
-			sysLogList = sysLogService.queryList(query);
-		}
+        //優先查詢noSql，增加查詢效能
+        Document whereQ = new Document();
+		//取得前端帶入的查詢條件(key)
+        whereQ.put("userName", query.get("key"));
 
-		int total = sysLogService.queryTotal(query);
-		
-		PageUtils pageUtil = new PageUtils(sysLogList, total, query.getLimit(), query.getPage());
-		return Result.ok().put("page", pageUtil);
-	}
-	
+        sysLogList = noSqlService.queryByUserName(whereQ, "sysLog");
+
+        //noSql查詢不到改查db
+        if (sysLogList.size() < 1) {
+            sysLogList = sysLogService.queryList(query);
+        }
+
+        int total = sysLogService.queryTotal(query);
+
+        PageUtils pageUtil = new PageUtils(sysLogList, total, query.getLimit(), query.getPage());
+        return Result.ok().put("page", pageUtil);
+    }
+
 }

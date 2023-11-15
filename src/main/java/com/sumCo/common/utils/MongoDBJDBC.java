@@ -30,7 +30,7 @@ public class MongoDBJDBC {
 //            System.out.println("集合创建成功");
 
             //選擇collection
-            MongoCollection<Document> collection = mongoDatabase.getCollection("sysLog");
+            MongoCollection<Document> collection = mongoDatabase.getCollection("test");
             System.out.println("集合 test 选择成功");
 
             //新增document
@@ -47,19 +47,19 @@ public class MongoDBJDBC {
         Document whereQ = new Document();
         whereQ.put("userName","admin");
             //查詢
-            FindIterable<Document> findIterable = collection.find(whereQ);
+            FindIterable<Document> findIterable = collection.find();
             MongoCursor<Document> mongoCursor = findIterable.iterator();
             while(mongoCursor.hasNext()){
-//                System.out.println(mongoCursor.next());
+                System.out.println(mongoCursor.next());
 
-                Document document = mongoCursor.next();
-
-                // 將Document轉換為VO
-                SysLog vo = convertDocumentToVO(document);
-                System.out.println(vo.getMethod());
-                System.out.println(vo.getOperation());
-                System.out.println(vo.getTime());
-                System.out.println(vo.getCreateTime());
+//                Document document = mongoCursor.next();
+//
+//                // 將Document轉換為VO
+//                SysLog vo = convertDocumentToVO(document);
+//                System.out.println(vo.getMethod());
+//                System.out.println(vo.getOperation());
+//                System.out.println(vo.getTime());
+//                System.out.println(vo.getCreateTime());
             }
             ObjectMapper objectMapper = new ObjectMapper();
 
