@@ -1,6 +1,8 @@
 package com.sumCo.modules.sys.controller;
 
+import com.sumCo.modules.sys.service.NoSqlService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,17 +28,28 @@ import java.util.Map;
 public class SysLogController {
 	@Autowired
 	private SysLogService sysLogService;
-	
-	/**
-	 * 列表
-	 */
+
+	@Autowired
+	private NoSqlService noSqlService;
+
 	@ResponseBody
 	@RequestMapping("/list")
 	@RequiresPermissions("sys:log:list")
 	public Result list(@RequestParam Map<String, Object> params){
-		//查詢列表數據
 		Query query = new Query(params);
-		List<SysLog> sysLogList = sysLogService.queryList(query);
+
+		List<SysLog> sysLogList = null;
+
+		//優先查詢noSql，增加查詢效能
+		Document whereQ = new Document();
+		whereQ.put("userName","admin");
+		sysLogList = noSqlService.queryByUserName(whereQ, "sysLog");
+
+		//noSql查詢不到改查db
+		if(sysLogList.size() < 1){
+			sysLogList = sysLogService.queryList(query);
+		}
+
 		int total = sysLogService.queryTotal(query);
 		
 		PageUtils pageUtil = new PageUtils(sysLogList, total, query.getLimit(), query.getPage());
