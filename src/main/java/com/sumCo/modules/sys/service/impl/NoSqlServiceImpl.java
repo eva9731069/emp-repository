@@ -35,7 +35,7 @@ public class NoSqlServiceImpl implements NoSqlService {
 
         FindIterable<Document> findIterable = null;
 
-        if (null == whereDocKey.get("userName")) {
+        if (StringUtils.isBlank(whereDocKey.get("userName").toString())) {
             //查詢全部
             findIterable = collection.find();
         } else {

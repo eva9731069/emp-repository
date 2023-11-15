@@ -30,7 +30,7 @@ public class MongoDBJDBC {
 //            System.out.println("集合创建成功");
 
             //選擇collection
-            MongoCollection<Document> collection = mongoDatabase.getCollection("test");
+            MongoCollection<Document> collection = mongoDatabase.getCollection("sysLog");
             System.out.println("集合 test 选择成功");
 
             //新增document
