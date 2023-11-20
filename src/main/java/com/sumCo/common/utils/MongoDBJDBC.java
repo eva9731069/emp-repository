@@ -15,6 +15,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mongodb.client.model.Sorts.ascending;
+import static com.mongodb.client.model.Sorts.descending;
+
 public class MongoDBJDBC {
     public static void main(String args[]) throws IOException {
 
@@ -47,8 +50,12 @@ public class MongoDBJDBC {
         Document whereQ = new Document();
         whereQ.put("userName","admin");
             //查詢
-            FindIterable<Document> findIterable = collection.find();
-            MongoCursor<Document> mongoCursor = findIterable.iterator();
+//            FindIterable<Document> findIterable = collection.find().limit(1);;//查詢前1筆
+//        FindIterable<Document> findIterable = collection.find().sort(ascending("createTime"));//查詢結果升冪排列
+        FindIterable<Document> findIterable = collection.find().sort(descending("createTime"));//查詢結果降冪排列
+
+
+        MongoCursor<Document> mongoCursor = findIterable.iterator();
             while(mongoCursor.hasNext()){
                 System.out.println(mongoCursor.next());
 
