@@ -1,6 +1,7 @@
 package com.example.demo;
 
 
+import org.apache.kafka.common.serialization.StringSerializer;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -8,6 +9,9 @@ import com.mongodb.client.MongoDatabase;
 import com.util.JdbcConnector;
 import com.util.MongoDBConnector;
 import com.vo.CheckVo;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.platform.commons.util.StringUtils;
@@ -72,28 +76,9 @@ class DemoApplicationTests {
 
 //        List<Object> rowData2 = Arrays.asList(1, 2, 3, 8, 5, "", 7, 8, 6, 0, "4", "g"); // 設置第一行的數據
 
-        CheckVo vo = new CheckVo();
-        vo.setEmpNo("emp123");
-        vo.setChName("jim");
-        vo.setSheetName("0101");
-
-        CheckVo vo3 = new CheckVo();
-        vo3.setEmpNo("emp567");
-        vo3.setChName("tomo");
-        vo3.setSheetName("0101");
 
 
-        CheckVo vo2 = new CheckVo();
-        vo2.setEmpNo("emp234");
-        vo2.setChName("alex");
-        vo2.setSheetName("0105");
 
-        List<CheckVo> rowData1 = new ArrayList<>(); // 設置第一行的數據
-        rowData1.add(vo);
-        rowData1.add(vo3);
-        rowData1.add(vo2);
-
-        dataList.addAll(rowData1);
 
         Workbook workbook = new XSSFWorkbook();
 
@@ -192,24 +177,33 @@ class DemoApplicationTests {
     }
 
     public static void main(String[] args) throws ParseException, UnsupportedEncodingException {
-        MongoCollection<Document> collection = mongodbConnection.getCollection("test");
-        System.out.println("集合 test 选择成功");
+        Properties properties = new Properties();
+        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        //网络传输,对key和value进行序列化
+        properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        //创建消息生产对象，需要从properties对象或者从properties文件中加载信息
+        KafkaProducer<String, String> kafkaProducer = new KafkaProducer<>(properties);
 
-        Document document = new Document("title", "MongoDBttt").
-                append("description", "databasettt").
-                append("likes", 100333).
-                append("by", "Flyttt");
-        List<Document> documents = new ArrayList<Document>();
-        documents.add(document);
-        collection.insertMany(documents);
-        System.out.println("文档插入成功");
+        try {
 
-        FindIterable<Document> findIterable = collection.find();
-        MongoCursor<Document> mongoCursor = findIterable.iterator();
-        while(mongoCursor.hasNext()){
-            System.out.println(mongoCursor.next());
+                //设置消息内容
+                String msg = "Hello," + new Random().nextInt(100);
+                //将消息内容封装到ProducerRecord中
+                ProducerRecord<String, String> record = new ProducerRecord<String, String>("test", msg);
+                kafkaProducer.send(record);
+                System.out.println("消息发送成功:" + msg);
+                Thread.sleep(500000);
+
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } finally {
+            kafkaProducer.close();
         }
     }
+
+
+
     
 
 }
