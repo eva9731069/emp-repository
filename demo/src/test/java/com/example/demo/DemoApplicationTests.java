@@ -1,6 +1,10 @@
 package com.example.demo;
 
-
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
@@ -177,28 +181,54 @@ class DemoApplicationTests {
     }
 
     public static void main(String[] args) throws ParseException, UnsupportedEncodingException {
-        Properties properties = new Properties();
-        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-        //网络传输,对key和value进行序列化
-        properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        //创建消息生产对象，需要从properties对象或者从properties文件中加载信息
-        KafkaProducer<String, String> kafkaProducer = new KafkaProducer<>(properties);
+        //生產者
+//        Properties properties = new Properties();
+//        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+//        //网络传输,对key和value进行序列化
+//        properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+//        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+//        //创建消息生产对象，需要从properties对象或者从properties文件中加载信息
+//        KafkaProducer<String, String> kafkaProducer = new KafkaProducer<>(properties);
+//
+//        try {
+//
+//                //设置消息内容
+//                String msg = "Hello," + new Random().nextInt(100);
+//                //将消息内容封装到ProducerRecord中
+//                ProducerRecord<String, String> record = new ProducerRecord<String, String>("test", msg);
+//                kafkaProducer.send(record);
+//                System.out.println("消息发送成功:" + msg);
+//                Thread.sleep(500000);
+//
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        } finally {
+//            kafkaProducer.close();
+//        }
 
-        try {
 
-                //设置消息内容
-                String msg = "Hello," + new Random().nextInt(100);
-                //将消息内容封装到ProducerRecord中
-                ProducerRecord<String, String> record = new ProducerRecord<String, String>("test", msg);
-                kafkaProducer.send(record);
-                System.out.println("消息发送成功:" + msg);
-                Thread.sleep(500000);
+        //消費者
+        Properties p = new Properties();
+        p.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        p.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        p.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        p.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,"false");
+        //指定组名
+        p.put(ConsumerConfig.GROUP_ID_CONFIG, "test-groupB");
+        p.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");//重製offset，從舊(index=0)的訊息開始讀
 
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } finally {
-            kafkaProducer.close();
+
+        KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<String, String>(p);
+        kafkaConsumer.subscribe(Collections.singletonList("test"));// 订阅消息
+
+        while (true) {
+            ConsumerRecords<String, String> records = kafkaConsumer.poll(100);
+
+            System.out.println(records);
+            for (ConsumerRecord<String, String> record : records) {
+                System.out.println(String.format("topic:%s,offset:%d,消息:%s", record.topic(), record.offset(), record.value()));
+            }
+
         }
     }
 
