@@ -1,0 +1,95 @@
+CREATE TABLE IF NOT EXISTS public.attendance_rec
+(
+    emp_no character varying(10) COLLATE pg_catalog."default",
+    ch_name character varying(10) COLLATE pg_catalog."default",
+    check_in_time timestamp without time zone,
+    check_out_time timestamp without time zone,
+    miss_work_date character varying(10) COLLATE pg_catalog."default",
+    miss_work_status character varying(10) COLLATE pg_catalog."default"
+);
+
+CREATE TABLE IF NOT EXISTS public.emp_function
+(
+    auth character varying(1) COLLATE pg_catalog."default" NOT NULL,
+    emp_function character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    function_manual character varying(100) COLLATE pg_catalog."default",
+    open_status character varying(1) COLLATE pg_catalog."default" NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS public.employee
+(
+    emp_no character varying(10) COLLATE pg_catalog."default" NOT NULL,
+    emp_account character varying(10) COLLATE pg_catalog."default",
+    emp_password character varying(10) COLLATE pg_catalog."default",
+    ch_name character varying(10) COLLATE pg_catalog."default",
+    en_name character varying(10) COLLATE pg_catalog."default",
+    email character varying(100) COLLATE pg_catalog."default",
+    person_id character varying(10) COLLATE pg_catalog."default",
+    gender character varying(1) COLLATE pg_catalog."default",
+    birth date,
+    age character varying(2) COLLATE pg_catalog."default",
+    blood_type character varying(2) COLLATE pg_catalog."default",
+    person_type character varying(1) COLLATE pg_catalog."default",
+    soldier_type character varying(1) COLLATE pg_catalog."default",
+    married_type character varying(1) COLLATE pg_catalog."default",
+    home_addr character varying(100) COLLATE pg_catalog."default",
+    contact_addr character varying(100) COLLATE pg_catalog."default",
+    home_phone character varying(10) COLLATE pg_catalog."default",
+    cell_phone character varying(10) COLLATE pg_catalog."default",
+    pressing_person character varying(10) COLLATE pg_catalog."default",
+    pressing_relation character varying(10) COLLATE pg_catalog."default",
+    pressing_phone character varying(10) COLLATE pg_catalog."default",
+    register_date date,
+    resign_date date,
+    emp_photo bytea,
+    resign_photo bytea,
+    emp_status character varying(1) COLLATE pg_catalog."default",
+    auth character varying(1) COLLATE pg_catalog."default",
+    CONSTRAINT employee_pkey PRIMARY KEY (emp_no)
+);
+
+CREATE TABLE IF NOT EXISTS public.holiday_rec
+(
+    emp_no character varying(10) COLLATE pg_catalog."default" NOT NULL,
+    ch_name character varying(10) COLLATE pg_catalog."default" NOT NULL,
+    holiday_date date NOT NULL,
+    holiday_hour character varying(10) COLLATE pg_catalog."default" NOT NULL,
+    holiday_type character varying(1) COLLATE pg_catalog."default" NOT NULL,
+    year_holiday character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    approved_result character varying(1) COLLATE pg_catalog."default" NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS public.salary_rec
+(
+    emp_no character varying(10) COLLATE pg_catalog."default" NOT NULL,
+    ch_name character varying(10) COLLATE pg_catalog."default" NOT NULL,
+    salary character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    salary_time timestamp without time zone NOT NULL
+);
+
+    INSERT INTO public.emp_function(
+	auth, emp_function, function_manual, open_status)
+	VALUES ('0', '打卡', null, '1');
+
+    INSERT INTO public.emp_function(
+	auth, emp_function, function_manual, open_status)
+	VALUES ('1', '打卡,薪資管理', null, '1');
+	
+	INSERT INTO public.emp_function(
+	auth, emp_function, function_manual, open_status)
+	VALUES ('2', '打卡,薪資管理,員工查詢', null, '1');
+	
+	INSERT INTO public.emp_function(
+	auth, emp_function, function_manual, open_status)
+	VALUES ('3', '打卡,員工,測試,薪資管理,員工查詢,Jquery測試', null, '1');
+	
+	INSERT INTO public.emp_function(
+	auth, emp_function, function_manual, open_status)
+	VALUES ('4', '打卡,員工,測試,薪資管理,員工查詢,Jquery測試', null, '1');
+	
+	INSERT INTO public.employee
+(emp_no, emp_account, emp_password, ch_name, en_name, email, person_id, gender, birth, age, blood_type, person_type, soldier_type, married_type, home_addr, contact_addr, home_phone, cell_phone, pressing_person, pressing_relation, pressing_phone, register_date, resign_date, emp_photo, resign_photo, emp_status, auth)
+VALUES('Emp123x', '123', '456', 'wwwd', 'jim', 'eva9731069@gmail.com', 'Q123456789', '0', '2017-03-14', '33', 'A', '0', '4', '0', '新北市', '台北市', '0212345678', '0955123456', '阿傑', '父子', '0933123905', '2017-03-14', '2017-03-14', NULL, NULL, '0', '3');
+
+	
+	
