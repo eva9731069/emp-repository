@@ -28,7 +28,7 @@ public class WebSocketPushHandler extends TextWebSocketHandler {
         log.info("用户信息:" + session.getAttributes());
         Map<String, Object> map = session.getAttributes();
         for (String key : map.keySet()) {
-            log.info("key:" + key + "and value: " + map.get(key));
+            log.info("key111:" + key + "and value: " + map.get(key));
         }
         userList.add(session);
         sendMessagesToUsers(session);
